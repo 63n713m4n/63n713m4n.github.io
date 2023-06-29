@@ -4,10 +4,4 @@
 test site for gihub io
 ## Table of Contents
 
-- [About](#about)
-- [Demo](#demo)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
