@@ -22,13 +22,13 @@ Google Certified Cybersecurity professional
 <span id="c"><a href="https://github.com/63n713m4n" target="_blank">My Github profile</a></span>
 Want to know me more? Let's Connect!
 &nbsp;
-<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">view profiles.json</span>
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">view_my_profiles.json</span>
 {
   
     TryHackme: "<span id="c">RED TEAMER</span>",
 }
 &nbsp;
-<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">To connect with me.json</span>
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">To_connect_with_me.json</span>
 {
     Discord: "<span id="c">SouLHuNtEr#2958</span>",
     GitHub: "<span id="c">63n713m4n</span>",
