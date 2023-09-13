@@ -18,7 +18,7 @@ Receiving submitted information...
 Hello, I'm Alphonse Joseph. Currently, I'm Doing my Masters in Cybersecurity.
 My passion lies in discovering new cybersecurity threats and developing advanced solutions to combat them.:) 
 Google Certified Cybersecurity professional
-<span id="c"><a href="https://www.linkedin.com/in/in/alphonse-joseph" target="_blank">My LinkedIn profile</a></span>
+<span id="c"><a href="www.linkedin.com/in/alphonse-joseph" target="_blank">My LinkedIn profile</a></span>
 <span id="c"><a href="https://github.com/63n713m4n" target="_blank">My Github profile</a></span>
 Want to know me more? Let's Connect!
 &nbsp;
