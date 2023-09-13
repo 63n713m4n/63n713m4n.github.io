@@ -1,0 +1,42 @@
+----------------------------------------------------
+WELCOME TO MY PAGE
+----------------------------------------------------
+&nbsp;
+Press [ESC] to exit
+&nbsp;
+<span id="a">\\Root\ATL-srg&gt;</span><span id="b">Login to View Data</span>
+&nbsp;
+Enter Your Username: Guest
+Enter Your Password: ****************************
+<span style="color: transparent">QWx3YXlzIGxlYXJuaW5nIQ==</span>
+Login session was successful. <span id="k">Welcome, Guest!</span>
+Type [help] to list all of the commands.
+&nbsp;
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">About me</span>
+Receiving submited information...
+<span style="color: transparent">CEEFHNTAKSCDFEETEIGTATIERFEDNSPNOACTSHEONESILNFNKATTSEAA</span>
+Hello, I'm Alphonse Joseph. Currently, i'm Doing my Masters in Cybersecurity.
+I'd like to help companies and create public awareness from cyber attacks :) 
+Google Certified Cybersecurity professional
+<span id="c"><a href="https://www.linkedin.com/in/in/alphonse-joseph" target="_blank">My LinkedIn profile</a></span>
+<span id="c"><a href="https://github.com/63n713m4n" target="_blank">My Github profile</a></span>
+Want to know me more? Let's Connect!
+&nbsp;
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">view profiles.json</span>
+{
+  
+    TryHackme: "<span id="c">RED TEAMER</span>",
+}
+&nbsp;
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">To connect with me.json</span>
+{
+    Discord: "<span id="c">SouLHuNtEr#2958</span>",
+    GitHub: "<span id="c">63n713m4n</span>",
+    Email: "<span id="c">alphonse.joseph@proton.me</span>"
+}
+&nbsp;
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">logout</span>
+<span style="color: transparent">Thx for visiting</span>
+Successfully logged out! Hope you have a wonderful day!
+&nbsp;
+<span id="a">\\Root\ATL-srg&gt;&nbsp;</span>
