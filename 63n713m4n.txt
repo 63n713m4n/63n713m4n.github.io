@@ -26,6 +26,7 @@ Want to know me more? Let's Connect!
 {
   
     TryHackme: "<span id="c">RED TEAMER</span>",
+    HackTheBox: "<span id="c">CTF Player</span>",
 }
 &nbsp;
 <span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">To_connect_with_me.json</span>
