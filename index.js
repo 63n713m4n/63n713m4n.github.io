@@ -3,8 +3,6 @@ var Typer = {
     index: 0,
     speed: 4,
     file: "63n713m4n.txt",
-    accessCount: 0,
-    deniedCount: 0,
     cursorVisible: true,
 
     init: function () {
@@ -13,8 +11,18 @@ var Typer = {
             return;
         }
 
+        // Display TryHackMe Profile at the top
+        $("#console").html(`
+            <div style="margin-bottom: 10px; text-align: center;">
+                <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669"
+                    style="border:none; width:100%; height:200px;">
+                </iframe>
+            </div>
+        `);
+
+        // Load the text file
         $.get(Typer.file, function (data) {
-            Typer.text = data.trim(); // Remove trailing whitespace/newlines
+            Typer.text = data.trim(); // Remove extra whitespace
             Typer.startTyping();
         }).fail(function () {
             console.error("Failed to load text file.");
@@ -37,8 +45,14 @@ var Typer = {
             if (cont.endsWith("|")) {
                 $("#console").html(cont.slice(0, -1));
             }
+
             Typer.index += Typer.speed;
-            $("#console").html(Typer.text.substring(0, Typer.index).replace(/\n/g, "<br/>"));
+            let displayedText = Typer.text.substring(0, Typer.index)
+                .replace(/(?:\r\n|\r|\n)/g, "<br/>"); // Fixes new line display
+
+            $("#console").html(displayedText);
+
+            // Auto-scroll to keep new text visible
             window.scrollBy(0, 50);
         } else {
             clearInterval(Typer.typingInterval);
@@ -57,54 +71,9 @@ var Typer = {
             $("#console").html(cont.replace(/\|$/, ""));
         }
         Typer.cursorVisible = !Typer.cursorVisible;
-    },
-
-    handleKey: function (event) {
-        switch (event.keyCode) {
-            case 18: // Alt key
-                Typer.accessCount++;
-                if (Typer.accessCount >= 3) Typer.makeAccess();
-                break;
-            case 20: // Caps Lock
-                Typer.deniedCount++;
-                if (Typer.deniedCount >= 3) Typer.makeDenied();
-                break;
-            case 27: // Escape
-                Typer.hidePop();
-                break;
-            case 8: // Backspace
-                if (Typer.index > 0) Typer.index -= Typer.speed;
-                break;
-        }
-        event.preventDefault();
-    },
-
-    makeAccess: function () {
-        alert("Access Granted!");
-    },
-
-    makeDenied: function () {
-        alert("Access Denied!");
-    },
-
-    hidePop: function () {
-        console.log("Popup hidden.");
     }
 };
 
-function replaceUrls(text) {
-    return text.replace(/(http:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-}
-
-function copyToClipboard(element) {
-    navigator.clipboard.writeText($(element).text()).then(() => {
-        console.log("Text copied to clipboard");
-    }).catch(err => {
-        console.error("Failed to copy text: ", err);
-    });
-}
-
 $(document).ready(function () {
     Typer.init();
-    $(document).keydown(Typer.handleKey);
 });
