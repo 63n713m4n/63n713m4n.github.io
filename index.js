@@ -1,76 +1,97 @@
 var Typer = {
-    text: "",
-    index: 0,
-    speed: 4,
-    file: "63n713m4n.txt",
-    cursorVisible: true,
+    text: `----------------------------------------------------
+WELCOME TO MY PAGE
+----------------------------------------------------
 
-    init: function () {
-        if (typeof jQuery == "undefined") {
-            console.error("jQuery is required for this script to work.");
-            return;
-        }
+Press [ESC] to exit
+&nbsp;
 
-        // TryHackMe Profile - Styled with Box Shadow
-        $("#console").html(`
-            <iframe id="thm-profile" src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669"></iframe>
-            <br/>
-        `);
+<span class="command">\\Root\ATL-srg&gt;</span><span class="output">Login to View Data</span>
+&nbsp;
 
-        // Load the text file
-        $.get(Typer.file, function (data) {
-            Typer.text = data.trim();
-            Typer.startTyping();
-        }).fail(function () {
-            console.error("Failed to load text file.");
-        });
+Enter Your Username: Guest  
+Enter Your Password: ****************************  
+<span class="string">QWx3YXlzIGxlYXJuaW5nIQ==</span>  
+The login session was successful. <span class="output">Welcome, Guest!</span>  
+Type [help] to list all of the commands.
+&nbsp;
 
-        setInterval(Typer.updateCursor, 500);
-    },
+----------------------------------------------------
+📌 **[ Section: About Me ]**
+----------------------------------------------------
 
-    content: function () {
-        return $("#console").html();
-    },
+<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">About me</span>  
+Receiving submitted information...  
+<span style="color: transparent">CEEFHNTAKSCDFEETEIGTATIERFEDNSPNOACTSHEONESILNFNKATTSEAA</span>  
 
-    write: function (str) {
-        $("#console").append(str);
-    },
+Hello, I'm <span class="string">Alphonse Joseph</span>.  
+Currently, I'm <span class="string">pursuing my Master's in Cybersecurity</span>.  
+🔹 Passionate about <span class="string">discovering new cybersecurity threats</span>  
+🔹 Focused on <span class="string">developing advanced security solutions</span> 🔐  
+🔹 <span class="string">Google Certified Cybersecurity Professional</span>  
 
-    addText: function () {
-        if (Typer.index < Typer.text.length) {
-            let cont = Typer.content();
-            if (cont.endsWith("|")) {
-                $("#console").html(cont.slice(0, -1));
-            }
+🔗 **My Profiles:**  
+<span class="link"><a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">🔹 LinkedIn</a></span>  
+<span class="link"><a href="https://github.com/63n713m4n" target="_blank">🔹 GitHub</a></span>  
 
-            Typer.index += Typer.speed;
-            let displayedText = Typer.text.substring(0, Typer.index)
-                .replace(/(?:\r\n|\r|\n)/g, "<br/>"); // Fix new lines
+Want to know me more? Let’s <span class="output">Connect!</span>  
+&nbsp;
 
-            $("#console").html(displayedText);
+----------------------------------------------------
+📌 **[ Section: My Hacking Profiles ]**
+----------------------------------------------------
 
-            // Auto-scroll to keep new text visible
-            $("#console").scrollTop($("#console")[0].scrollHeight);
-        } else {
-            clearInterval(Typer.typingInterval);
-        }
-    },
+<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">view_my_profiles.json</span>
 
-    startTyping: function () {
-        Typer.typingInterval = setInterval(Typer.addText, 30);
-    },
+\`\`\`json
+{
+    "TryHackMe": "RED TEAMER",
+    "HackTheBox": "CTF Player"
+}
+\`\`\`
+&nbsp;
 
-    updateCursor: function () {
-        let cont = Typer.content();
-        if (Typer.cursorVisible) {
-            $("#console").html(cont + "<span class='blink'>|</span>");
-        } else {
-            $("#console").html(cont.replace(/<span class='blink'>\|<\/span>$/, ""));
-        }
-        Typer.cursorVisible = !Typer.cursorVisible;
-    }
+----------------------------------------------------
+📌 **[ Section: Contact Me ]**
+----------------------------------------------------
+
+<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">To_connect_with_me.json</span>
+
+\`\`\`json
+{
+    "Discord": "SouLHuNtEr#2958",
+    "GitHub": "63n713m4n",
+    "Email": "alphonse.joseph@proton.me"
+}
+\`\`\`
+&nbsp;
+
+----------------------------------------------------
+📌 **[ Section: Logout ]**
+----------------------------------------------------
+
+<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">logout</span>  
+<span style="color: transparent">Thx for visiting</span>  
+Successfully logged out! Hope you have a <span class="output">wonderful day!</span>  
+
+&nbsp;
+
+<span class="command">\\Root\ATL-srg&gt;&nbsp;</span>
+`
 };
 
-$(document).ready(function () {
-    Typer.init();
-});
+var consoleElement = document.getElementById('console');
+var index = 0;
+var speed = 10; // speed of text appearing
+var typing = true;
+
+function typeText() {
+    if (index < Typer.text.length) {
+        consoleElement.innerHTML += Typer.text.charAt(index);
+        index++;
+        setTimeout(typeText, speed);
+    }
+}
+
+// Start typing effect
+typeText();
