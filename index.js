@@ -11,18 +11,15 @@ var Typer = {
             return;
         }
 
-        // Display TryHackMe Profile at the top
+        // TryHackMe Profile - Styled with Box Shadow
         $("#console").html(`
-            <div style="margin-bottom: 10px; text-align: center;">
-                <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669"
-                    style="border:none; width:100%; height:200px;">
-                </iframe>
-            </div>
+            <iframe id="thm-profile" src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669"></iframe>
+            <br/>
         `);
 
         // Load the text file
         $.get(Typer.file, function (data) {
-            Typer.text = data.trim(); // Remove extra whitespace
+            Typer.text = data.trim();
             Typer.startTyping();
         }).fail(function () {
             console.error("Failed to load text file.");
@@ -48,12 +45,12 @@ var Typer = {
 
             Typer.index += Typer.speed;
             let displayedText = Typer.text.substring(0, Typer.index)
-                .replace(/(?:\r\n|\r|\n)/g, "<br/>"); // Fixes new line display
+                .replace(/(?:\r\n|\r|\n)/g, "<br/>"); // Fix new lines
 
             $("#console").html(displayedText);
 
             // Auto-scroll to keep new text visible
-            window.scrollBy(0, 50);
+            $("#console").scrollTop($("#console")[0].scrollHeight);
         } else {
             clearInterval(Typer.typingInterval);
         }
@@ -66,9 +63,9 @@ var Typer = {
     updateCursor: function () {
         let cont = Typer.content();
         if (Typer.cursorVisible) {
-            $("#console").html(cont + "|");
+            $("#console").html(cont + "<span class='blink'>|</span>");
         } else {
-            $("#console").html(cont.replace(/\|$/, ""));
+            $("#console").html(cont.replace(/<span class='blink'>\|<\/span>$/, ""));
         }
         Typer.cursorVisible = !Typer.cursorVisible;
     }
