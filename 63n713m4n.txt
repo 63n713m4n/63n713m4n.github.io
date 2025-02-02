@@ -51,3 +51,19 @@ Want to know me more? Let’s **Connect!**
     "TryHackMe": "RED TEAMER",
     "HackTheBox": "CTF Player"
 }
+[ Section: Contact Me ]
+<span id="a">\Root\ATL-srg\63n713m4n></span><span id="b">To_connect_with_me.json</span>
+{
+    "Discord": "SouLHuNtEr#2958",
+    "GitHub": "63n713m4n",
+    "Email": "alphonse.joseph@proton.me"
+}
+[ Section: Logout ]
+<span id="a">\Root\ATL-srg\63n713m4n></span><span id="b">logout</span>
+<span style="color: transparent">Thx for visiting</span>
+Successfully logged out! Hope you have a wonderful day!
+
+ 
+
+<span id="a">\Root\ATL-srg> </span>
+
