@@ -1,29 +1,42 @@
 const consoleElement = document.getElementById("console");
-const audioKey = new Audio("key-press.mp3"); // Add a key press sound effect
+const inputElement = document.getElementById("terminal-input");
+const audioKey = new Audio("key-press.mp3"); // Keyboard sound effect
 
-function typeTextAnimation(text, delay = 40, callback = null) {
-    let i = 0;
-    function typeNextChar() {
-        if (i < text.length) {
-            appendToTerminal(text.charAt(i), false); // Append one character
-            audioKey.play(); // Play key press sound
-            i++;
-            setTimeout(typeNextChar, delay);
-        } else {
-            appendToTerminal("<br>"); // New line after typing
-            if (callback) callback();
-        }
+inputElement.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        executeCommand(inputElement.value.trim());
+        inputElement.value = "";
     }
-    typeNextChar();
-}
+});
 
 function executeCommand(command) {
-    command = command.toLowerCase().trim();
+    if (!command) return;
 
-    if (command === "clear") {
-        consoleElement.innerHTML = ""; // Clears the terminal
-    } else if (command === "whoami") {
-        const whoamiText = `
+    appendToTerminal(`> ${command}`, true); // Show the command in the terminal
+
+    switch (command.toLowerCase()) {
+        case "help":
+            typeTextAnimation("Available commands: whoami, clear, contact, hack", 30);
+            break;
+        case "clear":
+            consoleElement.innerHTML = ""; // Clear the terminal
+            break;
+        case "whoami":
+            showWhoAmI();
+            break;
+        case "contact":
+            typeTextAnimation("Email: alphonse.joseph@proton.me | Discord: SouLHuNtEr#2958", 30);
+            break;
+        case "hack":
+            typeTextAnimation("Access Denied. Permission Required!", 30);
+            break;
+        default:
+            typeTextAnimation(`Command not found: ${command}`, 30);
+    }
+}
+
+function showWhoAmI() {
+    const whoamiText = `
 ----------------------------------------------------
 WELCOME TO MY PAGE
 ----------------------------------------------------
@@ -35,9 +48,9 @@ Press [ESC] to exit
 Enter Your Username: Guest
 Enter Your Password: `;
 
-        typeTextAnimation(whoamiText, 40, () => {
-            simulatePasswordInput(() => {
-                const userDetails = `
+    typeTextAnimation(whoamiText, 40, () => {
+        simulatePasswordInput(() => {
+            const userDetails = `
                 
 The login session was successful. Welcome, Guest!
 Type [help] to list all of the commands.
@@ -55,19 +68,33 @@ My LinkedIn: https://www.linkedin.com/in/alphonse-joseph
 My GitHub: https://github.com/63n713m4n
 
 Want to know me more? Let's Connect!
-                `;
-                typeTextAnimation(userDetails, 40);
-            });
+            `;
+            typeTextAnimation(userDetails, 40);
         });
-    } else {
-        appendToTerminal(`Command not found: ${command}`);
+    });
+}
+
+function typeTextAnimation(text, delay = 40, callback = null) {
+    let i = 0;
+    function typeNextChar() {
+        if (i < text.length) {
+            appendToTerminal(text.charAt(i), false);
+            audioKey.play();
+            i++;
+            setTimeout(typeNextChar, delay);
+        } else {
+            appendToTerminal("<br>");
+            convertUrlsToLinks();
+            if (callback) callback();
+        }
     }
+    typeNextChar();
 }
 
 function simulatePasswordInput(callback) {
     let password = "";
     function typeAsterisk() {
-        if (password.length < 12) { // Fake password length
+        if (password.length < 12) { 
             password += "*";
             appendToTerminal("*", false);
             setTimeout(typeAsterisk, 100);
@@ -83,4 +110,11 @@ function appendToTerminal(text, newLine = true) {
     consoleElement.innerHTML += text;
     if (newLine) consoleElement.innerHTML += "<br>";
     consoleElement.scrollTop = consoleElement.scrollHeight;
+}
+
+function convertUrlsToLinks() {
+    const text = consoleElement.innerHTML;
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+    const formattedText = text.replace(urlPattern, '<a href="$1" target="_blank" style="color: cyan;">$1</a>');
+    consoleElement.innerHTML = formattedText;
 }
