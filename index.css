@@ -1,61 +1,31 @@
 body {
-    background-color: #0a0a0a;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
+    background-color: #000;
+    color: #0f0;
+    font-family: "Courier New", monospace;
     padding: 20px;
-    margin: 0;
-    overflow: hidden;
+}
+
+#terminal {
+    width: 80%;
+    margin: auto;
+    border: 2px solid #0f0;
+    padding: 10px;
+    background-color: black;
+    height: 400px;
+    overflow-y: auto;
 }
 
 #console {
-    width: 90%;
-    height: 500px;
-    overflow-y: auto;
-    border: 2px solid #00ff00;
-    padding: 10px;
-    margin: auto;
-    background: black;
-    font-size: 16px;
+    white-space: pre-wrap;
 }
 
-/* Hacker Flicker Effect */
-@keyframes glitch {
-    0% { opacity: 1; }
-    50% { opacity: 0.8; transform: skewX(10deg); }
-    100% { opacity: 1; }
-}
-
-.glitch {
-    animation: glitch 0.2s infinite;
-}
-
-iframe {
+#terminal-input {
     width: 100%;
-    height: 200px;
-    margin-bottom: 20px;
-}
-
-/* Terminal Input */
-#commandInput {
-    background: black;
-    color: cyan;
-    font-family: 'Courier New', monospace;
-    font-size: 16px;
+    background-color: black;
     border: none;
+    color: #0f0;
+    font-size: 18px;
+    font-family: "Courier New", monospace;
     outline: none;
-    width: 100%;
-    padding: 10px;
-}
-
-/* Blinking Cursor */
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-.cursor {
-    display: inline-block;
-    width: 8px;
-    height: 16px;
-    background-color: #00ff00;
-    animation: blink 0.7s steps(2, start) infinite;
+    padding: 5px;
 }
