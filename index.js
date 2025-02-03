@@ -113,8 +113,19 @@ function appendToTerminal(text, newLine = true) {
 }
 
 function convertUrlsToLinks() {
-    const text = consoleElement.innerHTML;
-    const urlPattern = /(https?:\/\/[^\s]+)/g;
-    const formattedText = text.replace(urlPattern, '<a href="$1" target="_blank" style="color: cyan;">$1</a>');
-    consoleElement.innerHTML = formattedText;
+    const elements = consoleElement.childNodes;
+
+    elements.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.nodeValue;
+            const urlPattern = /(https?:\/\/[^\s]+)/g;
+
+            if (text.match(urlPattern)) {
+                const formattedText = text.replace(urlPattern, '<a href="$1" target="_blank" style="color: cyan;">$1</a>');
+                const newElement = document.createElement("span");
+                newElement.innerHTML = formattedText;
+                consoleElement.replaceChild(newElement, node);
+            }
+        }
+    });
 }
