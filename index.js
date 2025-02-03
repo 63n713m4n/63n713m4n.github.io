@@ -1,97 +1,118 @@
-var Typer = {
-    text: `----------------------------------------------------
-WELCOME TO MY PAGE
-----------------------------------------------------
-
-Press [ESC] to exit
-&nbsp;
-
-<span class="command">\\Root\ATL-srg&gt;</span><span class="output">Login to View Data</span>
-&nbsp;
-
-Enter Your Username: Guest  
-Enter Your Password: ****************************  
-<span class="string">QWx3YXlzIGxlYXJuaW5nIQ==</span>  
-The login session was successful. <span class="output">Welcome, Guest!</span>  
-Type [help] to list all of the commands.
-&nbsp;
-
-----------------------------------------------------
-📌 **[ Section: About Me ]**
-----------------------------------------------------
-
-<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">About me</span>  
-Receiving submitted information...  
-<span style="color: transparent">CEEFHNTAKSCDFEETEIGTATIERFEDNSPNOACTSHEONESILNFNKATTSEAA</span>  
-
-Hello, I'm <span class="string">Alphonse Joseph</span>.  
-Currently, I'm <span class="string">pursuing my Master's in Cybersecurity</span>.  
-🔹 Passionate about <span class="string">discovering new cybersecurity threats</span>  
-🔹 Focused on <span class="string">developing advanced security solutions</span> 🔐  
-🔹 <span class="string">Google Certified Cybersecurity Professional</span>  
-
-🔗 **My Profiles:**  
-<span class="link"><a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">🔹 LinkedIn</a></span>  
-<span class="link"><a href="https://github.com/63n713m4n" target="_blank">🔹 GitHub</a></span>  
-
-Want to know me more? Let’s <span class="output">Connect!</span>  
-&nbsp;
-
-----------------------------------------------------
-📌 **[ Section: My Hacking Profiles ]**
-----------------------------------------------------
-
-<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">view_my_profiles.json</span>
-
-\`\`\`json
-{
-    "TryHackMe": "RED TEAMER",
-    "HackTheBox": "CTF Player"
+var Typer={
+	text: null,
+	accessCountimer:null,
+	index:0, 
+	speed:2,
+	file:"", 
+	accessCount:0,
+	deniedCount:0, 
+	init: function(){
+		accessCountimer=setInterval(function(){Typer.updLstChr();},500); 
+		$.get(Typer.file,function(data){
+			Typer.text=data;
+			Typer.text = Typer.text.slice(0, Typer.text.length-1);
+		});
+	},
+ 
+	content:function(){
+		return $("#console").html();
+	},
+ 
+	write:function(str){
+		$("#console").append(str);
+		return false;
+	},
+ 
+	addText:function(key){
+		
+		if(key.keyCode == 18){
+			Typer.accessCount++; 
+			
+			if(Typer.accessCount >= 3){
+				Typer.makeAccess(); 
+			}
+		}
+		
+    		else if(key.keyCode == 20){
+			Typer.deniedCount++; 
+			
+			if(Typer.deniedCount >= 3){
+				Typer.makeDenied(); 
+			}
+		}
+		
+    		else if(key.keyCode == 27){ 
+			Typer.hidepop(); 
+		}
+		
+    		else if(Typer.text){ 
+			var cont=Typer.content(); 
+			if(cont.substring(cont.length-1,cont.length) == "|") 
+				$("#console").html($("#console").html().substring(0,cont.length-1)); 
+			if(key.keyCode != 8){ 
+				Typer.index+=Typer.speed;	
+			}
+      		else {
+			if(Typer.index > 0) 
+				Typer.index-=Typer.speed;
+			}
+			var text=Typer.text.substring(0,Typer.index)
+			var rtn= new RegExp("\n", "g"); 
+	
+			$("#console").html(text.replace(rtn,"<br/>"));
+			window.scrollBy(0,50); 
+		}
+		
+		if ( key.preventDefault && key.keyCode != 122 ) { 
+			key.preventDefault()
+		};  
+		
+		if(key.keyCode != 122){ 
+			key.returnValue = false;
+		}
+	},
+ 
+	updLstChr:function(){ 
+		var cont=this.content(); 
+		
+		if(cont.substring(cont.length-1,cont.length)=="|") 
+			$("#console").html($("#console").html().substring(0,cont.length-1)); 
+		
+		else
+			this.write("|"); // else write it
+	}
 }
-\`\`\`
-&nbsp;
-
-----------------------------------------------------
-📌 **[ Section: Contact Me ]**
-----------------------------------------------------
-
-<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">To_connect_with_me.json</span>
-
-\`\`\`json
-{
-    "Discord": "SouLHuNtEr#2958",
-    "GitHub": "63n713m4n",
-    "Email": "alphonse.joseph@proton.me"
-}
-\`\`\`
-&nbsp;
-
-----------------------------------------------------
-📌 **[ Section: Logout ]**
-----------------------------------------------------
-
-<span class="command">\\Root\ATL-srg\63n713m4n&gt;</span><span class="output">logout</span>  
-<span style="color: transparent">Thx for visiting</span>  
-Successfully logged out! Hope you have a <span class="output">wonderful day!</span>  
-
-&nbsp;
-
-<span class="command">\\Root\ATL-srg&gt;&nbsp;</span>
-`
-};
-
-var consoleElement = document.getElementById('console');
-var index = 0;
-var speed = 10; // speed of text appearing
-var typing = true;
-
-function typeText() {
-    if (index < Typer.text.length) {
-        consoleElement.innerHTML += Typer.text.charAt(index);
-        index++;
-        setTimeout(typeText, speed);
-    }
+ 
+function replaceUrls(text) {
+	var http = text.indexOf("http://");
+	var space = text.indexOf(".me ", http);
+	
+	if (space != -1) { 
+		var url = text.slice(http, space-1);
+		return text.replace(url, "<a href=\""  + url + "\">" + url + "</a>");
+	} 
+	
+	else {
+		return text
+	}
 }
 
-// Start typing effect
-typeText();
+Typer.speed=4;
+Typer.file="63n713m4n.txt";
+Typer.init();
+ 
+var timer = setInterval("t();", 30);
+function t() {
+	Typer.addText({"keyCode": 123748});
+	
+	if (Typer.index > Typer.text.length) {
+		clearInterval(timer);
+	}
+}
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
