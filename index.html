@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Hacker Terminal</title>
+    <title>Interactive Terminal</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669" style="border:none;"></iframe>
-    <div id="console"></div>
-    <input type="text" id="commandInput" autofocus>
-    <audio id="typeSound" src="typing.mp3"></audio>
+    <div id="terminal">
+        <div id="console">
+            Welcome to the Interactive Terminal! Type 'help' for commands.
+        </div>
+        <input type="text" id="terminal-input" autofocus placeholder="Type a command...">
+    </div>
     <script src="index.js"></script>
 </body>
 </html>
