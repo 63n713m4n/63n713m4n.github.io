@@ -1,9 +1,10 @@
 body {
-    background-color: black;
+    background-color: #0a0a0a;
     color: #00ff00;
-    font-family: monospace;
+    font-family: 'Courier New', monospace;
     padding: 20px;
     margin: 0;
+    overflow: hidden;
 }
 
 #console {
@@ -14,10 +15,47 @@ body {
     padding: 10px;
     margin: auto;
     background: black;
+    font-size: 16px;
+}
+
+/* Hacker Flicker Effect */
+@keyframes glitch {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; transform: skewX(10deg); }
+    100% { opacity: 1; }
+}
+
+.glitch {
+    animation: glitch 0.2s infinite;
 }
 
 iframe {
     width: 100%;
     height: 200px;
     margin-bottom: 20px;
+}
+
+/* Terminal Input */
+#commandInput {
+    background: black;
+    color: cyan;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Blinking Cursor */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background-color: #00ff00;
+    animation: blink 0.7s steps(2, start) infinite;
 }
