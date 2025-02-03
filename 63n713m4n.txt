@@ -2,68 +2,42 @@
 WELCOME TO MY PAGE
 ----------------------------------------------------
 &nbsp;
-
-<!-- Embedded TryHackMe Profile -->
-<iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669" style='border:none;'></iframe>
-
 Press [ESC] to exit
 &nbsp;
-
 <span id="a">\\Root\ATL-srg&gt;</span><span id="b">Login to View Data</span>
 &nbsp;
-
-Enter Your Username: Guest  
-Enter Your Password: ****************************  
-<span style="color: transparent">QWx3YXlzIGxlYXJuaW5nIQ==</span>  
-The login session was successful. <span id="k">Welcome, Guest!</span>  
+Enter Your Username: Guest
+Enter Your Password: ****************************
+<span style="color: transparent">QWx3YXlzIGxlYXJuaW5nIQ==</span>
+The login session was successful. <span id="k">Welcome, Guest!</span>
 Type [help] to list all of the commands.
 &nbsp;
-
-----------------------------------------------------
-📌 **[ Section: About Me ]**
-----------------------------------------------------
-
-<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">About me</span>  
-Receiving submitted information...  
-<span style="color: transparent">CEEFHNTAKSCDFEETEIGTATIERFEDNSPNOACTSHEONESILNFNKATTSEAA</span>  
-
-Hello, I'm **Alphonse Joseph**.  
-Currently, I'm **pursuing my Master's in Cybersecurity**.  
-🔹 Passionate about **discovering new cybersecurity threats**  
-🔹 Focused on **developing advanced security solutions** 🔐  
-🔹 **Google Certified Cybersecurity Professional**  
-
-🔗 **My Profiles:**  
-<span id="c"><a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">🔹 LinkedIn</a></span>  
-<span id="c"><a href="https://github.com/63n713m4n" target="_blank">🔹 GitHub</a></span>  
-
-Want to know me more? Let’s **Connect!**  
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">About me</span>
+Receiving submitted information...
+<span style="color: transparent">CEEFHNTAKSCDFEETEIGTATIERFEDNSPNOACTSHEONESILNFNKATTSEAA</span>
+Hello, I'm Alphonse Joseph. Currently, I'm Doing my Masters in Cybersecurity.
+My passion lies in discovering new cybersecurity threats and developing advanced solutions to combat them.:) 
+Google Certified Cybersecurity professional
+<span id="c"><a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">My LinkedIn profile</a></span>
+<span id="c"><a href="https://github.com/63n713m4n" target="_blank">My Github profile</a></span>
+Want to know me more? Let's Connect!
 &nbsp;
-
-----------------------------------------------------
-📌 **[ Section: My Hacking Profiles ]**
-----------------------------------------------------
-
 <span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">view_my_profiles.json</span>
-
-```json
 {
-    "TryHackMe": "RED TEAMER",
-    "HackTheBox": "CTF Player"
+  
+    TryHackme: "<span id="c">RED TEAMER</span>",
+    HackTheBox: "<span id="c">CTF Player</span>",
 }
-[ Section: Contact Me ]
-<span id="a">\Root\ATL-srg\63n713m4n></span><span id="b">To_connect_with_me.json</span>
+&nbsp;
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">To_connect_with_me.json</span>
 {
-    "Discord": "SouLHuNtEr#2958",
-    "GitHub": "63n713m4n",
-    "Email": "alphonse.joseph@proton.me"
+    Discord: "<span id="c">SouLHuNtEr#2958</span>",
+    GitHub: "<span id="c">63n713m4n</span>",
+    Email: "<span id="c">alphonse.joseph@proton.me</span>"
 }
-[ Section: Logout ]
-<span id="a">\Root\ATL-srg\63n713m4n></span><span id="b">logout</span>
+&nbsp;
+<span id="a">\\Root\ATL-srg\63n713m4n&gt;</span><span id="b">logout</span>
 <span style="color: transparent">Thx for visiting</span>
 Successfully logged out! Hope you have a wonderful day!
-
- 
-
-<span id="a">\Root\ATL-srg> </span>
-
+&nbsp;
+<span id="a">\\Root\ATL-srg&gt;&nbsp;</span>
