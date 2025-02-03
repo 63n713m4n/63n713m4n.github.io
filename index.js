@@ -1,60 +1,56 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const consoleElement = document.getElementById("console");
-    const commandInput = document.getElementById("commandInput");
-    const typeSound = document.getElementById("typeSound");
+    const inputElement = document.getElementById("terminal-input");
 
+    // Store terminal commands and responses
     const commands = {
-        "help": "Available commands: <br> - whoami <br> - clear <br> - contact <br> - hack",
-        "whoami": "I am Alphonse Joseph, a Cybersecurity enthusiast.",
-        "contact": "Email: alphonse.joseph@proton.me <br> LinkedIn: <a href='https://www.linkedin.com/in/alphonse-joseph' target='_blank'>Profile</a>",
-        "clear": () => { consoleElement.innerHTML = ""; },
-        "hack": runFakeHack
+        "help": `
+            Available commands:
+            - whoami
+            - contact
+            - clear
+            - hack
+        `,
+        "whoami": `
+            Name: Alphonse Joseph
+            Cybersecurity Master's Student
+            Google Certified Cybersecurity Professional
+        `,
+        "contact": `
+            LinkedIn: <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">LinkedIn Profile</a>
+            GitHub: <a href="https://github.com/63n713m4n" target="_blank">GitHub Profile</a>
+            Discord: SouLHuNtEr#2958
+            Email: alphonse.joseph@proton.me
+        `,
+        "hack": `
+            Access Denied. Permission Required!
+        `,
+        "clear": ""
     };
 
-    function writeToConsole(text, speed = 50) {
-        let index = 0;
-        let line = document.createElement("div");
-        consoleElement.appendChild(line);
-        consoleElement.scrollTop = consoleElement.scrollHeight;
-
-        function typeEffect() {
-            if (index < text.length) {
-                typeSound.play();
-                line.innerHTML += text[index];
-                index++;
-                setTimeout(typeEffect, speed);
-            }
-        }
-        typeEffect();
-    }
-
-    function runFakeHack() {
-        consoleElement.innerHTML = "<span class='glitch'>Initializing hacking sequence...</span>";
-        setTimeout(() => writeToConsole("Connecting to secure database..."), 2000);
-        setTimeout(() => writeToConsole("Bypassing firewall..."), 4000);
-        setTimeout(() => writeToConsole("Accessing confidential files..."), 6000);
-        setTimeout(() => writeToConsole("Download complete!"), 8000);
-        setTimeout(() => writeToConsole("Mission success!"), 10000);
+    function appendToTerminal(text) {
+        let formattedText = text.replace(/\n/g, "<br>");
+        consoleElement.innerHTML += `<div class="console-output">${formattedText}</div>`;
     }
 
     function executeCommand(command) {
         command = command.toLowerCase().trim();
-        if (commands[command]) {
-            let response = typeof commands[command] === "function" ? commands[command]() : commands[command];
-            writeToConsole(response);
+        if (command === "clear") {
+            consoleElement.innerHTML = ""; // Clear terminal
+        } else if (commands[command]) {
+            appendToTerminal(commands[command]);
         } else {
-            writeToConsole(`Command not found: ${command}`);
+            appendToTerminal(`Command not found: ${command}`);
         }
     }
 
-    commandInput.addEventListener("keydown", function(event) {
+    // Handle user input
+    inputElement.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
-            let userInput = commandInput.value;
-            writeToConsole(`<span style="color: cyan;">> ${userInput}</span>`);
-            executeCommand(userInput);
-            commandInput.value = "";
+            let command = inputElement.value;
+            appendToTerminal(`> ${command}`); // Show entered command
+            executeCommand(command);
+            inputElement.value = ""; // Clear input field
         }
     });
-
-    writeToConsole("Welcome to the Interactive Terminal! Type 'help' for commands.");
 });
