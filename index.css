@@ -1,31 +1,45 @@
 body {
     background-color: #000;
-    color: #0f0;
+    color: #00ff00;
     font-family: "Courier New", monospace;
     padding: 20px;
 }
 
-#terminal {
-    width: 80%;
-    margin: auto;
-    border: 2px solid #0f0;
-    padding: 10px;
-    background-color: black;
-    height: 400px;
-    overflow-y: auto;
-}
-
 #console {
+    width: 100%;
+    height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #00ff00;
+    padding: 10px;
+    font-size: 16px;
     white-space: pre-wrap;
 }
 
 #terminal-input {
     width: 100%;
-    background-color: black;
+    background: black;
     border: none;
-    color: #0f0;
-    font-size: 18px;
+    color: #00ff00;
     font-family: "Courier New", monospace;
+    font-size: 16px;
     outline: none;
-    padding: 5px;
+}
+
+@keyframes blinkCursor {
+    50% { opacity: 0; }
+}
+
+#console::after {
+    content: "|";
+    display: inline-block;
+    animation: blinkCursor 0.8s infinite;
+}
+
+a {
+    color: cyan;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
