@@ -1,0 +1,27 @@
+----------------------------------------------------
+WELCOME TO MY PAGE
+----------------------------------------------------
+
+Press [ESC] to exit
+
+\\Root\ATL-srg> Login to View Data
+
+Enter Your Username: Guest
+Enter Your Password: ****************************
+
+The login session was successful. Welcome, Guest!
+Type [help] to list all of the commands.
+
+\\Root\ATL-srg\63n713m4n> About me
+Receiving submitted information...
+
+Hello, I'm Alphonse Joseph.
+Currently, I'm Doing my Masters in Cybersecurity.
+My passion lies in discovering new cybersecurity threats and developing advanced solutions.
+
+Google Certified Cybersecurity professional
+
+My LinkedIn: https://www.linkedin.com/in/alphonse-joseph
+My GitHub: https://github.com/63n713m4n
+
+Want to know me more? Let's Connect!
