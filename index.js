@@ -1,42 +1,68 @@
-// Define available commands
-const commands = {
-    "help": "Available commands:\n- <span class='green'>whoami</span> - View profile details\n- <span class='green'>contact</span> - Show contact information\n- <span class='green'>hack</span> - Try accessing restricted files\n- <span class='green'>clear</span> - Clear the terminal",
-    "whoami": "----------------------------------------------------\nWELCOME TO MY PAGE\n----------------------------------------------------\n\nPress [ESC] to exit\n\n\\Root\\ATL-srg> Login to View Data\n\nEnter Your Username: Guest\nEnter Your Password: ****************************\n\nThe login session was successful. Welcome, Guest!\nType [help] to list all of the commands.\n\n\\Root\\ATL-srg\\63n713m4n> About me\nReceiving submitted information...\n\nHello, I'm Alphonse Joseph.\nCurrently, I'm Doing my Masters in Cybersecurity.\nMy passion lies in discovering new cybersecurity threats and developing advanced solutions.\nGoogle Certified Cybersecurity professional\nMy LinkedIn: <a href='https://www.linkedin.com/in/alphonse-joseph' target='_blank' style='color: cyan;'>https://www.linkedin.com/in/alphonse-joseph</a>\nMy GitHub: <a href='https://github.com/63n713m4n' target='_blank' style='color: cyan;'>https://github.com/63n713m4n</a>\nWant to know me more? Let's Connect!",
-    "contact": "Contact me at:\n- Discord: SouLHuNtEr#2958\n- Email: alphonse.joseph@proton.me\n- GitHub: <a href='https://github.com/63n713m4n' target='_blank' style='color: cyan;'>https://github.com/63n713m4n</a>",
-    "hack": "Access Denied. Permission Required!",
-    "clear": "Terminal cleared."
-};
-
 // Select terminal and input field
 const terminal = document.querySelector("#terminal");
 const inputField = document.querySelector("#inputField");
 
-// Function to process user commands
-function processCommand(command) {
-    let output = '';
+// Define available commands
+const commands = {
+    "help": `Available commands:<br>
+    - <span class="green">whoami</span> - View profile details<br>
+    - <span class="green">contact</span> - Show contact information<br>
+    - <span class="green">hack</span> - Try accessing restricted files<br>
+    - <span class="green">clear</span> - Clear the terminal`,
 
-    // Clear the terminal on 'clear' command
+    "whoami": `----------------------------------------------------<br>
+    WELCOME TO MY PAGE<br>
+    ----------------------------------------------------<br><br>
+    Press [ESC] to exit<br><br>
+    <span class="cyan">\\Root\\ATL-srg&gt; Login to View Data</span><br>
+    Enter Your Username: <span class="lime">Guest</span><br>
+    Enter Your Password: <span class="lime">****************************</span><br><br>
+    The login session was successful. <span class="cyan">Welcome, Guest!</span><br>
+    Type [help] to list all of the commands.<br><br>
+    <span class="cyan">\\Root\\ATL-srg\\63n713m4n&gt; About me</span><br>
+    Receiving submitted information...<br><br>
+    Hello, I'm <span class="lime">Alphonse Joseph</span>.<br>
+    Currently, I'm doing my Master's in Cybersecurity.<br>
+    My passion lies in discovering new cybersecurity threats and developing advanced solutions.<br><br>
+    Google Certified Cybersecurity Professional<br><br>
+    My LinkedIn: <a href='https://www.linkedin.com/in/alphonse-joseph' target='_blank' class='cyan'>LinkedIn Profile</a><br>
+    My GitHub: <a href='https://github.com/63n713m4n' target='_blank' class='cyan'>GitHub Profile</a><br>
+    Want to know me more? Let's Connect!`,
+
+    "contact": `Contact me at:<br>
+    - Discord: <span class="cyan">SouLHuNtEr#2958</span><br>
+    - Email: <span class="cyan">alphonse.joseph@proton.me</span><br>
+    - GitHub: <a href='https://github.com/63n713m4n' target='_blank' class='cyan'>GitHub Profile</a>`,
+
+    "hack": `<span class="red">Access Denied. Permission Required!</span>`,
+
+    "clear": "clear"
+};
+
+// Function to process commands
+function processCommand(command) {
+    let output = "";
+
     if (command === "clear") {
-        terminal.innerHTML = "";
-    } 
-    // Display the command output if it's valid
-    else if (commands[command]) {
+        terminal.innerHTML = ""; // Clear terminal
+        return;
+    }
+
+    if (commands[command]) {
         output = commands[command];
-        typeResponse(output.replace(/\n/g, "<br>"));  // Replace newlines with <br> tags for proper display
-    } 
-    // Command not found
-    else {
+    } else {
         output = `<span class="red">Command not found: ${command}</span>`;
     }
-    
-    // Append the command and response to the terminal
-    terminal.innerHTML += `<br><span class="cyan">> ${command}</span><br>` + output;
+
+    // Append typed command and output
+    terminal.innerHTML += `<br><span class="cyan">&gt; ${command}</span><br>`;
+    typeResponse(output);
 }
 
-// Function to type the response with a delay (typing animation)
+// Function for typing animation
 function typeResponse(response) {
     let index = 0;
-    const speed = 50;
+    const speed = 20; // Typing speed
 
     function type() {
         if (index < response.length) {
@@ -48,11 +74,16 @@ function typeResponse(response) {
     type();
 }
 
-// Event listener to handle Enter key for executing commands
+// Event listener for Enter key
 inputField.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
-        const command = inputField.value.trim();  // Get the trimmed command
-        processCommand(command);  // Process the command
-        inputField.value = "";  // Clear the input field after execution
+        event.preventDefault(); // Prevent form submission
+        const command = inputField.value.trim(); // Get input value
+
+        if (command) {
+            processCommand(command); // Execute command
+        }
+
+        inputField.value = ""; // Clear input field
     }
 });
