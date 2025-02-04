@@ -56,16 +56,16 @@ Email: <a href="mailto:alphonse.joseph@proton.me">alphonse.joseph@proton.me</a>
         type();
     }
 
-    function processCommand(command) {
-        if (command === "clear") {
-            terminal.innerHTML = "";
-        } else if (commands[command]) {
-            terminal.innerHTML += `<br><span class="cyan">> ${command}</span><br>`;
-            typeResponse(commands[command]);
-        } else {
-            terminal.innerHTML += `<br><span class="red">Command not found: ${command}</span>`;
-        }
+ function processCommand(command) {
+    if (command === "clear") {
+        terminal.innerHTML = "";
+    } else if (commands[command]) {
+        terminal.innerHTML += `<br><span class="cyan">> ${command}</span><br>`;
+        typeResponse(commands[command].replace(/\n/g, "<br>"));  // 🔹 Fix new lines
+    } else {
+        terminal.innerHTML += `<br><span class="red">Command not found: ${command}</span>`;
     }
+}
 
     inputField.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
