@@ -1,13 +1,11 @@
-// Load typing sound from the 'sounds' folder
+// Select elements
+const terminal = document.getElementById("terminal");
+const inputField = document.getElementById("command-input");
 const typingSound = new Audio("sounds/typing.mp3");
 
-// Select the terminal output div
-const terminal = document.getElementById("terminal");
-
-// List of available commands
+// Commands list
 const commands = {
-    "help": `
-Welcome to the Interactive Terminal! Type 'help' for commands.<br>
+    "help": `Welcome to the Interactive Terminal! Type 'help' for commands.<br>
 <span style="color: cyan;">> help</span><br>
 Available commands:<br>
 - <span style="color: lime;">whoami</span> - View profile details<br>
@@ -19,8 +17,6 @@ Available commands:<br>
 ----------------------------------------------------<br>
 WELCOME TO MY PAGE<br>
 ----------------------------------------------------<br><br>
-
-Press [ESC] to exit<br><br>
 
 <span style="color: cyan;">\\Root\\ATL-srg> Login to View Data</span><br>
 
@@ -52,21 +48,20 @@ Want to know me more? Let's Connect!<br>
     Email: "<a href="mailto:alphonse.joseph@proton.me" style="color: cyan;">alphonse.joseph@proton.me</a>"<br>
 }<br>
 `,
-    "hack": `
-<span style="color: red;">Access Denied. Permission Required!</span>
-`
+    "hack": `<span style="color: red;">Access Denied. Permission Required!</span>`,
 };
 
 // Function to display text with typing animation
 function typeResponse(text) {
     let index = 0;
-    terminal.innerHTML += "<br>"; // Add a new line
+    let outputDiv = document.createElement("div");
+    terminal.appendChild(outputDiv); // Add new response to terminal
 
     function type() {
         if (index < text.length) {
-            terminal.innerHTML += text.charAt(index);
+            outputDiv.innerHTML += text.charAt(index);
             index++;
-            setTimeout(type, 20); // Adjust speed of typing effect
+            setTimeout(type, 10); // Adjust speed of typing effect
         }
     }
     type();
@@ -74,31 +69,30 @@ function typeResponse(text) {
 
 // Function to process commands
 function processCommand(command) {
-    if (commands[command]) {
-        typeResponse(commands[command]); // Type out the response
-    } else if (command === "clear") {
-        terminal.innerHTML = ""; // Clear the terminal
+    if (command === "clear") {
+        terminal.innerHTML = ""; // Clear terminal
+    } else if (commands[command]) {
+        terminal.innerHTML += `<br><span style="color: cyan;">> ${command}</span><br>`; // Show user input
+        typeResponse(commands[command]); // Type response
     } else {
-        typeResponse(`<span style="color: red;">Command not found: ${command}</span>`);
+        terminal.innerHTML += `<br><span style="color: red;">Command not found: ${command}</span>`;
     }
 }
 
-// Handle user input
-document.addEventListener("keydown", function (event) {
+// Event listener for user input
+inputField.addEventListener("keydown", function (event) {
     if (event.key.length === 1 || event.key === "Backspace") {
         typingSound.currentTime = 0;
         typingSound.play();
     }
 
     if (event.key === "Enter") {
-        let inputField = document.getElementById("command-input");
         let command = inputField.value.trim().toLowerCase();
-        
+
         if (command) {
-            terminal.innerHTML += `<br><span style="color: cyan;">> ${command}</span>`; // Show user input
             processCommand(command);
         }
-        
-        inputField.value = ""; // Clear input field
+
+        inputField.value = ""; // Clear input field after submitting
     }
 });
