@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Terminal</title>
+    <title>CYBERCONSOLE v1.0 – SYSTEM ONLINE</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div id="terminal">
-        <div id="console">
-            Welcome to the Interactive Terminal! Type 'help' for commands.
+    <div id="terminal-container">
+        <div id="terminal">
+            <p>CYBERCONSOLE v1.0 – SYSTEM ONLINE</p>
+            <p>Type '<span class="green">help</span>' to see available commands.</p>
         </div>
-        <input type="text" id="terminal-input" autofocus placeholder="Type a command...">
+        <div id="input-line">
+            <span id="prompt">&gt;</span>
+            <input type="text" id="command-input" autofocus>
+        </div>
     </div>
+    
     <script src="index.js"></script>
 </body>
 </html>
