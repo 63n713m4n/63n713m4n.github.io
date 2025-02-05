@@ -1,89 +1,76 @@
-// Select terminal and input field
-const terminal = document.querySelector("#terminal");
-const inputField = document.querySelector("#inputField");
+document.addEventListener("DOMContentLoaded", function () {
+    const terminal = document.querySelector("#terminal");
+    const inputField = document.querySelector("#inputField");
 
-// Define available commands
-const commands = {
-    "help": `Available commands:<br>
-    - <span class="green">whoami</span> - View profile details<br>
-    - <span class="green">contact</span> - Show contact information<br>
-    - <span class="green">hack</span> - Try accessing restricted files<br>
-    - <span class="green">clear</span> - Clear the terminal`,
+    // Commands and their responses
+    const commands = {
+        "help": `Available commands:<br>
+        - <span class="green">whoami</span> - View profile details<br>
+        - <span class="green">contact</span> - Show contact information<br>
+        - <span class="green">hack</span> - Try accessing restricted files<br>
+        - <span class="green">clear</span> - Clear the terminal`,
 
-    "whoami": `----------------------------------------------------<br>
-    WELCOME TO MY PAGE<br>
-    ----------------------------------------------------<br><br>
-    Press [ESC] to exit<br><br>
-    <span class="cyan">\\Root\\ATL-srg&gt; Login to View Data</span><br>
-    Enter Your Username: <span class="lime">Guest</span><br>
-    Enter Your Password: <span class="lime">****************************</span><br><br>
-    The login session was successful. <span class="cyan">Welcome, Guest!</span><br>
-    Type [help] to list all of the commands.<br><br>
-    <span class="cyan">\\Root\\ATL-srg\\63n713m4n&gt; About me</span><br>
-    Receiving submitted information...<br><br>
-    Hello, I'm <span class="lime">Alphonse Joseph</span>.<br>
-    Currently, I'm doing my Master's in Cybersecurity.<br>
-    My passion lies in discovering new cybersecurity threats and developing advanced solutions.<br><br>
-    Google Certified Cybersecurity Professional<br><br>
-    My LinkedIn: <a href='https://www.linkedin.com/in/alphonse-joseph' target='_blank' class='cyan'>LinkedIn Profile</a><br>
-    My GitHub: <a href='https://github.com/63n713m4n' target='_blank' class='cyan'>GitHub Profile</a><br>
-    Want to know me more? Let's Connect!`,
+        "whoami": `----------------------------------------------------<br>
+        WELCOME TO MY PAGE<br>
+        ----------------------------------------------------<br><br>
+        Press [ESC] to exit<br><br>
+        <span class="cyan">\\Root\\ATL-srg&gt;</span> Login to View Data<br>
+        Enter Your Username: <span class="lime">Guest</span><br>
+        Enter Your Password: <span class="lime">****************************</span><br><br>
+        The login session was successful. <span class="cyan">Welcome, Guest!</span><br>
+        Type <span class="lime">help</span> to list all of the commands.<br><br>
+        <span class="cyan">\\Root\\ATL-srg\\63n713m4n&gt;</span> About me<br>
+        Receiving submitted information...<br><br>
+        Hello, I'm <span class="lime">Alphonse Joseph</span>.<br>
+        Currently, I'm doing my Master's in Cybersecurity.<br>
+        My passion lies in discovering new cybersecurity threats and developing advanced solutions.<br><br>
+        Google Certified Cybersecurity Professional<br><br>
+        My LinkedIn: <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank" class="cyan">LinkedIn Profile</a><br>
+        My GitHub: <a href="https://github.com/63n713m4n" target="_blank" class="cyan">GitHub Profile</a><br><br>
+        Want to know more? Let's Connect!`,
 
-    "contact": `Contact me at:<br>
-    - Discord: <span class="cyan">SouLHuNtEr#2958</span><br>
-    - Email: <span class="cyan">alphonse.joseph@proton.me</span><br>
-    - GitHub: <a href='https://github.com/63n713m4n' target='_blank' class='cyan'>GitHub Profile</a>`,
+        "contact": `Contact Information:<br>
+        - Email: <a href="mailto:alphonse.joseph@proton.me" class="cyan">alphonse.joseph@proton.me</a><br>
+        - Discord: <span class="lime">SouLHuNtEr#2958</span><br>
+        - GitHub: <a href="https://github.com/63n713m4n" target="_blank" class="cyan">63n713m4n</a>`,
 
-    "hack": `<span class="red">Access Denied. Permission Required!</span>`,
+        "hack": `<span class="red">Access Denied.</span> Permission Required!`,
 
-    "clear": "clear"
-};
+        "clear": "" // Clears the terminal
+    };
 
-// Function to process commands
-function processCommand(command) {
-    let output = "";
+    // Function to handle input
+    function processCommand(input) {
+        const trimmedInput = input.trim().toLowerCase();
+        let output = `<span class="cyan">&gt; ${trimmedInput}</span><br>`;
 
-    if (command === "clear") {
-        terminal.innerHTML = ""; // Clear terminal
-        return;
-    }
-
-    if (commands[command]) {
-        output = commands[command];
-    } else {
-        output = `<span class="red">Command not found: ${command}</span>`;
-    }
-
-    // Append typed command and output
-    terminal.innerHTML += `<br><span class="cyan">&gt; ${command}</span><br>`;
-    typeResponse(output);
-}
-
-// Function for typing animation
-function typeResponse(response) {
-    let index = 0;
-    const speed = 20; // Typing speed
-
-    function type() {
-        if (index < response.length) {
-            terminal.innerHTML += response.charAt(index);
-            index++;
-            setTimeout(type, speed);
-        }
-    }
-    type();
-}
-
-// Event listener for Enter key
-inputField.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Prevent form submission
-        const command = inputField.value.trim(); // Get input value
-
-        if (command) {
-            processCommand(command); // Execute command
+        if (commands[trimmedInput] !== undefined) {
+            output += commands[trimmedInput] + "<br>";
+        } else {
+            output += `<span class="red">Command not found: ${trimmedInput}</span><br>Type 'help' to see available commands.<br>`;
         }
 
-        inputField.value = ""; // Clear input field
+        if (trimmedInput === "clear") {
+            terminal.innerHTML = "";
+        } else {
+            terminal.innerHTML += output;
+        }
+
+        terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
     }
+
+    // Capture keypress event
+    inputField.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const inputValue = inputField.value;
+            if (inputValue) {
+                processCommand(inputValue);
+                inputField.value = ""; // Clear input field after processing
+            }
+        }
+    });
+
+    // Focus on input field when clicking anywhere in the terminal
+    document.addEventListener("click", () => inputField.focus());
 });
