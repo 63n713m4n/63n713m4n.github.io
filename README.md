@@ -14,14 +14,14 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 
 ## 🛠️ Project Structure
 
-63n713m4n.github.io/
-│
-├── index.html # Main HTML file
-├── style.css # Main stylesheet
-├── uploads/ # Folder for downloadable files like project reports
-│ └── IoT_Project_Report.pdf
-├── assets/ # Optional: images, icons, or other media
-└── README.md # This file
+63n713m4n.github.io/ \
+│ \
+├── index.html # Main HTML file \
+├── style.css # Main stylesheet \
+├── uploads/ # Folder for downloadable files like project reports \
+│ └── IoT_Project_Report.pdf \
+├── assets/ # Optional: images, icons, or other media \
+└── README.md # This file \
 
 
 ## 📌 Highlights
@@ -43,7 +43,7 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 
 ## 📬 Contact
 
-Feel free to connect with me on [LinkedIn](#) or check out my [Medium](https://medium.com/@63n713m4n).
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/alphonse-joseph) or check out my [Medium](https://medium.com/@63n713m4n).
 
 ---
 
