@@ -17,7 +17,8 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 63n713m4n.github.io/ \
 │ \
 ├── index.html # Main HTML file \
-├── style.css # Main stylesheet \
+├── css/ # css folder \
+ └──main.css # Main stylesheet \
 ├── uploads/ # Folder for downloadable files like project reports \
 │ └── IoT_Project_Report.pdf \
 ├── assets/ # Optional: images, icons, or other media \
