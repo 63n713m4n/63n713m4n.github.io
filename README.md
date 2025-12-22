@@ -8,7 +8,7 @@ This website serves as a central hub to showcase my:
 - Cybersecurity projects
 - Blogs and technical write-ups
 - Certifications
-- Resume and professional profile
+- Academic and professional profile
 
 It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 
@@ -21,6 +21,7 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
  └──main.css # Main stylesheet \
 ├── uploads/ # Folder for downloadable files like project reports \
 │ └── IoT_Project_Report.pdf \
+│   └── LitReview.pdf \
 ├── assets/ # Optional: images, icons, or other media \
 └── README.md # This file \
 
@@ -28,8 +29,10 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 ## 📌 Highlights
 
 - **IoT Security Analysis Project**: An in-depth security assessment of smart devices (PDF report included).
+- **ISO/SAE 21434 Industry Implementation Review
+Academic literature review analyzing challenges, effectiveness, and automation in automotive cybersecurity engineering. Focus areas include TARA practices, lifecycle traceability, UNECE R155 alignment, and limits of automation tools.
 - **Blogs**: Cybersecurity career guides and deep dives published on Medium.
-- **Certifications**: Google Cybersecurity Professional Certification and more.
+- **Certifications**: Cisco CyberOps Associate Certification and more.
 
 ## 📄 Live Preview
 
