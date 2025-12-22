@@ -20,8 +20,8 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 ├── css/ # css folder \
  └──main.css # Main stylesheet \
 ├── uploads/ # Folder for downloadable files like project reports \
-│ └── IoT_Project_Report.pdf \
-│   └── LitReview.pdf \
+ └── IoT_Project_Report.pdf \
+ └── LitReview.pdf \
 ├── assets/ # Optional: images, icons, or other media \
 └── README.md # This file \
 
