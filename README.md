@@ -29,8 +29,7 @@ It is fully responsive and built using HTML, CSS, and Font Awesome for icons.
 ## 📌 Highlights
 
 - **IoT Security Analysis Project**: An in-depth security assessment of smart devices (PDF report included).
-- **ISO/SAE 21434 Industry Implementation Review
-Academic literature review analyzing challenges, effectiveness, and automation in automotive cybersecurity engineering. Focus areas include TARA practices, lifecycle traceability, UNECE R155 alignment, and limits of automation tools.
+- **ISO/SAE 21434 Industry Implementation Review**: Academic literature review analyzing challenges, effectiveness, and automation in automotive cybersecurity engineering. Focus areas include TARA practices, lifecycle traceability, UNECE R155 alignment, and limits of automation tools.
 - **Blogs**: Cybersecurity career guides and deep dives published on Medium.
 - **Certifications**: Cisco CyberOps Associate Certification and more.
 
