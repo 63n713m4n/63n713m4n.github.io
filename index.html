@@ -1,399 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>63n713m4n | Cybersecurity Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Cybersecurity portfolio of Alphonse (63n713m4n) – projects, labs, certifications, and write-ups."
-  />
-
-  <!-- Font & Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alphonse Joseph - Cybersecurity Professional & Graduate Student">
+  <meta name="keywords" content="cybersecurity, security professional, threat discovery, security solutions">
+  <meta property="og:title" content="Alphonse Joseph - Cybersecurity Portfolio">
+  <meta property="og:description" content="Professional portfolio of Alphonse Joseph, Cybersecurity Graduate Student & Security Professional">
+  <meta property="og:type" content="website">
+  <title>Alphonse Joseph | Cybersecurity Professional</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script defer src="js/main.js"></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="logo">63n713m4n<span class="logo-blink">_</span></div>
-    <nav class="nav">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#certs">Certifications</a>
-      <a href="#writing">Writing</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="logo">
+          <span class="logo-text">AJ</span>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#certifications" class="nav-link">Certifications</a></li>
+          <li><a href="#blog" class="nav-link">Blog & Writeups</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero">
+        <div class="hero-content">
+          <h1 class="glitch" data-text="Alphonse Joseph">Alphonse Joseph</h1>
+          <p class="typewriter">Cybersecurity Masters Student & Security Professional</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/63n713m4n" target="_blank" rel="noopener" aria-label="GitHub Profile">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://tryhackme.com/p/63n713m4n" target="_blank" rel="noopener" aria-label="TryHackMe Profile">
+              <i class="fas fa-server"></i>
+            </a>
+            <a href="mailto:alphonse.joseph@proton.me" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+          <!-- TryHackMe Badge Banner -->
+          <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1848669" style="border:none; width:100%; height:120px; margin-top:16px;" title="TryHackMe Badge"></iframe>
+        </div>
+        <div class="hero-image">
+          <div class="profile-image-container">
+            <div class="profile-image">
+              <img src="uploads/Me.png" alt="Professional headshot" class="profile-pic">
+            </div>
+            <div class="security-badge">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span class="mouse">
+          <span class="wheel"></span>
+        </span>
+        <p>Scroll down</p>
+      </div>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="hero-content">
-      <p class="hero-kicker">Cybersecurity Portfolio</p>
-      <h1>Hi, I'm Alphonse.</h1>
-      <p class="hero-subtitle">
-        <span id="typewriter"></span>
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn primary">
-          <i class="fa-solid fa-sitemap"></i> View projects
-        </a>
-        <a href="#contact" class="btn ghost">
-          <i class="fa-solid fa-paper-plane"></i> Get in touch
-        </a>
-      </div>
+  <main>
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fas fa-user-shield"></i> About Me</h2>
+          <div class="terminal">
+            <div class="terminal-header">
+              <div class="terminal-buttons">
+                <span class="terminal-button"></span>
+                <span class="terminal-button"></span>
+                <span class="terminal-button"></span>
+              </div>
+              <div class="terminal-title">profile.sh</div>
+            </div>
+            <div class="terminal-body">
+              <div class="line">
+                <span class="prompt">$</span> whoami
+              </div>
+              <div class="line output">
+               
+I'm a Cybersecurity Master's student chilling in Sweden, slicing through threat analysis, IoT vulnerabilities, and secure network designs like a Viking with a keyboard.
+💡 I wrestle with Capture The Flag (CTF) challenges for kicks and spill my cyber-wisdom in blogs—because sharing is caring, unless it’s malware or my last fika pastry.
+✈️ When I'm not saving the internet, I'm soaring through virtual skies in flight sims, proving I can crash a plane and a hacker’s dreams with Nordic precision.
+Let’s team up, crack some jokes, and lock down the digital world from the land of ABBA and meatballs!.<br>
 
-      <!-- Terminal-style whoami block -->
-      <div class="terminal">
-        <div class="terminal-header">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-          <span class="terminal-title">~/profile.sh</span>
-        </div>
-        <div class="terminal-body">
-          <p>$ whoami</p>
-          <p>
-            &gt; I'm a Cybersecurity Master's student chilling in Sweden, slicing
-            through threat analysis, IoT vulnerabilities, and secure network designs
-            like a Viking with a keyboard.
-          </p>
-          <p>
-            &gt; I wrestle with Capture The Flag (CTF) challenges for kicks and spill
-            my cyber‑wisdom in blogs—because sharing is caring, unless it’s malware
-            or my last fika pastry.
-          </p>
-          <p>
-            &gt; When I'm not saving the internet, I'm soaring through virtual skies
-            in flight sims, proving I can crash a plane and a hacker’s dreams with
-            Nordic precision.
-          </p>
-          <p>
-            &gt; Let’s team up, crack some jokes, and lock down the digital world
-            from the land of ABBA and meatballs!
-          </p>
-          <p>$ cat interests.txt</p>
-          <p>
-            &gt; Threat Intelligence &amp; Analysis, Penetration Testing, Security
-            Architecture, Vulnerability Assessment, Incident Response, Network
-            Security, OSINT, Cloud Security
-          </p>
+
+
+              </div>
+              <div class="line">
+                <span class="prompt">$</span> cat interests.txt
+              </div>
+              <div class="line output">
+                • Threat Intelligence & Analysis<br>
+                • Penetration Testing<br>
+                • Security Architecture<br>
+                • Vulnerability Assessment<br>
+                • Incident Response<br>
+                • Network Security<br>
+                • OSINT<br>
+                • Cloud Security
+              </div>
+              <div class="line">
+                <span class="prompt">$</span> <span class="cursor">_</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fas fa-code"></i> Technical Skills</h2>
+        </div>
+        <div class="skills-container">
+          <div class="skill-category">
+            <h3>Security Skills</h3>
+            <div class="skill">
+              <div class="skill-name">Penetration Testing</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 90%;" data-level="90%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <div class="skill-name">Vulnerability Assessment</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 85%;" data-level="85%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <div class="skill-name">Incident Response</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 80%;" data-level="80%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <div class="skill-name">Security Architecture</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 85%;" data-level="85%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3>Technical Skills</h3>
+            <div class="skill">
+              <div class="skill-name">Network Security</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 95%;" data-level="90%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <div class="skill-name">Cloud Security (AWS/Azure)</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 75%;" data-level="75%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <div class="skill-name">SIEM Tools</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 85%;" data-level="85%"></div>
+              </div>
+            </div>
+            <div class="skill">
+              <div class="skill-name">Python & Bash Scripting</div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 95%;" data-level="80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="projects" class="section projects-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title"><i class="fas fa-project-diagram"></i> Projects</h2>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="section-inner">
-      <h2>About Me</h2>
-      <p>
-        Cybersecurity Master's student based in Sweden, mixing academic depth with
-        hands‑on labs, CTFs, and real‑world security projects.[file:38]
-      </p>
-      <p>
-        Interests span threat intelligence, penetration testing, OSINT, and security
-        architecture, with a growing focus on IoT and automotive security.[file:38]
-      </p>
-      <p>
-        Outside of hacking and hardening, there is a love for flight simulators,
-        tech tinkering, and turning complex security topics into accessible stories
-        through blogs and write‑ups.[file:38]
-      </p>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section class="section" id="skills">
-    <div class="section-inner">
-      <h2>Skills & Focus</h2>
-      <div class="skills-grid">
-        <div class="skills-card">
-          <h3><i class="fa-solid fa-skull-crossbones"></i> Security Skills</h3>
-          <ul>
-            <li>Penetration Testing</li>
-            <li>Vulnerability Assessment</li>
-            <li>Incident Response</li>
-            <li>Security Architecture</li>
-          </ul>
-        </div>
-        <div class="skills-card">
-          <h3><i class="fa-solid fa-shield-halved"></i> Technical Skills</h3>
-          <ul>
-            <li>Network Security</li>
-            <li>Cloud Security (AWS / Azure)</li>
-            <li>SIEM Tools</li>
-            <li>Python &amp; Bash scripting</li>
-          </ul>
-        </div>
-        <div class="skills-card">
-          <h3><i class="fa-solid fa-terminal"></i> Interests</h3>
-          <ul>
-            <li>Threat Intelligence &amp; Analysis</li>
-            <li>OSINT</li>
-            <li>Secure network and system design</li>
-            <li>CTFs &amp; practical lab‑based learning</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="current-focus">
-        <h3>Currently hacking on</h3>
-        <ul>
-          <li>Deepening web exploitation workflows and methodologies</li>
-          <li>IoT and automotive security fundamentals</li>
-          <li>Turning academic work into practical, reusable security assets</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section class="section" id="projects">
-    <div class="section-inner">
-      <h2>Projects</h2>
-      <p class="section-intro">
-        Selected academic and practical projects that reflect current interests in
-        IoT, automotive security, and applied cybersecurity research.[file:38]
-      </p>
-
-      <div class="projects-grid">
-        <article class="project-card">
-          <h3>📡 IoT Security Analysis Project</h3>
-          <p>
-            Analyzed vulnerabilities in smart devices (siren and light) during the
-            Cybersecurity Exchange Program at the University of Twente.[file:38]
-          </p>
-          <ul>
-            <li>Assessed IoT device exposure and communication weaknesses</li>
-            <li>Identified vulnerabilities and misconfigurations in device behavior</li>
-            <li>
-              Produced a comprehensive report with remediation strategies and
-              security recommendations
-            </li>
-          </ul>
-        
-          <a href="uploads/IoT_Project_Report.pdf" class="btn small" target="_blank">
-            <i class="fa-solid fa-file-pdf"></i> View IoT Project Report (PDF)
-          </a>
-        </article>
-
-        <article class="project-card">
-          <h3>🚘 ISO/SAE 21434 Industry Implementation Review</h3>
-          <p>
-            Academic literature review focused on challenges, effectiveness, and
-            automation support in implementing ISO/SAE 21434 for automotive
-            cybersecurity.[file:38]
-          </p>
-          <ul>
-            <li>Explored real‑world adoption issues and TARA practices</li>
-            <li>Analyzed effectiveness measurement gaps and process limitations</li>
-            <li>
-              Evaluated current automation tools across the vehicle lifecycle and
-              identified where they fall short
-            </li>
-          </ul>
-        
-          <a href="uploads/LitReview.pdf" class="btn small" target="_blank">
-            <i class="fa-solid fa-file-pdf"></i> View Literature Review (PDF)
-          </a>
-        </article>
-
-        <article class="project-card">
-          <h3>🧪 Labs, CTFs &amp; Ongoing Work</h3>
-          <p>
-            A growing collection of lab exercises, CTF write‑ups, and applied
-            experiments used to build intuition and real‑world skills in security.
-          </p>
-          <ul>
-            <li>Ad‑hoc labs around web, network, and OSINT scenarios</li>
-            <li>CTF challenges focused on fundamentals and practical exploitation</li>
-            <li>Write‑ups and notes to capture methods and lessons learned</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CERTIFICATIONS -->
-  <section class="section" id="certs">
-    <div class="section-inner">
-      <h2>Certifications</h2>
-      <div class="writing-cards">
-        <div class="writing-card">
-          <h3><i class="fa-brands fa-google"></i> Google Cybersecurity Professional</h3>
-          <p>
-            Issued: 2023 – foundational coverage of security operations,
-            incident response, and common tools and processes.[file:38]
-          </p>
-   
-          <a href="https://coursera.org/verify/professional-cert/PCHSTL2T45CS" class="btn small primary" target="_blank">
-            <i class="fa-solid fa-up-right-from-square"></i> View Certificate
-          </a>
-        </div>
-        <div class="writing-card">
-          <h3><i class="fa-solid fa-shield"></i> Cisco CyberOps Associate</h3>
-          <p>
-            Issued: 2025 – focuses on SOC operations, monitoring, detection, and
-            response in modern networked environments.[file:38]
-          </p>
-          
-          <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_url" class="btn small primary" target="_blank">
-            <i class="fa-solid fa-up-right-from-square"></i> View Credential
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WRITING -->
-  <section class="section" id="writing">
-    <div class="section-inner">
-      <h2>Blogs &amp; Write‑ups</h2>
-      <p>
-        Long‑form notes and reflections live on Medium, where projects, paths into
-        cybersecurity, and core concepts are broken down for others starting their
-        journey.[file:38]
-      </p>
-
-      <div class="writing-cards">
-        <div class="writing-card">
-          <h3><i class="fa-brands fa-medium"></i> Breaking into Cybersecurity</h3>
-          <p>
-            A beginner’s guide to launching a cybersecurity career, mapping out
-            skills, mindset, and practical steps into the field.[file:38]
-          </p>
-
-          <a href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352fb" class="btn primary small" target="_blank">
-            <i class="fa-solid fa-up-right-from-square"></i> Read on Medium
-          </a>
-        </div>
-
-        <div class="writing-card">
-          <h3><i class="fa-brands fa-medium"></i> Navigating the World of Cybersecurity</h3>
-          <p>
-            Deep dive into controls, frameworks, and compliance, and how they fit
-            together in real security programs.[file:38]
-          </p>
+    <div class="projects-grid">
       
-          <a href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-a-deep-dive-into-controls-frameworks-and-compliance-28e4df456599" class="btn primary small" target="_blank">
-            <i class="fa-solid fa-up-right-from-square"></i> Read on Medium
-          </a>
-        </div>
-
-        <div class="writing-card">
-          <h3><i class="fa-brands fa-medium"></i> Medium Profile</h3>
-          <p>
-            More write‑ups, experiments, and reflections on security topics as the
-            journey continues.
-          </p>
-          <a
-            href="https://medium.com/@63n713m4n"
-            class="btn small"
-            target="_blank"
-          >
-            <i class="fa-brands fa-medium"></i> View Medium profile
-          </a>
-        </div>
+      <!-- IoT Project -->
+      <div class="project-card">
+        <h3>IoT Security Analysis Project</h3>
+        <p>Analyzed vulnerabilities in smart devices (siren and light) during the Cybersecurity Exchange Program at the University of Twente. Identified issues and proposed fixes in a comprehensive report.</p>
+        <a href="uploads/IoT_Project_Report.pdf" target="_blank">View IoT Project Report (PDF)</a>
       </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section" id="contact">
-    <div class="section-inner">
-      <h2>Let's Connect</h2>
-      <p>
-        Always open to discussing new projects, cybersecurity challenges, or
-        collaboration opportunities.[file:38]
-      </p>
-      <p>
-        The best way to get in touch is via LinkedIn, but GitHub and Medium are
-        great places to see what is being worked on.
-      </p>
-
-      <div class="social-links">
-        <a
-          href="https://www.linkedin.com/in/alphonse-joseph"
-          target="_blank"
-          class="social-link"
-        >
-          <i class="fa-brands fa-linkedin"></i> LinkedIn
-        </a>
-        <a
-          href="https://medium.com/@63n713m4n"
-          target="_blank"
-          class="social-link"
-        >
-          <i class="fa-brands fa-medium"></i> Medium
-        </a>
-        <a
-          href="https://github.com/63n713m4n"
-          target="_blank"
-          class="social-link"
-        >
-          <i class="fa-brands fa-github"></i> GitHub
+      <div class="project-card">
+        <h3>ISO/SAE 21434 Industry Implementation Review</h3>
+        <p>Academic literature review analyzing challenges, effectiveness, and automation support in implementing ISO/SAE 21434 for automotive cybersecurity.The study evaluates real-world adoption issues, TARA practices, effectiveness measurement gaps, and the limits of automation tools across the vehicle lifecycle.
+        </p>
+        <a href="uploads/LitReview.pdf" target="_blank">View Literature Review (PDF)
         </a>
       </div>
 
-      <blockquote class="footer-quote">
-        ✨ Built with passion for cybersecurity and a commitment to lifelong learning.
-      </blockquote>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="site-footer">
-    <p>© <span id="year"></span> 63n713m4n · Hosted on GitHub Pages</p>
+    <section id="certifications" class="section certifications-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-certificate"></i> Certifications
+      </h2>
+    </div>
+
+    <div class="certifications-grid">
+
+      <div class="certification-card">
+        <div class="certification-logo">
+          <i class="fab fa-google"></i>
+        </div>
+        <div class="certification-details">
+          <h3>Google Cybersecurity Professional</h3>
+          <p class="certification-date">Issued: 2023</p>
+          <a href="https://coursera.org/verify/professional-cert/PCHSTL2T45CS" target="_blank">
+            View Certificate
+          </a>
+        </div>
+      </div>
+
+      <div class="certification-card">
+        <div class="certification-logo">
+          <i class="fas fa-network-wired"></i>
+        </div>
+        <div class="certification-details">
+          <h3>Cisco CyberOps Associate</h3>
+          <p class="certification-date">Issued: 2025</p>
+          <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_url" target="_blank">
+            View Credential
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="blogs" class="section blogs-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title"><i class="fas fa-blog"></i> Blogs / Writeups </h2>
+    </div>
+    <div class="projects-grid">
+      
+      <!-- Medium Writeup 1 -->
+      <div class="project-card">
+        <h3>Medium Writeup: Breaking into Cybersecurity</h3>
+        <p>A beginner’s guide to launching your cybersecurity career.</p>
+        <a href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352fb" target="_blank">
+          Read on Medium
+        </a>
+      </div>
+
+      <!-- Medium Writeup 2 -->
+      <div class="project-card">
+        <h3>Medium Writeup: Navigating the World of Cybersecurity</h3>
+        <p>Deep dive into Controls, Frameworks, and Compliance.</p>
+        <a href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-a-deep-dive-into-controls-frameworks-and-compliance-28e4df456599" target="_blank">
+          Read on Medium
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+    
+    <section id="contact" class="section contact-section">
+  <div class="contact-container">
+    <div class="contact-form-container">
+      <form action="https://formsubmit.co/841f94275ae3236a0baab0d0cf7e6514" method="POST" class="contact-form">
+        
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" placeholder="Your Name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea name="message" id="message" rows="5" placeholder="Your Message..." required></textarea>
+        </div>
+
+        <!-- Hidden Fields -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://63n713m4n.github.io/thankyou.html">
+
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+            <div class="contact-info">
+            <h3>Let's Connect</h3>
+            <p>I'm always open to discussing new projects, cybersecurity challenges, or collaboration opportunities.</p>
+            <div class="contact-links">
+              <div class="contact-link">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:alphonse.joseph@proton.me">alphonse.joseph@proton.me</a>
+              </div>
+              <div class="contact-link">
+                <i class="fab fa-linkedin"></i>
+                <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank" rel="noopener">linkedin.com/in/alphonse-joseph</a>
+              </div>
+              <div class="contact-link">
+                <i class="fab fa-github"></i>
+                <a href="https://github.com/63n713m4n" target="_blank" rel="noopener">github.com/63n713m4n</a>
+              </div>
+              <div class="contact-link">
+                <i class="fas fa-server"></i>
+                <a href="https://tryhackme.com/p/63n713m4n" target="_blank" rel="noopener">tryhackme.com/p/63n713m4n</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">AJ</span>
+          <p>Cybersecurity Professional</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/63n713m4n" target="_blank" rel="noopener" aria-label="GitHub Profile">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://tryhackme.com/p/63n713m4n" target="_blank" rel="noopener" aria-label="TryHackMe Profile">
+            <i class="fas fa-server"></i>
+          </a>
+          <a href="mailto:alphonse.joseph@proton.me" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Alphonse Joseph. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
-  <!-- Typewriter + Year Script -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
-    const typewriterText = [
-      "Aspiring Security Engineer.",
-      "Breaking things to understand them.",
-      "Documenting every step of the journey."
-    ];
-    let twIndex = 0;
-    let charIndex = 0;
-    const twElement = document.getElementById("typewriter");
-
-    function type() {
-      const current = typewriterText[twIndex];
-      twElement.textContent = current.slice(0, charIndex);
-      charIndex++;
-
-      if (charIndex <= current.length) {
-        setTimeout(type, 80);
-      } else {
-        setTimeout(erase, 1400);
-      }
-    }
-
-    function erase() {
-      const current = typewriterText[twIndex];
-      twElement.textContent = current.slice(0, charIndex);
-      charIndex--;
-
-      if (charIndex >= 0) {
-        setTimeout(erase, 40);
-      } else {
-        twIndex = (twIndex + 1) % typewriterText.length;
-        setTimeout(type, 400);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      type();
-      document.getElementById("year").textContent = new Date().getFullYear();
-    });
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
   </script>
 </body>
 </html>
