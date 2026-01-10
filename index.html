@@ -9,7 +9,6 @@
     content="Cybersecurity portfolio of Alphonse (63n713m4n) – projects, labs, certifications, TryHackMe, CTF easter egg, and write-ups."
   />
 
-  <!-- Font & Icons -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -17,8 +16,6 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-
-  
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -62,14 +59,7 @@
           <span class="dot green"></span>
           <span class="terminal-title">~/profile.sh</span>
         </div>
-        <div class="terminal-body">
-          <p>$ whoami</p>
-          <p>&gt;  Alphonse (63n713m4n)</p>
-          <p>$ focus</p>
-          <p>&gt;  web security, OSINT, blue‑team fundamentals</p>
-          <p>$ goal</p>
-          <p>&gt;  become a well‑rounded security engineer</p>
-        </div>
+        <div class="terminal-body" id="hero-terminal"></div>
       </div>
     </div>
   </section>
@@ -79,7 +69,7 @@
     <div class="section-inner">
       <h2>About Me</h2>
       <p>
-        Cybersecurity Master's student in Sweden, mixing academic depth with
+        Cybersecurity Master's student based in Sweden, mixing academic depth with
         hands‑on labs, CTFs, and real‑world security projects.
       </p>
       <p>
@@ -99,7 +89,6 @@
     <div class="section-inner">
       <h2>Skills & Focus</h2>
 
-      
       <div class="writing-cards" style="margin-bottom:1.3rem;">
         <div class="writing-card">
           <h3><i class="fa-solid fa-code-branch"></i> View mode</h3>
@@ -226,7 +215,7 @@
           <h3><i class="fa-solid fa-flask"></i> Homelab & experiments</h3>
           <p>
             Minimal homelab used to simulate attacks, collect logs, and observe
-            how activity looks from the defender’s point of view.
+            how activity looks from the defender’s point of view.[file:38]
           </p>
           <p>
             Includes experiments with basic log collection, simple detections, and
@@ -257,7 +246,7 @@
           <h3><i class="fa-brands fa-google"></i> Google Cybersecurity Professional</h3>
           <p>
             Issued: 2023 – foundational coverage of security operations,
-            incident response, and common tools and processes.
+            incident response, and common tools and processes.[file:38]
           </p>
           <a href="https://coursera.org/verify/professional-cert/PCHSTL2T45CS" class="btn small primary" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> View Certificate
@@ -267,7 +256,7 @@
           <h3><i class="fa-solid fa-shield"></i> Cisco CyberOps Associate</h3>
           <p>
             Issued: 2025 – focuses on SOC operations, monitoring, detection, and
-            response in modern networked environments.
+            response in modern networked environments.[file:38]
           </p>
           <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_ur" class="btn small primary" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> View Credential
@@ -323,7 +312,7 @@
       <p>
         Long‑form notes and reflections live on Medium, where projects, paths into
         cybersecurity, and core concepts are broken down for others starting their
-        journey.
+        journey.[file:38]
       </p>
 
       <div class="writing-cards">
@@ -331,9 +320,13 @@
           <h3><i class="fa-brands fa-medium"></i> Breaking into Cybersecurity</h3>
           <p>
             A beginner’s guide to launching a cybersecurity career, mapping out
-            skills, mindset, and practical steps into the field.
+            skills, mindset, and practical steps into the field.[file:38]
           </p>
-          <a href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352fb" class="btn primary small" target="_blank">
+          <a
+            href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-<ID>"
+            class="btn primary small"
+            target="_blank"
+          >
             <i class="fa-solid fa-up-right-from-square"></i> Read on Medium
           </a>
         </div>
@@ -342,9 +335,13 @@
           <h3><i class="fa-brands fa-medium"></i> Navigating the World of Cybersecurity</h3>
           <p>
             Deep dive into controls, frameworks, and compliance, and how they fit
-            together in real security programs.
+            together in real security programs.[file:38]
           </p>
-          <a href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-a-deep-dive-into-controls-frameworks-and-compliance-28e4df456599" class="btn primary small" target="_blank">
+          <a
+            href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-<ID>"
+            class="btn primary small"
+            target="_blank"
+          >
             <i class="fa-solid fa-up-right-from-square"></i> Read on Medium
           </a>
         </div>
@@ -386,7 +383,7 @@
         <div class="writing-card">
           <h3>2025</h3>
           <ul>
-            <li>Completed Cisco CyberOps Associate certification.</li>
+            <li>Completed Cisco CyberOps Associate certification.[file:38]</li>
             <li>Extended IoT and ISO/SAE 21434 research sections.</li>
           </ul>
         </div>
@@ -407,7 +404,6 @@
         great places to see what is being worked on.
       </p>
 
-      
       <div class="contact-layout">
         <div class="contact-form-wrapper">
           <h3>Send a message</h3>
@@ -460,7 +456,6 @@
               ></textarea>
             </div>
 
-            
             <input type="hidden" name="_captcha" value="false" />
             <input
               type="hidden"
@@ -506,11 +501,11 @@
 
   <footer class="site-footer">
     <p>© <span id="year"></span> 63n713m4n · Hosted on GitHub Pages</p>
-    <!-- psst: sometimes /ctf.html is worth a visit. -->
+    <!-- sometimes /ctf.html is worth a visit -->
   </footer>
 
-  
   <script>
+    // Hero subtitle typewriter
     const typewriterText = [
       "Aspiring Security Engineer.",
       "Breaking things to understand them.",
@@ -545,30 +540,95 @@
       }
     }
 
+    // Hero terminal line-by-line animation
+    function initHeroTerminal() {
+      const container = document.getElementById("hero-terminal");
+      if (!container) return;
+
+      const heroLines = [
+        { text: "$ whoami", prompt: true },
+        {
+          text: "> I'm a Cybersecurity Master's student chilling in Sweden, slicing through threat analysis, IoT vulnerabilities, and secure network designs like a Viking with a keyboard.",
+          prompt: false
+        },
+        {
+          text: "> I wrestle with Capture The Flag (CTF) challenges for kicks and spill my cyber‑wisdom in blogs—because sharing is caring, unless it’s malware or my last fika pastry.",
+          prompt: false
+        },
+        {
+          text: "> When I'm not saving the internet, I'm soaring through virtual skies in flight sims, proving I can crash a plane and a hacker’s dreams with Nordic precision.",
+          prompt: false
+        },
+        {
+          text: "> Let’s team up, crack some jokes, and lock down the digital world from the land of ABBA and meatballs!",
+          prompt: false
+        },
+        { text: "$ cat interests.txt", prompt: true },
+        {
+          text: "> Threat Intelligence & Analysis, Penetration Testing, Security Architecture, Vulnerability Assessment, Incident Response, Network Security, OSINT, Cloud Security.",
+          prompt: false
+        }
+      ];
+
+      const typeDuration = 900;
+      const gapDuration = 150;
+
+      const createLineElement = (line) => {
+        const el = document.createElement("p");
+        el.classList.add("hero-line");
+        if (line.prompt) el.classList.add("prompt");
+        el.textContent = line.text;
+        container.appendChild(el);
+        return el;
+      };
+
+      const animateLine = (el, text) => {
+        el.style.opacity = "1";
+        el.style.animation = `heroType ${typeDuration}ms steps(${Math.max(
+          text.length,
+          20
+        )}, end) forwards`;
+      };
+
+      const runSequence = async () => {
+        for (const line of heroLines) {
+          const el = createLineElement(line);
+          animateLine(el, line.text);
+          await new Promise((r) =>
+            setTimeout(r, typeDuration + gapDuration)
+          );
+        }
+      };
+
+      runSequence();
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       type();
       document.getElementById("year").textContent = new Date().getFullYear();
+      initHeroTerminal();
 
-      // Attack/Defense toggle
       const modeText = document.getElementById("mode-text");
       const btnMixed = document.getElementById("mode-mixed");
       const btnAttack = document.getElementById("mode-attack");
       const btnDefense = document.getElementById("mode-defense");
 
-      btnMixed.addEventListener("click", () => {
-        modeText.textContent =
-          "Currently showing a mix of offensive and defensive skills. Toggle to focus on one side.";
-      });
+      if (btnMixed && btnAttack && btnDefense && modeText) {
+        btnMixed.addEventListener("click", () => {
+          modeText.textContent =
+            "Currently showing a mix of offensive and defensive skills. Toggle to focus on one side.";
+        });
 
-      btnAttack.addEventListener("click", () => {
-        modeText.textContent =
-          "Offensive focus: think like an attacker first – recon, enumeration, exploitation, and privilege escalation feeding back into better defenses.";
-      });
+        btnAttack.addEventListener("click", () => {
+          modeText.textContent =
+            "Offensive focus: think like an attacker first – recon, enumeration, exploitation, and privilege escalation feeding back into better defenses.";
+        });
 
-      btnDefense.addEventListener("click", () => {
-        modeText.textContent =
-          "Defensive focus: monitoring, detection, threat intelligence, and incident response, using attacker mindset to design better controls.";
-      });
+        btnDefense.addEventListener("click", () => {
+          modeText.textContent =
+            "Defensive focus: monitoring, detection, threat intelligence, and incident response, using attacker mindset to design better controls.";
+        });
+      }
     });
   </script>
 </body>
