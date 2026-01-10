@@ -167,6 +167,7 @@ p {
   color: var(--accent);
   text-decoration: none;
   font-size: 0.9rem;
+  background: transparent;
   transition: background 0.15s ease, color 0.15s ease,
     transform 0.1s ease, box-shadow 0.15s ease;
 }
@@ -246,8 +247,16 @@ p {
   font-size: 0.82rem;
 }
 
-.terminal-body p {
+/* hero terminal letter-by-letter lines */
+.hero-line {
   margin: 0.1rem 0;
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  color: #e5e7eb;
+}
+
+.hero-line.prompt {
+  color: #22c55e;
 }
 
 /* Section backgrounds */
@@ -263,15 +272,23 @@ p {
   background: rgba(15, 23, 42, 0.6);
 }
 
-#certs {
+#labs {
   background: rgba(15, 23, 42, 0.85);
 }
 
-#thm {
+#certs {
   background: rgba(15, 23, 42, 0.6);
 }
 
+#thm {
+  background: rgba(15, 23, 42, 0.85);
+}
+
 #writing {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+#changelog {
   background: rgba(15, 23, 42, 0.85);
 }
 
@@ -365,7 +382,7 @@ p {
   box-shadow: var(--shadow-accent);
 }
 
-/* Writing / Cards */
+/* Writing / generic cards */
 .writing-cards {
   display: grid;
   gap: 1.25rem;
