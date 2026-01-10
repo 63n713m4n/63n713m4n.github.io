@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Cybersecurity portfolio of Alphonse (63n713m4n) – projects, labs, certifications, TryHackMe, and write-ups."
+    content="Cybersecurity portfolio of Alphonse (63n713m4n) – projects, labs, certifications, TryHackMe, CTF easter egg, and write-ups."
   />
 
+  <!-- Font & Icons -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -27,9 +28,11 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
+      <a href="#labs">Labs & CTF</a>
       <a href="#certs">Certifications</a>
       <a href="#thm">TryHackMe</a>
       <a href="#writing">Writing</a>
+      <a href="#changelog">Changelog</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -46,8 +49,8 @@
         <a href="#projects" class="btn primary">
           <i class="fa-solid fa-sitemap"></i> View projects
         </a>
-        <a href="#contact" class="btn ghost">
-          <i class="fa-solid fa-paper-plane"></i> Get in touch
+        <a href="#labs" class="btn ghost">
+          <i class="fa-solid fa-user-ninja"></i> Labs & CTF
         </a>
       </div>
 
@@ -57,7 +60,7 @@
           <span class="dot red"></span>
           <span class="dot yellow"></span>
           <span class="dot green"></span>
-          <span class="terminal-title">~/whoami</span>
+          <span class="terminal-title">~/profile.sh</span>
         </div>
         <div class="terminal-body">
           <p>$ whoami</p>
@@ -71,27 +74,54 @@
     </div>
   </section>
 
-    
+  
   <section class="section" id="about">
     <div class="section-inner">
-      <h2>About</h2>
+      <h2>About Me</h2>
       <p>
-        Curious, hands‑on, and obsessed with understanding how systems break and how to defend them.  
-        Most of my time goes into security labs, write‑ups, and building a practical foundation in
-        offensive and defensive security.
+        Cybersecurity Master's student based in Sweden, mixing academic depth with
+        hands‑on labs, CTFs, and real‑world security projects.
       </p>
       <p>
-        This site is a living log of what I'm learning: experiments, projects, and notes that trace
-        my growth from beginner to security engineer.
+        Interests span threat intelligence, penetration testing, OSINT, and security
+        architecture, with a growing focus on IoT and automotive security.
+      </p>
+      <p>
+        Outside of hacking and hardening, there is a love for flight simulators,
+        tech tinkering, and turning complex security topics into accessible stories
+        through blogs and write‑ups.
       </p>
     </div>
   </section>
 
-  
+  <!-- SKILLS + ATTACK/DEFENSE TOGGLE -->
   <section class="section" id="skills">
     <div class="section-inner">
       <h2>Skills & Focus</h2>
-      <div class="skills-grid">
+
+      <!-- Attack vs Defense toggle -->
+      <div class="writing-cards" style="margin-bottom:1.3rem;">
+        <div class="writing-card">
+          <h3><i class="fa-solid fa-code-branch"></i> View mode</h3>
+          <p id="mode-text">
+            Currently showing a mix of offensive and defensive skills. Toggle to
+            focus on one side.
+          </p>
+          <div style="margin-top:0.7rem; display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <button type="button" class="btn small" id="mode-mixed">
+              mixed
+            </button>
+            <button type="button" class="btn small" id="mode-attack">
+              offensive focus
+            </button>
+            <button type="button" class="btn small" id="mode-defense">
+              defensive focus
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-grid" id="skills-grid">
         <div class="skills-card">
           <h3><i class="fa-solid fa-skull-crossbones"></i> Security Skills</h3>
           <ul>
@@ -144,19 +174,14 @@
       <div class="projects-grid">
         <article class="project-card">
           <h3>📡 IoT Security Analysis Project</h3>
-          <p>
-            Analyzed vulnerabilities in smart devices (siren and light) during the
-            Cybersecurity Exchange Program at the University of Twente.
-          </p>
+          <p><strong>Context.</strong> Analyzed vulnerabilities in smart siren and light devices during the Cybersecurity Exchange Program at the University of Twente.[file:38]</p>
+          <p><strong>What I did.</strong></p>
           <ul>
-            <li>Assessed IoT device exposure and communication weaknesses</li>
-            <li>Identified vulnerabilities and misconfigurations in device behavior</li>
-            <li>
-              Produced a comprehensive report with remediation strategies and
-              security recommendations
-            </li>
+            <li>Mapped device attack surface and communication flows</li>
+            <li>Identified exposure and misconfigurations in device behavior</li>
+            <li>Applied practical threat modeling to prioritize weaknesses</li>
           </ul>
-          
+          <p><strong>Impact.</strong> Produced a comprehensive report with remediation strategies and concrete security recommendations for hardening the IoT setup.[file:38]</p>
           <a href="uploads/IoT_Project_Report.pdf" class="btn small" target="_blank">
             <i class="fa-solid fa-file-pdf"></i> View IoT Project Report (PDF)
           </a>
@@ -164,20 +189,14 @@
 
         <article class="project-card">
           <h3>🚘 ISO/SAE 21434 Industry Implementation Review</h3>
-          <p>
-            Academic literature review focused on challenges, effectiveness, and
-            automation support in implementing ISO/SAE 21434 for automotive
-            cybersecurity.
-          </p>
+          <p><strong>Context.</strong> Academic literature review on how organizations implement ISO/SAE 21434 for automotive cybersecurity in real environments.[file:38]</p>
+          <p><strong>What I did.</strong></p>
           <ul>
-            <li>Explored real‑world adoption issues and TARA practices</li>
-            <li>Analyzed effectiveness measurement gaps and process limitations</li>
-            <li>
-              Evaluated current automation tools across the vehicle lifecycle and
-              identified where they fall short
-            </li>
+            <li>Surveyed industry papers on TARA and lifecycle security processes</li>
+            <li>Compared effectiveness measurement approaches and gaps</li>
+            <li>Evaluated current automation tooling across the vehicle lifecycle</li>
           </ul>
-          
+          <p><strong>Impact.</strong> Highlighted adoption challenges, measurement blind‑spots, and where automation helps or fails, forming a base for future research.[file:38]</p>
           <a href="uploads/LitReview.pdf" class="btn small" target="_blank">
             <i class="fa-solid fa-file-pdf"></i> View Literature Review (PDF)
           </a>
@@ -185,21 +204,51 @@
 
         <article class="project-card">
           <h3>🧪 Labs, CTFs &amp; Ongoing Work</h3>
-          <p>
-            A growing collection of lab exercises, CTF write‑ups, and applied
-            experiments used to build intuition and real‑world skills in security.
-          </p>
+          <p><strong>Context.</strong> Continuous practice environment across small labs, CTFs, and notes used to build intuition and repeatable workflows.</p>
+          <p><strong>What I do.</strong></p>
           <ul>
-            <li>Ad‑hoc labs around web, network, and OSINT scenarios</li>
-            <li>CTF challenges focused on fundamentals and practical exploitation</li>
-            <li>Write‑ups and notes to capture methods and lessons learned</li>
+            <li>Set up focused labs around web, network, and OSINT scenarios</li>
+            <li>Work through CTF challenges targeted at fundamentals</li>
+            <li>Capture methodologies and mistakes in structured write‑ups</li>
           </ul>
+          <p><strong>Impact.</strong> Builds real muscle memory and personal playbooks rather than just theoretical knowledge.</p>
         </article>
       </div>
     </div>
   </section>
 
   
+  <section class="section" id="labs">
+    <div class="section-inner">
+      <h2>Labs & CTF Mindset</h2>
+      <div class="writing-cards">
+        <div class="writing-card">
+          <h3><i class="fa-solid fa-flask"></i> Homelab & experiments</h3>
+          <p>
+            Minimal homelab used to simulate attacks, collect logs, and observe
+            how activity looks from the defender’s point of view.
+          </p>
+          <p>
+            Includes experiments with basic log collection, simple detections, and
+            documenting how different kinds of noise show up in telemetry.
+          </p>
+        </div>
+        <div class="writing-card">
+          <h3><i class="fa-solid fa-flag-checkered"></i> CTF approach</h3>
+          <p>
+            Treats CTFs as a training ground for structured thinking: recon →
+            enumeration → exploitation → reporting, not just “guessing the trick”.[web:84]
+          </p>
+          <p>
+            Focused on challenges that map to real‑world skills: web vulns,
+            misconfigurations, simple privilege escalation, and OSINT trails.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
   <section class="section" id="certs">
     <div class="section-inner">
       <h2>Certifications</h2>
@@ -210,7 +259,6 @@
             Issued: 2023 – foundational coverage of security operations,
             incident response, and common tools and processes.
           </p>
-          
           <a href="https://coursera.org/verify/professional-cert/PCHSTL2T45CS" class="btn small primary" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> View Certificate
           </a>
@@ -221,8 +269,7 @@
             Issued: 2025 – focuses on SOC operations, monitoring, detection, and
             response in modern networked environments.
           </p>
-          
-          <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_url" class="btn small primary" target="_blank">
+          <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_ur" class="btn small primary" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> View Credential
           </a>
         </div>
@@ -236,16 +283,15 @@
       <h2>TryHackMe Progress</h2>
       <p>
         Hands‑on practice on TryHackMe to build offensive and defensive skills in a
-        guided, lab‑based environment.
+        guided, lab‑based environment.[web:96]
       </p>
       <div class="writing-cards">
         <div class="writing-card">
           <h3><i class="fa-solid fa-user-ninja"></i> TryHackMe Profile</h3>
           <p>
             Regularly completing rooms focused on web exploitation, privilege
-            escalation, networking, and blue‑team fundamentals.
+            escalation, networking, and blue‑team fundamentals.[web:96]
           </p>
-          
           <a
             href="https://tryhackme.com/p/63n713m4n"
             class="btn small"
@@ -258,10 +304,10 @@
           <h3><i class="fa-solid fa-layer-group"></i> Focused Rooms & Paths</h3>
           <p>
             Working through beginner‑to‑intermediate paths and rooms that strengthen
-            fundamentals and mirror real‑world attack chains.
+            fundamentals and mirror real‑world attack chains.[web:84]
           </p>
           <ul>
-            <li>Intro and fundamentals paths</li>
+            <li>Intro and fundamentals paths to solidify basics</li>
             <li>Web exploitation and enumeration‑heavy rooms</li>
             <li>Privilege escalation and post‑exploitation labs</li>
           </ul>
@@ -287,8 +333,7 @@
             A beginner’s guide to launching a cybersecurity career, mapping out
             skills, mindset, and practical steps into the field.
           </p>
-          
-          <a href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352f" class="btn primary small" target="_blank">
+          <a href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352fb" class="btn primary small" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> Read on Medium
           </a>
         </div>
@@ -299,7 +344,6 @@
             Deep dive into controls, frameworks, and compliance, and how they fit
             together in real security programs.
           </p>
-          
           <a href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-a-deep-dive-into-controls-frameworks-and-compliance-28e4df456599" class="btn primary small" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> Read on Medium
           </a>
@@ -318,6 +362,33 @@
           >
             <i class="fa-brands fa-medium"></i> View Medium profile
           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="section" id="changelog">
+    <div class="section-inner">
+      <h2>Site Changelog</h2>
+      <p class="section-intro">
+        This portfolio is treated like a living lab. A few recent changes:
+      </p>
+      <div class="writing-cards">
+        <div class="writing-card">
+          <h3>2026‑01</h3>
+          <ul>
+            <li>Redesigned hero and whoami terminal block.</li>
+            <li>Added hidden web CTF page with client‑side flag checker.</li>
+            <li>Created particle‑based interactive thank‑you page.</li>
+          </ul>
+        </div>
+        <div class="writing-card">
+          <h3>2025</h3>
+          <ul>
+            <li>Completed Cisco CyberOps Associate certification.</li>
+            <li>Extended IoT and ISO/SAE 21434 research sections.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -396,6 +467,7 @@
               name="_next"
               value="https://63n713m4n.github.io/thankyou.html"
             />
+            <input type="hidden" name="_subject" value="Portfolio contact" />
 
             <button type="submit" class="btn btn-submit">Send Message</button>
           </form>
@@ -476,6 +548,27 @@
     document.addEventListener("DOMContentLoaded", () => {
       type();
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Attack/Defense toggle
+      const modeText = document.getElementById("mode-text");
+      const btnMixed = document.getElementById("mode-mixed");
+      const btnAttack = document.getElementById("mode-attack");
+      const btnDefense = document.getElementById("mode-defense");
+
+      btnMixed.addEventListener("click", () => {
+        modeText.textContent =
+          "Currently showing a mix of offensive and defensive skills. Toggle to focus on one side.";
+      });
+
+      btnAttack.addEventListener("click", () => {
+        modeText.textContent =
+          "Offensive focus: think like an attacker first – recon, enumeration, exploitation, and privilege escalation feeding back into better defenses.";
+      });
+
+      btnDefense.addEventListener("click", () => {
+        modeText.textContent =
+          "Defensive focus: monitoring, detection, threat intelligence, and incident response, using attacker mindset to design better controls.";
+      });
     });
   </script>
 </body>
