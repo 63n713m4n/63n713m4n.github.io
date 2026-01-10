@@ -60,22 +60,81 @@
       margin-top: 0.9rem;
     }
 
-    .flag {
-      margin-top: 1.5rem;
-      padding: 0.7rem 0.9rem;
-      border-radius: 8px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px dashed rgba(34, 197, 94, 0.6);
-      font-size: 0.95rem;
-      display: inline-block;
-      /* hide by default; users can reveal by selecting text or editing CSS */
-      color: #020617;
-    }
-
     .hint-encoded {
       margin-top: 1rem;
       font-size: 0.85rem;
       color: #9ca3af;
+    }
+
+    /* Flag is only in source, not visually rendered */
+    .flag {
+      display: none;
+    }
+
+    .flag-form {
+      margin-top: 1.6rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      padding-top: 1.3rem;
+    }
+
+    .flag-form h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .field-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .field-row label {
+      color: #e5e7eb;
+    }
+
+    .field-row input {
+      background: #020617;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.5rem 0.6rem;
+      color: #e5e7eb;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .field-row input::placeholder {
+      color: #6b7280;
+    }
+
+    .field-row input:focus {
+      outline: none;
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: var(--green);
+      color: #020617;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--green);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(0, 255, 149, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      background-color: #00e676;
+      box-shadow: 0 0 22px rgba(0, 255, 149, 0.6);
     }
 
     a.back {
@@ -105,9 +164,10 @@
     </p>
 
     <p class="hint">
-      hint #1: sometimes text isn’t really gone, it’s just the same color as the background.
+      hint #1: sometimes text isn’t really gone, it’s just not rendered.
     </p>
 
+    <!-- hidden flag for players who view source -->
     <div class="flag">
       FLAG{swedish_viking_ctf_hunter}
     </div>
@@ -115,8 +175,54 @@
     <p class="hint-encoded">
       hint #2: ZmxhZ19pc19ub3Rfb25seV9pbl90aGVfbWFpbl9wYWdl
     </p>
+    <!-- Decodes to: flag_is_not_only_in_the_main_page -->
 
-    <!-- Decoding the base64 above gives: flag_is_not_only_in_the_main_page -->
+    <div class="flag-form">
+      <h2>submit your flag</h2>
+      <p class="hint">
+        if you think you have the correct flag, submit it below.
+      </p>
+
+      <form
+        action="https://formsubmit.co/841f94275ae3236a0baab0d0cf7e6514"
+        method="POST"
+      >
+        <div class="field-row">
+          <label for="flag">flag</label>
+          <input
+            type="text"
+            id="flag"
+            name="flag"
+            placeholder="FLAG{...}"
+            required
+          />
+        </div>
+
+        
+        <div class="field-row">
+          <label for="solver">name / handle (optional)</label>
+          <input
+            type="text"
+            id="solver"
+            name="solver"
+            placeholder="your alias or name"
+          />
+        </div>
+
+        
+        <input type="hidden" name="_captcha" value="false" />
+        <input
+          type="hidden"
+          name="_next"
+          value="https://63n713m4n.github.io/ctf-congrats.html"
+        />
+        <input type="hidden" name="_subject" value="CTF flag submission" />
+
+        <button type="submit" class="btn-submit">
+          submit flag →
+        </button>
+      </form>
+    </div>
 
     <a href="index.html" class="back">← back to the “normal” site</a>
   </div>
