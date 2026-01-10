@@ -4,12 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thank You | Message Sent</title>
+
+  <!-- Reuse main styles if you want -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- tsParticles -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+
   <style>
     :root {
       --green: #00ff95;
-      --bg-gradient: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+      --bg-gradient: radial-gradient(circle at top left, #020617, #020b18, #000000);
     }
 
     body {
@@ -20,118 +25,232 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Courier New', monospace;
+      font-family: "Fira Code", Menlo, Monaco, "Courier New", monospace;
       overflow: hidden;
     }
 
     #tsparticles {
       position: fixed;
-      top: 0; left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
     }
 
-    .terminal {
+    .terminal-wrap {
       position: relative;
       z-index: 1;
-      background-color: rgba(0, 0, 0, 0.85);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 255, 149, 0.2);
-      max-width: 700px;
+      max-width: 720px;
       width: 90%;
-      animation: fadeIn 2s ease-in-out;
     }
 
-    .terminal::before {
-      content: "terminal.sh";
-      color: #999;
-      font-size: 0.85rem;
-      display: block;
+    .terminal {
+      background-color: rgba(0, 0, 0, 0.88);
+      padding: 1.75rem 1.5rem 1.6rem;
+      border-radius: 12px;
+      box-shadow: 0 0 24px rgba(0, 255, 149, 0.25);
+      border: 1px solid rgba(0, 255, 149, 0.25);
+      animation: fadeIn 1.4s ease-out;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
       margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: #94a3b8;
     }
 
-    .line {
-      white-space: pre-wrap;
+    .th-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .th-dot.red { background: #f97373; }
+    .th-dot.yellow { background: #facc15; }
+    .th-dot.green { background: #4ade80; }
+
+    .th-title {
+      margin-left: auto;
+      opacity: 0.8;
+    }
+
+    .lines {
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .prompt {
+      color: var(--green);
+    }
+
+    .muted {
+      color: #9ca3af;
+    }
+
+    .success {
+      color: #4ade80;
+    }
+
+    .next-steps {
+      margin-top: 1.5rem;
+      font-size: 0.88rem;
+      color: #9ca3af;
+    }
+
+    .next-steps ul {
+      padding-left: 1.1rem;
+      margin: 0.6rem 0 0;
+    }
+
+    .next-steps li {
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.8rem;
+      background-color: var(--green);
+      color: #020617;
+      padding: 0.7rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid var(--green);
+      box-shadow: 0 0 16px rgba(0, 255, 149, 0.45);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn-home:hover {
+      transform: translateY(-3px);
+      background-color: #00e676;
+      box-shadow: 0 0 22px rgba(0, 255, 149, 0.6);
+    }
+
+    .btn-home span {
       font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .typing {
       overflow: hidden;
       border-right: 2px solid var(--green);
+      white-space: pre-wrap;
       width: 0;
-      animation: typing 4s steps(80, end) forwards, blink 0.8s step-end infinite;
+      animation: typing 3.4s steps(80, end) forwards, blink 0.8s step-end infinite;
     }
 
     @keyframes typing {
-      to { width: 100% }
+      to { width: 100%; }
     }
 
     @keyframes blink {
       50% { border-color: transparent; }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .btn-home {
-      display: inline-block;
-      margin-top: 2rem;
-      background-color: var(--green);
-      color: #000;
-      padding: 0.7rem 1.5rem;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-
-    .btn-home:hover {
-      transform: translateY(-3px);
-      background-color: #00e676;
+    @media (max-width: 600px) {
+      .terminal {
+        padding: 1.4rem 1.1rem 1.3rem;
+      }
     }
   </style>
 </head>
 <body>
   <div id="tsparticles"></div>
 
-  <div class="terminal">
-    <div class="line">
-      $ echo "📬 Thanks for reaching out, Hacker!"<br><br>
-      Your message was successfully delivered.<br>
-      I’ll be in touch soon. Until then, stay curious and stay secure. 🔐<br><br>
-      —63n713m4n.sh
+  <div class="terminal-wrap">
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="th-dot red"></span>
+        <span class="th-dot yellow"></span>
+        <span class="th-dot green"></span>
+        <span class="th-title">thankyou.sh</span>
+      </div>
+
+      <div class="lines typing">
+$ echo "📬 Thanks for reaching out, hacker!"
+
+$message_status = "queued"      # handoff to inbox
+$route           = "63n713m4n → you"
+$timestamp       = $(date)
+
+<span class="success">[✔] Message delivered successfully.</span>
+<span class="muted">[·] Signal locked in. Response will follow soon.</span>
+
+Until then: stay curious, stay secure, and keep breaking things (legally). 🔐
+
+— 63n713m4n.sh
+      </div>
+
+      <div class="next-steps">
+        <span class="muted">while (you_wait) {</span>
+        <ul>
+          <li>Explore more projects back on the portfolio.</li>
+          <li>Connect on LinkedIn for collabs and roles.</li>
+          <li>Read a write‑up on Medium and steal some ideas.</li>
+        </ul>
+        <span class="muted">}</span>
+      </div>
+
+      <a href="index.html" class="btn-home">
+        <span>←</span> <span>Back to Portfolio</span>
+      </a>
     </div>
-    <a href="index.html" class="btn-home">← Back to Portfolio</a>
   </div>
 
   <script>
     tsParticles.load("tsparticles", {
       fullScreen: { enable: false },
       background: { color: "transparent" },
+      fpsLimit: 60,
       particles: {
-        number: { value: 60 },
+        number: { value: 70, density: { enable: true, area: 800 } },
         color: { value: "#00ff95" },
         shape: { type: "circle" },
-        opacity: { value: 0.5 },
-        size: { value: { min: 1, max: 3 } },
-        move: { enable: true, speed: 1, direction: "none", outMode: "bounce" },
+        opacity: {
+          value: 0.4,
+          animation: { enable: true, speed: 0.5, minimumValue: 0.1, sync: false }
+        },
+        size: {
+          value: { min: 1, max: 3 },
+          animation: { enable: true, speed: 2, minimumValue: 0.5, sync: false }
+        },
         links: {
           enable: true,
-          distance: 100,
+          distance: 110,
           color: "#00ff95",
-          opacity: 0.3,
+          opacity: 0.25,
           width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          outModes: "bounce",
+          random: false,
+          straight: false
         }
       },
       interactivity: {
         events: {
           onHover: { enable: true, mode: "repulse" },
-          onClick: { enable: true, mode: "push" }
+          onClick: { enable: true, mode: "push" },
+          resize: true
         },
         modes: {
-          repulse: { distance: 100 },
-          push: { quantity: 4 }
+          repulse: { distance: 120, duration: 0.4 },
+          push: { quantity: 3 }
         }
       },
       detectRetina: true
