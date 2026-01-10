@@ -65,6 +65,46 @@
   </section>
 
   
+  <section class="section" id="terminal-lab">
+    <div class="section-inner">
+      <h2>Interactive Terminal</h2>
+      <p class="section-intro">
+        Explore this portfolio like a tiny shell. Try: <code>help</code>,
+        <code>whoami</code>, <code>projects</code>, <code>skills</code>,
+        <code>contact</code>, <code>clear</code>.
+      </p>
+
+      <div class="terminal" id="emu">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">~/portfolio$</span>
+        </div>
+        <div class="terminal-body" id="emu-output"></div>
+        <div class="terminal-body">
+          <span class="hero-line prompt">visitor@63n713m4n:~$ </span>
+          <input
+            id="emu-input"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            style="
+              background: transparent;
+              border: none;
+              outline: none;
+              color: #e5e7eb;
+              font-family: inherit;
+              font-size: 0.82rem;
+              width: 80%;
+            "
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
   <section class="section" id="about">
     <div class="section-inner">
       <h2>About Me</h2>
@@ -171,7 +211,7 @@
             <li>Applied practical threat modeling to prioritize weaknesses</li>
           </ul>
           <p><strong>Impact.</strong> Produced a comprehensive report with remediation strategies and concrete security recommendations for hardening the IoT setup.[file:38]</p>
-          <a href="uploads/IoT_Project_Report.pdf" class="btn small" target="_blank">
+          <a href="uploads/LitReview.pdf" class="btn small" target="_blank">
             <i class="fa-solid fa-file-pdf"></i> View IoT Project Report (PDF)
           </a>
         </article>
@@ -186,7 +226,7 @@
             <li>Evaluated current automation tooling across the vehicle lifecycle</li>
           </ul>
           <p><strong>Impact.</strong> Highlighted adoption challenges, measurement blind‑spots, and where automation helps or fails, forming a base for future research.[file:38]</p>
-          <a href="uploads/LitReview.pdf" class="btn small" target="_blank">
+          <a href="#" class="btn small" target="_blank">
             <i class="fa-solid fa-file-pdf"></i> View Literature Review (PDF)
           </a>
         </article>
@@ -215,7 +255,7 @@
           <h3><i class="fa-solid fa-flask"></i> Homelab & experiments</h3>
           <p>
             Minimal homelab used to simulate attacks, collect logs, and observe
-            how activity looks from the defender’s point of view.[file:38]
+            how activity looks from the defender’s point of view.
           </p>
           <p>
             Includes experiments with basic log collection, simple detections, and
@@ -246,7 +286,7 @@
           <h3><i class="fa-brands fa-google"></i> Google Cybersecurity Professional</h3>
           <p>
             Issued: 2023 – foundational coverage of security operations,
-            incident response, and common tools and processes.[file:38]
+            incident response, and common tools and processes.
           </p>
           <a href="https://coursera.org/verify/professional-cert/PCHSTL2T45CS" class="btn small primary" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> View Certificate
@@ -256,7 +296,7 @@
           <h3><i class="fa-solid fa-shield"></i> Cisco CyberOps Associate</h3>
           <p>
             Issued: 2025 – focuses on SOC operations, monitoring, detection, and
-            response in modern networked environments.[file:38]
+            response in modern networked environments.
           </p>
           <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_ur" class="btn small primary" target="_blank">
             <i class="fa-solid fa-up-right-from-square"></i> View Credential
@@ -312,7 +352,7 @@
       <p>
         Long‑form notes and reflections live on Medium, where projects, paths into
         cybersecurity, and core concepts are broken down for others starting their
-        journey.[file:38]
+        journey.
       </p>
 
       <div class="writing-cards">
@@ -320,10 +360,10 @@
           <h3><i class="fa-brands fa-medium"></i> Breaking into Cybersecurity</h3>
           <p>
             A beginner’s guide to launching a cybersecurity career, mapping out
-            skills, mindset, and practical steps into the field.[file:38]
+            skills, mindset, and practical steps into the field.
           </p>
           <a
-            href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-<ID>"
+            href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352fb"
             class="btn primary small"
             target="_blank"
           >
@@ -335,10 +375,10 @@
           <h3><i class="fa-brands fa-medium"></i> Navigating the World of Cybersecurity</h3>
           <p>
             Deep dive into controls, frameworks, and compliance, and how they fit
-            together in real security programs.[file:38]
+            together in real security programs.
           </p>
           <a
-            href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-<ID>"
+            href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-a-deep-dive-into-controls-frameworks-and-compliance-28e4df456599"
             class="btn primary small"
             target="_blank"
           >
@@ -383,7 +423,7 @@
         <div class="writing-card">
           <h3>2025</h3>
           <ul>
-            <li>Completed Cisco CyberOps Associate certification.[file:38]</li>
+            <li>Completed Cisco CyberOps Associate certification.</li>
             <li>Extended IoT and ISO/SAE 21434 research sections.</li>
           </ul>
         </div>
@@ -540,7 +580,7 @@
       }
     }
 
-    // Hero terminal line-by-line animation
+    // Hero terminal letter-by-letter animation
     function initHeroTerminal() {
       const container = document.getElementById("hero-terminal");
       if (!container) return;
@@ -570,43 +610,114 @@
         }
       ];
 
-      const typeDuration = 900;
-      const gapDuration = 150;
+      const charDelay = 20;
+      const linePause = 250;
 
-      const createLineElement = (line) => {
-        const el = document.createElement("p");
-        el.classList.add("hero-line");
-        if (line.prompt) el.classList.add("prompt");
-        el.textContent = line.text;
-        container.appendChild(el);
-        return el;
-      };
+      const typeLine = (line) =>
+        new Promise((resolve) => {
+          const el = document.createElement("p");
+          el.classList.add("hero-line");
+          if (line.prompt) el.classList.add("prompt");
+          container.appendChild(el);
 
-      const animateLine = (el, text) => {
-        el.style.opacity = "1";
-        el.style.animation = `heroType ${typeDuration}ms steps(${Math.max(
-          text.length,
-          20
-        )}, end) forwards`;
-      };
+          let i = 0;
+          const text = line.text;
 
-      const runSequence = async () => {
+          const typer = () => {
+            if (i <= text.length) {
+              el.textContent = text.slice(0, i);
+              i++;
+              setTimeout(typer, charDelay);
+            } else {
+              setTimeout(resolve, linePause);
+            }
+          };
+          typer();
+        });
+
+      (async () => {
         for (const line of heroLines) {
-          const el = createLineElement(line);
-          animateLine(el, line.text);
-          await new Promise((r) =>
-            setTimeout(r, typeDuration + gapDuration)
-          );
+          await typeLine(line);
+        }
+      })();
+    }
+
+    // Interactive terminal emulator
+    function initEmu() {
+      const output = document.getElementById("emu-output");
+      const input = document.getElementById("emu-input");
+      if (!output || !input) return;
+
+      const writeLine = (text) => {
+        const p = document.createElement("p");
+        p.classList.add("hero-line");
+        p.textContent = text;
+        output.appendChild(p);
+        output.scrollTop = output.scrollHeight;
+      };
+
+      const commands = {
+        help: () => {
+          writeLine("available commands:");
+          writeLine("  help      - show this help");
+          writeLine("  whoami    - about the human behind 63n713m4n");
+          writeLine("  projects  - list key projects");
+          writeLine("  skills    - list main skills");
+          writeLine("  contact   - show contact links");
+          writeLine("  clear     - clear the terminal");
+        },
+        whoami: () => {
+          writeLine("name : Alphonse (63n713m4n)");
+          writeLine("role : cybersecurity master's student in Sweden");
+          writeLine("focus: threat intel, pentest, IoT & automotive security");
+        },
+        projects: () => {
+          writeLine("projects:");
+          writeLine("  - IoT Security Analysis (smart siren & light)");
+          writeLine("  - ISO/SAE 21434 industry implementation review");
+          writeLine("  - labs & CTF notes and experiments");
+        },
+        skills: () => {
+          writeLine("skills:");
+          writeLine("  - penetration testing, vuln assessment, incident response");
+          writeLine("  - network / cloud security, SIEM, Python & Bash");
+        },
+        contact: () => {
+          writeLine("contact:");
+          writeLine("  LinkedIn: https://www.linkedin.com/in/alphonse-joseph");
+          writeLine("  GitHub  : https://github.com/63n713m4n");
+          writeLine("  Medium  : https://medium.com/@63n713m4n");
+        },
+        clear: () => {
+          output.innerHTML = "";
         }
       };
 
-      runSequence();
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const cmd = input.value.trim();
+          if (!cmd) return;
+
+          writeLine("visitor@63n713m4n:~$ " + cmd);
+
+          if (commands[cmd]) {
+            commands[cmd]();
+          } else {
+            writeLine("unknown command: " + cmd);
+            writeLine("type 'help' for a list of commands");
+          }
+
+          input.value = "";
+        }
+      });
     }
 
+    // DOMContentLoaded init
     document.addEventListener("DOMContentLoaded", () => {
       type();
       document.getElementById("year").textContent = new Date().getFullYear();
       initHeroTerminal();
+      initEmu();
 
       const modeText = document.getElementById("mode-text");
       const btnMixed = document.getElementById("mode-mixed");
