@@ -9,6 +9,7 @@
     :root {
       --green: #00ff95;
       --bg: #020617;
+      --error: #fb7185;
     }
 
     * {
@@ -66,8 +67,8 @@
       color: #9ca3af;
     }
 
-    /* Flag is only in source, not visually rendered */
-    .flag {
+    /* Flag kept in source but not displayed */
+    #hidden-flag {
       display: none;
     }
 
@@ -137,6 +138,29 @@
       box-shadow: 0 0 22px rgba(0, 255, 149, 0.6);
     }
 
+    .result {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .result.error {
+      color: var(--error);
+    }
+
+    .result.success {
+      color: var(--green);
+    }
+
+    .congrats-box {
+      margin-top: 1.2rem;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 149, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.9rem;
+      display: none;
+    }
+
     a.back {
       display: inline-block;
       margin-top: 1.5rem;
@@ -168,7 +192,7 @@
     </p>
 
     <!-- hidden flag for players who view source -->
-    <div class="flag">
+    <div id="hidden-flag">
       FLAG{swedish_viking_ctf_hunter}
     </div>
 
@@ -183,10 +207,7 @@
         if you think you have the correct flag, submit it below.
       </p>
 
-      <form
-        action="https://formsubmit.co/841f94275ae3236a0baab0d0cf7e6514"
-        method="POST"
-      >
+      <form id="flag-form">
         <div class="field-row">
           <label for="flag">flag</label>
           <input
@@ -194,37 +215,56 @@
             id="flag"
             name="flag"
             placeholder="FLAG{...}"
+            autocomplete="off"
             required
           />
         </div>
 
-        
-        <div class="field-row">
-          <label for="solver">name / handle (optional)</label>
-          <input
-            type="text"
-            id="solver"
-            name="solver"
-            placeholder="your alias or name"
-          />
-        </div>
-
-        
-        <input type="hidden" name="_captcha" value="false" />
-        <input
-          type="hidden"
-          name="_next"
-          value="https://63n713m4n.github.io/ctf-congrats.html"
-        />
-        <input type="hidden" name="_subject" value="CTF flag submission" />
-
         <button type="submit" class="btn-submit">
           submit flag →
         </button>
+
+        <div id="result" class="result"></div>
+        <div id="congrats" class="congrats-box">
+          nice catch. 🎯 you got the right flag.<br />
+          this little web‑ctf was built into the portfolio as an easter egg.
+        </div>
       </form>
     </div>
 
     <a href="index.html" class="back">← back to the “normal” site</a>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("flag-form");
+      const input = document.getElementById("flag");
+      const result = document.getElementById("result");
+      const congrats = document.getElementById("congrats");
+
+      // get hidden flag and normalize
+      const hiddenFlag = document
+        .getElementById("hidden-flag")
+        .textContent.trim();
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const userFlag = input.value.trim();
+
+        if (!userFlag) return;
+
+        if (userFlag === hiddenFlag) {
+          result.textContent = "correct flag. well played.";
+          result.className = "result success";
+          congrats.style.display = "block";
+        } else {
+          result.textContent = "wrong flag. try again.";
+          result.className = "result error";
+          congrats.style.display = "none";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
