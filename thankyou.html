@@ -78,15 +78,16 @@
       opacity: 0.8;
     }
 
-    .lines {
+    /* Terminal lines */
+    .line {
       white-space: pre-wrap;
       line-height: 1.6;
       font-size: 0.95rem;
       color: #e5e7eb;
       overflow: hidden;
-      border-right: 2px solid var(--green);
       width: 0;
-      animation: typing 3.8s steps(90, end) forwards, blink 0.8s step-end infinite;
+      border-right: 2px solid transparent;
+      opacity: 0;
     }
 
     .prompt { color: var(--green); }
@@ -97,6 +98,8 @@
       margin-top: 1.6rem;
       font-size: 0.9rem;
       color: #9ca3af;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .next-steps ul {
@@ -123,6 +126,7 @@
       border: 1px solid var(--green);
       box-shadow: 0 0 16px rgba(0, 255, 149, 0.45);
       transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      opacity: 0;
     }
 
     .btn-home:hover {
@@ -136,12 +140,23 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes typing {
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
+    /* Typing animation for the active line */
+    @keyframes typeLine {
+      0% {
+        width: 0;
+        opacity: 1;
+        border-right-color: var(--green);
+      }
+      95% {
+        width: 100%;
+        opacity: 1;
+        border-right-color: var(--green);
+      }
+      100% {
+        width: 100%;
+        opacity: 1;
+        border-right-color: transparent;
+      }
     }
 
     @media (max-width: 600px) {
@@ -158,52 +173,39 @@
   <!-- Terminal-style thank you message -->
   <div class="content-wrap">
     <div class="terminal-box">
-  <div class="terminal-header">
-    <span class="th-dot red"></span>
-    <span class="th-dot yellow"></span>
-    <span class="th-dot green"></span>
-    <span class="th-title">thankyou.sh</span>
-  </div>
+      <div class="terminal-header">
+        <span class="th-dot red"></span>
+        <span class="th-dot yellow"></span>
+        <span class="th-dot green"></span>
+        <span class="th-title">thankyou.sh</span>
+      </div>
 
-  <div class="line l1">
-    $ echo "📬 Thanks for reaching out, hacker!"
-  </div>
-  <div class="line l2">
-    <span class="prompt">$ message_status</span>  = <span class="success">"delivered"</span>
-  </div>
-  <div class="line l3">
-    <span class="prompt">$ route</span>           = "63n713m4n → you"
-  </div>
-  <div class="line l4">
-    <span class="prompt">$ eta</span>             ≈ "soon"
-  </div>
-  <div class="line l5">
-    <span class="muted">[·] Signal locked in. Response will follow shortly.</span>
-  </div>
-  <div class="line l6">
-    <span class="muted">[·] Until then: stay curious, stay secure, break things (legally). 🔐</span>
-  </div>
-  <div class="line l7">
-    — 63n713m4n.sh
-  </div>
+      <div class="line" data-text='$ echo "📬 Thanks for reaching out, hacker!"'></div>
+      <div class="line" data-text='$ message_status  = "delivered"'></div>
+      <div class="line" data-text='$ route           = "63n713m4n → you"'></div>
+      <div class="line" data-text='$ eta             ≈ "soon"'></div>
+      <div class="line" data-text='[·] Signal locked in. Response will follow shortly.'></div>
+      <div class="line" data-text='[·] Until then: stay curious, stay secure, break things (legally). 🔐'></div>
+      <div class="line" data-text='— 63n713m4n.sh'></div>
 
-  <div class="next-steps">
-    <span class="muted">while (you_wait) {</span>
-    <ul>
-      <li>Review more projects on the portfolio.</li>
-      <li>Connect on LinkedIn for collabs and roles.</li>
-      <li>Read a write‑up on Medium and steal some ideas.</li>
-    </ul>
-    <span class="muted">}</span>
+      <div class="next-steps" id="next-steps">
+        <span class="muted">while (you_wait) {</span>
+        <ul>
+          <li>Review more projects on the portfolio.</li>
+          <li>Connect on LinkedIn for collabs and roles.</li>
+          <li>Read a write‑up on Medium and steal some ideas.</li>
+        </ul>
+        <span class="muted">}</span>
+      </div>
+
+      <a href="index.html" class="btn-home" id="btn-home">
+        ← Back to Portfolio
+      </a>
+    </div>
   </div>
-
-  <a href="index.html" class="btn-home">
-    ← Back to Portfolio
-  </a>
-</div>
-
 
   <script>
+    // tsParticles interactive background
     tsParticles.load("tsparticles", {
       fullScreen: { enable: false },
       background: { color: "transparent" },
@@ -281,6 +283,38 @@
         }
       },
       detectRetina: true
+    });
+
+    // Sequential terminal typing
+    document.addEventListener("DOMContentLoaded", () => {
+      const lines = Array.from(document.querySelectorAll(".line"));
+      const nextSteps = document.getElementById("next-steps");
+      const btnHome = document.getElementById("btn-home");
+
+      const typeDuration = 800;  // ms per line typing
+      const gapDuration = 200;   // ms gap between lines
+
+      const typeLine = (el) => {
+        const text = el.getAttribute("data-text") || "";
+        el.textContent = text;
+        el.style.opacity = "1";
+        el.style.animation = `typeLine ${typeDuration}ms steps(${Math.max(
+          text.length,
+          20
+        )}, end) forwards`;
+      };
+
+      const runSequence = async () => {
+        for (let i = 0; i < lines.length; i++) {
+          typeLine(lines[i]);
+          await new Promise((r) => setTimeout(r, typeDuration + gapDuration));
+        }
+        // Show next steps and button after all lines
+        nextSteps.style.opacity = "1";
+        btnHome.style.opacity = "1";
+      };
+
+      runSequence();
     });
   </script>
 </body>
