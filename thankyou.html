@@ -2,30 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You | Message Sent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You | 63n713m4n</title>
 
-  <!-- Reuse main styles if you want -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- tsParticles -->
+  <!-- tsParticles bundle -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
 
   <style>
     :root {
       --green: #00ff95;
-      --bg-gradient: radial-gradient(circle at top left, #020617, #020b18, #000000);
+      --bg-gradient: radial-gradient(circle at top, #020617, #020b18, #000000);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       background: var(--bg-gradient);
       color: var(--green);
+      font-family: "Fira Code", Menlo, Monaco, "Courier New", monospace;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: "Fira Code", Menlo, Monaco, "Courier New", monospace;
       overflow: hidden;
     }
 
@@ -37,19 +38,19 @@
       z-index: 0;
     }
 
-    .terminal-wrap {
+    .content-wrap {
       position: relative;
       z-index: 1;
       max-width: 720px;
       width: 90%;
     }
 
-    .terminal {
-      background-color: rgba(0, 0, 0, 0.88);
-      padding: 1.75rem 1.5rem 1.6rem;
+    .terminal-box {
+      background-color: rgba(0, 0, 0, 0.9);
       border-radius: 12px;
-      box-shadow: 0 0 24px rgba(0, 255, 149, 0.25);
-      border: 1px solid rgba(0, 255, 149, 0.25);
+      border: 1px solid rgba(0, 255, 149, 0.35);
+      box-shadow: 0 0 24px rgba(0, 255, 149, 0.35);
+      padding: 1.8rem 1.5rem 1.6rem;
       animation: fadeIn 1.4s ease-out;
     }
 
@@ -68,7 +69,6 @@
       border-radius: 50%;
       display: inline-block;
     }
-
     .th-dot.red { background: #f97373; }
     .th-dot.yellow { background: #facc15; }
     .th-dot.green { background: #4ade80; }
@@ -79,26 +79,23 @@
     }
 
     .lines {
+      white-space: pre-wrap;
       line-height: 1.6;
       font-size: 0.95rem;
       color: #e5e7eb;
+      overflow: hidden;
+      border-right: 2px solid var(--green);
+      width: 0;
+      animation: typing 3.8s steps(90, end) forwards, blink 0.8s step-end infinite;
     }
 
-    .prompt {
-      color: var(--green);
-    }
-
-    .muted {
-      color: #9ca3af;
-    }
-
-    .success {
-      color: #4ade80;
-    }
+    .prompt { color: var(--green); }
+    .muted { color: #9ca3af; }
+    .success { color: #4ade80; }
 
     .next-steps {
-      margin-top: 1.5rem;
-      font-size: 0.88rem;
+      margin-top: 1.6rem;
+      font-size: 0.9rem;
       color: #9ca3af;
     }
 
@@ -134,21 +131,9 @@
       box-shadow: 0 0 22px rgba(0, 255, 149, 0.6);
     }
 
-    .btn-home span {
-      font-size: 1rem;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    .typing {
-      overflow: hidden;
-      border-right: 2px solid var(--green);
-      white-space: pre-wrap;
-      width: 0;
-      animation: typing 3.4s steps(80, end) forwards, blink 0.8s step-end infinite;
     }
 
     @keyframes typing {
@@ -160,17 +145,19 @@
     }
 
     @media (max-width: 600px) {
-      .terminal {
+      .terminal-box {
         padding: 1.4rem 1.1rem 1.3rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- tsParticles canvas -->
   <div id="tsparticles"></div>
 
-  <div class="terminal-wrap">
-    <div class="terminal">
+  <!-- Terminal-style thank you message -->
+  <div class="content-wrap">
+    <div class="terminal-box">
       <div class="terminal-header">
         <span class="th-dot red"></span>
         <span class="th-dot yellow"></span>
@@ -178,17 +165,15 @@
         <span class="th-title">thankyou.sh</span>
       </div>
 
-      <div class="lines typing">
+      <div class="lines">
 $ echo "📬 Thanks for reaching out, hacker!"
 
-$message_status = "queued"      # handoff to inbox
-$route           = "63n713m4n → you"
-$timestamp       = $(date)
+<span class="prompt">$ message_status</span>  = <span class="success">"delivered"</span>
+<span class="prompt">$ route</span>           = "63n713m4n → you"
+<span class="prompt">$ eta</span>             ≈ "soon"
 
-<span class="success">[✔] Message delivered successfully.</span>
-<span class="muted">[·] Signal locked in. Response will follow soon.</span>
-
-Until then: stay curious, stay secure, and keep breaking things (legally). 🔐
+<span class="muted">[·] Signal locked in. Response will follow shortly.</span>
+<span class="muted">[·] Until then: stay curious, stay secure, break things (legally). 🔐</span>
 
 — 63n713m4n.sh
       </div>
@@ -196,7 +181,7 @@ Until then: stay curious, stay secure, and keep breaking things (legally). 🔐
       <div class="next-steps">
         <span class="muted">while (you_wait) {</span>
         <ul>
-          <li>Explore more projects back on the portfolio.</li>
+          <li>Review more projects on the portfolio.</li>
           <li>Connect on LinkedIn for collabs and roles.</li>
           <li>Read a write‑up on Medium and steal some ideas.</li>
         </ul>
@@ -204,7 +189,7 @@ Until then: stay curious, stay secure, and keep breaking things (legally). 🔐
       </div>
 
       <a href="index.html" class="btn-home">
-        <span>←</span> <span>Back to Portfolio</span>
+        ← Back to Portfolio
       </a>
     </div>
   </div>
@@ -215,42 +200,75 @@ Until then: stay curious, stay secure, and keep breaking things (legally). 🔐
       background: { color: "transparent" },
       fpsLimit: 60,
       particles: {
-        number: { value: 70, density: { enable: true, area: 800 } },
+        number: {
+          value: 90,
+          density: { enable: true, area: 900 }
+        },
         color: { value: "#00ff95" },
         shape: { type: "circle" },
         opacity: {
-          value: 0.4,
-          animation: { enable: true, speed: 0.5, minimumValue: 0.1, sync: false }
+          value: 0.45,
+          animation: {
+            enable: true,
+            speed: 0.6,
+            minimumValue: 0.15,
+            sync: false
+          }
         },
         size: {
           value: { min: 1, max: 3 },
-          animation: { enable: true, speed: 2, minimumValue: 0.5, sync: false }
+          animation: {
+            enable: true,
+            speed: 2.5,
+            minimumValue: 0.6,
+            sync: false
+          }
         },
         links: {
           enable: true,
-          distance: 110,
+          distance: 120,
           color: "#00ff95",
-          opacity: 0.25,
+          opacity: 0.28,
           width: 1
         },
         move: {
           enable: true,
-          speed: 1,
+          speed: 1.2,
           direction: "none",
-          outModes: "bounce",
           random: false,
-          straight: false
+          straight: false,
+          outModes: "bounce"
         }
       },
       interactivity: {
         events: {
-          onHover: { enable: true, mode: "repulse" },
-          onClick: { enable: true, mode: "push" },
+          onHover: {
+            enable: true,
+            mode: ["repulse", "grab"],
+            parallax: {
+              enable: true,
+              force: 40,
+              smooth: 10
+            }
+          },
+          onClick: {
+            enable: true,
+            mode: ["push", "repulse"]
+          },
           resize: true
         },
         modes: {
-          repulse: { distance: 120, duration: 0.4 },
-          push: { quantity: 3 }
+          repulse: {
+            distance: 140,
+            duration: 0.4
+          },
+          push: {
+            quantity: 4
+          },
+          grab: {
+            distance: 140,
+            links: { opacity: 0.6 }
+          }
         }
       },
       detectRetina: true
