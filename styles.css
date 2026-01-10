@@ -263,6 +263,14 @@ p {
   background: rgba(15, 23, 42, 0.6);
 }
 
+#certs {
+  background: rgba(15, 23, 42, 0.85);
+}
+
+#thm {
+  background: rgba(15, 23, 42, 0.6);
+}
+
 #writing {
   background: rgba(15, 23, 42, 0.85);
 }
@@ -357,7 +365,7 @@ p {
   box-shadow: var(--shadow-accent);
 }
 
-/* Writing */
+/* Writing / Cards */
 .writing-cards {
   display: grid;
   gap: 1.25rem;
@@ -377,6 +385,12 @@ p {
 }
 
 .writing-card p {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.writing-card ul {
+  padding-left: 1.1rem;
   color: var(--fg-muted);
   font-size: 0.9rem;
 }
@@ -410,6 +424,74 @@ p {
   transform: translateY(-1px);
 }
 
+/* Contact form */
+.contact-layout {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.contact-form-wrapper {
+  background: #020617;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 1.25rem 1.1rem;
+}
+
+.contact-form-wrapper h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.form-row label {
+  color: #e5e7eb;
+}
+
+.form-row input,
+.form-row textarea {
+  background: #020617;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 0.5rem 0.6rem;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.form-row input::placeholder,
+.form-row textarea::placeholder {
+  color: #6b7280;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+}
+
+.btn-submit {
+  margin-top: 0.4rem;
+  background: #22c55e;
+  color: #020617;
+  border-color: #22c55e;
+  font-weight: 600;
+}
+
+/* Quote */
 .footer-quote {
   margin-top: 2rem;
   padding-left: 0.9rem;
