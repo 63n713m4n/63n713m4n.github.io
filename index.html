@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>63n713m4n | Cybersecurity Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Matrix rain effect -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="glitch" data-text="63n713m4n">63n713m4n</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#labs">Labs</a>
+                <a href="#certs">Certs</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">◐</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="status-badge">
+                <span class="pulse"></span>
+                <span>Currently: Hunting bugs on TryHackMe</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="line">Hi, I'm</span>
+                <span class="line glitch-large" data-text="Alphonse">Alphonse</span>
+            </h1>
+            <p class="hero-subtitle typewriter">Cybersecurity Master's Student | Penetration Tester | CTF Enthusiast</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#terminal" class="btn btn-secondary">Try Terminal</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Interactive Terminal -->
+    <section id="terminal" class="terminal-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Interactive Terminal</h2>
+                <p>Explore this portfolio like a real shell. Try commands like <code>help</code>, <code>whoami</code>, <code>ls</code></p>
+            </div>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="btn-close"></span>
+                        <span class="btn-minimize"></span>
+                        <span class="btn-maximize"></span>
+                    </div>
+                    <div class="terminal-title">visitor@63n713m4n:~/portfolio</div>
+                </div>
+                <div class="terminal-body">
+                    <div id="terminal-output"></div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">visitor@63n713m4n:~$</span>
+                        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+                        <span class="cursor-blink">█</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">Cybersecurity Master's student in Sweden, mixing academic depth with hands-on labs, CTFs, and real-world security projects.</p>
+                    <p>My interests span <strong>threat intelligence</strong>, <strong>penetration testing</strong>, <strong>OSINT</strong>, and <strong>security architecture</strong>, with a growing focus on IoT and automotive security.</p>
+                    <p>Outside of hacking and hardening, I love flight simulators, tech tinkering, and turning complex security topics into accessible stories through blogs and write-ups.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="200">0</div>
+                        <div class="stat-label">TryHackMe Rooms</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="15">0</div>
+                        <div class="stat-label">IoT Devices Analyzed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Security Projects</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="2">0</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Skills & Arsenal</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="skill-filter">
+                <button class="filter-btn active" data-filter="all">All Skills</button>
+                <button class="filter-btn" data-filter="offensive">Offensive</button>
+                <button class="filter-btn" data-filter="defensive">Defensive</button>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category" data-category="offensive">
+                    <h3>Offensive Security</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Penetration Testing</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Web Exploitation</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">OSINT</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="defensive">
+                    <h3>Defensive Security</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Incident Response</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Security Architecture</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">SIEM Tools</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-category="offensive defensive">
+                    <h3>Technical Skills</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Python & Bash</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Network Security</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Cloud Security</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="--width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <h3>Tech Stack</h3>
+                <div class="tech-icons">
+                    <span class="tech-badge">Burp Suite</span>
+                    <span class="tech-badge">Metasploit</span>
+                    <span class="tech-badge">Nmap</span>
+                    <span class="tech-badge">Wireshark</span>
+                    <span class="tech-badge">AWS</span>
+                    <span class="tech-badge">Azure</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Linux</span>
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Bash</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Projects</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">📡</div>
+                    <h3>IoT Security Analysis</h3>
+                    <p class="project-desc">Analyzed vulnerabilities in smart siren and light devices, identifying critical exposure and misconfigurations.</p>
+                    <div class="project-tags">
+                        <span>IoT</span>
+                        <span>Threat Modeling</span>
+                        <span>Security Analysis</span>
+                    </div>
+                    <div class="project-stats">
+                        <span>15+ devices tested</span>
+                        <span>12 vulnerabilities found</span>
+                    </div>
+                    <a href="uploads/IoT_Project_Report.pdf" class="project-link" target="_blank">View Report →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🚘</div>
+                    <h3>ISO/SAE 21434 Review</h3>
+                    <p class="project-desc">Industry implementation review of automotive cybersecurity standards and TARA processes.</p>
+                    <div class="project-tags">
+                        <span>Automotive</span>
+                        <span>Compliance</span>
+                        <span>Research</span>
+                    </div>
+                    <div class="project-stats">
+                        <span>20+ papers reviewed</span>
+                        <span>5 key gaps identified</span>
+                    </div>
+                    <a href="uploads/LitReview.pdf" class="project-link" target="_blank">View Paper →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🛡️</div>
+                    <h3>Network Worm Containment</h3>
+                    <p class="project-desc">Azure NSG implementation demonstrating worm containment through network segmentation.</p>
+                    <div class="project-tags">
+                        <span>Azure</span>
+                        <span>Network Security</span>
+                        <span>Cloud</span>
+                    </div>
+                    <div class="project-stats">
+                        <span>3 attack scenarios</span>
+                        <span>95% containment rate</span>
+                    </div>
+                    <a href="https://github.com/63n713m4n/Network-Worm-Containment-with-Azure-NSGs" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Labs & CTF Section -->
+    <section id="labs" class="labs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Labs & CTF</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="labs-content">
+                <div class="lab-card">
+                    <h3>🏠 Homelab Environment</h3>
+                    <p>Minimal homelab for simulating attacks, collecting logs, and observing defender's perspective.</p>
+                    <ul class="lab-features">
+                        <li>Log collection & analysis pipeline</li>
+                        <li>Basic detection rules & alerts</li>
+                        <li>Attack simulation scenarios</li>
+                        <li>Telemetry noise analysis</li>
+                    </ul>
+                </div>
+
+                <div class="lab-card">
+                    <h3>🎯 CTF Methodology</h3>
+                    <p>Structured approach: Recon → Enumeration → Exploitation → Reporting</p>
+                    <ul class="lab-features">
+                        <li>Web vulnerability exploitation</li>
+                        <li>Privilege escalation techniques</li>
+                        <li>OSINT investigations</li>
+                        <li>Configuration auditing</li>
+                    </ul>
+                </div>
+
+                <div class="tryhackme-card">
+                    <h3>TryHackMe Progress</h3>
+                    <div class="thm-stats">
+                        <div class="thm-stat">
+                            <span class="thm-number">200+</span>
+                            <span class="thm-label">Rooms Completed</span>
+                        </div>
+                        <div class="thm-stat">
+                            <span class="thm-number">Top 5%</span>
+                            <span class="thm-label">Global Ranking</span>
+                        </div>
+                    </div>
+                    <a href="https://tryhackme.com/p/63n713m4n" target="_blank" class="btn btn-thm">View TryHackMe Profile →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certs" class="certs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Certifications</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <div class="cert-logo">🎓</div>
+                    </div>
+                    <h3>Cisco CyberOps Associate</h3>
+                    <p>SOC operations, monitoring, detection, and response in modern networked environments</p>
+                    <span class="cert-year">2025</span>
+                    <a href="https://www.credly.com/badges/b47a5747-74a5-444c-bc9e-54dcc30e86ed/public_ur" target="_blank" class="cert-link">View Credential →</a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-badge">
+                        <div class="cert-logo">🛡️</div>
+                    </div>
+                    <h3>Google Cybersecurity Professional</h3>
+                    <p>Security operations, incident response, and foundational security tools and processes</p>
+                    <span class="cert-year">2023</span>
+                    <a href="https://coursera.org/verify/professional-cert/PCHSTL2T45CS" target="_blank" class="cert-link">View Certificate →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writing Section -->
+    <section id="writing" class="writing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Blogs & Write-ups</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="writing-grid">
+                <article class="blog-card">
+                    <div class="blog-tag">Career Guide</div>
+                    <h3>Breaking into Cybersecurity</h3>
+                    <p>A beginner's guide to launching a cybersecurity career, mapping out skills, mindset, and practical steps.</p>
+                    <a href="https://medium.com/@63n713m4n/breaking-into-cybersecurity-a-beginners-guide-to-starting-your-career-aed7f4e352fb" target="_blank" class="blog-link">Read on Medium →</a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-tag">Deep Dive</div>
+                    <h3>Cybersecurity Frameworks</h3>
+                    <p>Exploring controls, frameworks, and compliance, and how they fit together in real security programs.</p>
+                    <a href="https://medium.com/@63n713m4n/navigating-the-world-of-cybersecurity-a-deep-dive-into-controls-frameworks-and-compliance-28e4df456599" target="_blank" class="blog-link">Read on Medium →</a>
+                </article>
+            </div>
+
+            <div class="medium-cta">
+                <p>More insights and experiments on security topics</p>
+                <a href="https://medium.com/@63n713m4n" target="_blank" class="btn btn-secondary">View All Posts on Medium →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Let's Connect</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p class="contact-intro">Always open to discussing new projects, cybersecurity challenges, or collaboration opportunities.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank" class="social-link">
+                            <span class="social-icon">💼</span>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/63n713m4n" target="_blank" class="social-link">
+                            <span class="social-icon">🐙</span>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://medium.com/@63n713m4n" target="_blank" class="social-link">
+                            <span class="social-icon">✍️</span>
+                            <span>Medium</span>
+                        </a>
+                        <a href="https://tryhackme.com/p/63n713m4n" target="_blank" class="social-link">
+                            <span class="social-icon">🎯</span>
+                            <span>TryHackMe</span>
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>✨ Built with passion for cybersecurity and a commitment to lifelong learning</p>
+            <p>© 2026 63n713m4n · Hosted on GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
