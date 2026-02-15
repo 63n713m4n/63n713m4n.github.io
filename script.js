@@ -1,411 +1,481 @@
-// ===========================
-// Matrix Rain Effect
-// ===========================
-const canvas = document.getElementById('matrix-canvas');
+// ===============================================
+// CUSTOM CURSOR
+// ===============================================
+const cursor = document.querySelector('.cursor');
+const cursorFollower = document.querySelector('.cursor-follower');
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    
+    setTimeout(() => {
+        cursorFollower.style.left = e.clientX + 'px';
+        cursorFollower.style.top = e.clientY + 'px';
+    }, 100);
+});
+
+// Cursor effects on hover
+document.querySelectorAll('a, button, .tech-icon, .project-card, .skill-category').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        cursorFollower.style.width = '60px';
+        cursorFollower.style.height = '60px';
+    });
+    
+    el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursorFollower.style.width = '40px';
+        cursorFollower.style.height = '40px';
+    });
+});
+
+// ===============================================
+// MATRIX RAIN BACKGROUND
+// ===============================================
+const canvas = document.getElementById('matrix-bg');
 const ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const nums = '0123456789';
-const alphabet = katakana + latin + nums;
+const matrix = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+const matrixArray = matrix.split('');
 
 const fontSize = 16;
 const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
 
-const rainDrops = [];
-
-for (let x = 0; x < columns; x++) {
-    rainDrops[x] = 1;
-}
-
-const draw = () => {
+function drawMatrix() {
     ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = '#00ff88';
+    
+    ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue('--matrix-color');
     ctx.font = fontSize + 'px monospace';
-
-    for (let i = 0; i < rainDrops.length; i++) {
-        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            rainDrops[i] = 0;
+    
+    for (let i = 0; i < drops.length; i++) {
+        const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
         }
-        rainDrops[i]++;
+        drops[i]++;
     }
-};
+}
 
-setInterval(draw, 30);
+setInterval(drawMatrix, 50);
 
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
 
-// ===========================
-// Theme Toggle
-// ===========================
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-
-// Check for saved theme preference or default to 'dark'
-const currentTheme = localStorage.getItem('theme') || 'dark';
-body.setAttribute('data-theme', currentTheme);
-
-themeToggle.addEventListener('click', () => {
-    const theme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    body.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-});
-
-// ===========================
-// Interactive Terminal
-// ===========================
-const terminalOutput = document.getElementById('terminal-output');
-const terminalInput = document.getElementById('terminal-input');
-
-const commands = {
-    help: `Available commands:
-  help        - Show this help message
-  whoami      - Display information about me
-  ls          - List available sections
-  projects    - View my projects
-  skills      - Display my skills
-  contact     - Show contact information
-  clear       - Clear the terminal
-  sudo        - Nice try! 😏
-  hack        - Initialize hacking sequence
-  about       - Learn more about me
-  certs       - View certifications
-  labs        - Show lab information
-  easteregg   - Find the hidden flag`,
-    
-    whoami: `Alphonse Joseph (@63n713m4n)
-Cybersecurity Master's Student | Sweden
-Focus: Penetration Testing, IoT Security, Threat Intelligence
-Status: Always learning, always hacking`,
-    
-    ls: `Available sections:
-  about/       - About me
-  skills/      - My technical skills
-  projects/    - Featured projects
-  labs/        - CTF & homelab
-  certs/       - Certifications
-  writing/     - Blogs & articles
-  contact/     - Get in touch`,
-    
-    projects: `Featured Projects:
-  [1] IoT Security Analysis - Vulnerability assessment of smart devices
-  [2] ISO/SAE 21434 Review - Automotive security standards research
-  [3] Network Worm Containment - Azure NSG security implementation
-  
-Use 'cd projects/' to navigate to projects section`,
-    
-    skills: `Core Skills:
-  [Offensive] Penetration Testing, Web Exploitation, OSINT
-  [Defensive] Incident Response, SIEM, Security Architecture
-  [Technical] Python, Bash, Network Security, Cloud (AWS/Azure)
-  
-Proficiency Level: ████████░░ 80%`,
-    
-    contact: `Contact Information:
-  LinkedIn:   https://linkedin.com/in/alphonse-joseph
-  GitHub:     https://github.com/63n713m4n
-  Medium:     https://medium.com/@63n713m4n
-  TryHackMe:  https://tryhackme.com/p/63n713m4n
-  
-Always open for collaboration!`,
-    
-    sudo: `[sudo] password for visitor: 
-Permission denied. Nice try! 😏
-Remember: With great power comes great responsibility.`,
-    
-    hack: `Initializing hacking sequence...
-[████████████████████████████] 100%
-Access granted to mainframe...
-Just kidding! No illegal activities here. 😄
-Try 'help' for actual commands.`,
-    
-    about: `I'm a Cybersecurity Master's student in Sweden, passionate about:
-  • Penetration Testing & Vulnerability Assessment
-  • IoT and Automotive Security
-  • Threat Intelligence & OSINT
-  • CTF Challenges & Practical Labs
-  
-When I'm not breaking (and fixing) things, I write about security
-topics on Medium and practice on TryHackMe. Currently exploring
-the intersection of academic research and real-world security.`,
-    
-    certs: `Certifications:
-  ✓ Cisco CyberOps Associate (2025)
-    Focus: SOC operations, monitoring, detection
-  
-  ✓ Google Cybersecurity Professional (2023)
-    Focus: Security operations, incident response
-  
-Status: Always pursuing new certifications and learning opportunities`,
-    
-    labs: `Lab & CTF Environment:
-  [Homelab]
-  • Attack simulation & log collection
-  • Detection rule development
-  • Defender perspective analysis
-  
-  [TryHackMe Progress]
-  • 200+ rooms completed
-  • Top 5% global ranking
-  • Focus: Web exploitation, privilege escalation, OSINT
-  
-Visit: tryhackme.com/p/63n713m4n`,
-    
-    easteregg: `🎉 Congratulations! You found the easter egg!
-    
-Flag: CTF{y0u_f0und_th3_s3cr3t_c0mm4nd}
-
-You're curious and persistent - essential traits for any good hacker!
-Keep exploring, keep learning, and never stop asking questions.
-
-P.S. There might be more secrets hidden in this portfolio... 👀`,
-    
-    clear: 'CLEAR_TERMINAL'
-};
-
-let commandHistory = [];
-let historyIndex = -1;
-
-function addOutput(text, className = '') {
-    const line = document.createElement('div');
-    line.className = `terminal-line ${className}`;
-    line.textContent = text;
-    terminalOutput.appendChild(line);
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
-}
-
-function typeWriter(text, element, speed = 30) {
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-function processCommand(input) {
-    const command = input.trim().toLowerCase();
-    
-    // Add to history
-    if (command && commandHistory[commandHistory.length - 1] !== command) {
-        commandHistory.push(command);
-    }
-    historyIndex = commandHistory.length;
-    
-    // Display command
-    addOutput(`visitor@63n713m4n:~$ ${input}`);
-    
-    // Process command
-    if (command === 'clear') {
-        terminalOutput.innerHTML = '';
-        return;
-    }
-    
-    if (commands[command]) {
-        addOutput(commands[command], 'terminal-success');
-    } else if (command.startsWith('cd ')) {
-        const section = command.substring(3).replace('/', '');
-        const element = document.getElementById(section);
-        if (element) {
-            addOutput(`Navigating to ${section}...`, 'terminal-success');
-            setTimeout(() => {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }, 500);
-        } else {
-            addOutput(`cd: ${section}: No such directory`, 'terminal-error');
-        }
-    } else if (command === '') {
-        // Empty command, just show prompt
-    } else {
-        addOutput(`Command not found: ${command}. Type 'help' for available commands.`, 'terminal-error');
-    }
-    
-    addOutput(''); // Empty line for spacing
-}
-
-// Welcome message
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const welcomeMsg = `Welcome to 63n713m4n's Portfolio Terminal v1.0
-Type 'help' to see available commands.
-Type 'easteregg' if you're feeling adventurous...`;
-        addOutput(welcomeMsg, 'terminal-success');
-        addOutput('');
-    }, 500);
-});
-
-// Terminal input handler
-terminalInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        const input = terminalInput.value;
-        processCommand(input);
-        terminalInput.value = '';
-    } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (historyIndex > 0) {
-            historyIndex--;
-            terminalInput.value = commandHistory[historyIndex];
-        }
-    } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (historyIndex < commandHistory.length - 1) {
-            historyIndex++;
-            terminalInput.value = commandHistory[historyIndex];
-        } else {
-            historyIndex = commandHistory.length;
-            terminalInput.value = '';
-        }
-    }
-});
-
-// ===========================
-// Smooth Scrolling for Navigation
-// ===========================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// ===========================
-// Animated Number Counters
-// ===========================
-function animateValue(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        element.textContent = value + (end > 10 ? '+' : '');
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
-// Intersection Observer for stat counters
-const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-            const target = parseInt(entry.target.getAttribute('data-target'));
-            animateValue(entry.target, 0, target, 2000);
-            entry.target.classList.add('counted');
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.stat-number').forEach(stat => {
-    statObserver.observe(stat);
-});
-
-// ===========================
-// Skills Filter
-// ===========================
-const filterButtons = document.querySelectorAll('.filter-btn');
-const skillCategories = document.querySelectorAll('.skill-category');
-
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Update active button
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        
-        const filter = button.getAttribute('data-filter');
-        
-        // Filter skills
-        skillCategories.forEach(category => {
-            if (filter === 'all') {
-                category.style.display = 'block';
-            } else {
-                const categories = category.getAttribute('data-category').split(' ');
-                if (categories.includes(filter)) {
-                    category.style.display = 'block';
-                } else {
-                    category.style.display = 'none';
-                }
-            }
-        });
-    });
-});
-
-// ===========================
-// Scroll Animations
-// ===========================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all sections and cards
-document.querySelectorAll('section, .project-card, .cert-card, .blog-card, .lab-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-});
-
-// ===========================
-// Navbar Scroll Effect
-// ===========================
-let lastScroll = 0;
+// ===============================================
+// NAVIGATION
+// ===============================================
 const navbar = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+let lastScroll = 0;
 
+// Hide/show navbar on scroll
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
-    if (currentScroll <= 0) {
-        navbar.style.boxShadow = 'none';
+    if (currentScroll > lastScroll && currentScroll > 100) {
+        navbar.classList.add('hidden');
     } else {
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
-    }
-    
-    // Hide navbar on scroll down, show on scroll up
-    if (currentScroll > lastScroll && currentScroll > 80) {
-        navbar.style.transform = 'translateY(-100%)';
-    } else {
-        navbar.style.transform = 'translateY(0)';
+        navbar.classList.remove('hidden');
     }
     
     lastScroll = currentScroll;
 });
 
-// ===========================
-// Contact Form Handler
-// ===========================
+// Hamburger menu
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Close menu on link click
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+// Smooth scroll with offset
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offset = 80;
+            const targetPosition = target.offsetTop - offset;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// ===============================================
+// THEME TOGGLE
+// ===============================================
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Check for saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    body.classList.add('light-theme');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('light-theme');
+    const theme = body.classList.contains('light-theme') ? 'light' : 'dark';
+    localStorage.setItem('theme', theme);
+});
+
+// ===============================================
+// TYPEWRITER EFFECT
+// ===============================================
+const typingText = document.querySelector('.typing-text');
+const texts = [
+    'Cybersecurity Master\'s Student',
+    'Penetration Tester',
+    'CTF Enthusiast',
+    'Security Researcher',
+    'IoT Security Analyst'
+];
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeWriter() {
+    const currentText = texts[textIndex];
+    
+    if (isDeleting) {
+        typingText.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        typingText.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+    }
+    
+    let typingSpeed = isDeleting ? 50 : 100;
+    
+    if (!isDeleting && charIndex === currentText.length) {
+        typingSpeed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        typingSpeed = 500;
+    }
+    
+    setTimeout(typeWriter, typingSpeed);
+}
+
+// Start typewriter effect
+setTimeout(typeWriter, 1000);
+
+// ===============================================
+// INTERACTIVE TERMINAL
+// ===============================================
+const terminalInput = document.getElementById('terminal-input');
+const terminalOutput = document.getElementById('terminal-output');
+const commands = {
+    help: `Available commands:
+    
+    <span style="color: var(--accent-primary);">help</span>       - Show this help message
+    <span style="color: var(--accent-primary);">whoami</span>     - Display user information
+    <span style="color: var(--accent-primary);">ls</span>         - List portfolio sections
+    <span style="color: var(--accent-primary);">skills</span>     - Show technical skills
+    <span style="color: var(--accent-primary);">projects</span>   - Display featured projects
+    <span style="color: var(--accent-primary);">contact</span>    - Get contact information
+    <span style="color: var(--accent-primary);">clear</span>      - Clear terminal screen
+    <span style="color: var(--accent-primary);">social</span>     - Show social media links
+    <span style="color: var(--accent-primary);">cat [file]</span> - Read file content (try: about.txt, skills.txt)`,
+    
+    whoami: `User: 63n713m4n
+Role: Cybersecurity Master's Student
+Location: Sweden
+Specialization: Penetration Testing, IoT Security, OSINT
+Status: Currently working on Master Thesis`,
+    
+    ls: `<span style="color: var(--accent-secondary);">.</span>
+<span style="color: var(--accent-secondary);">..</span>
+<span style="color: var(--accent-primary);">about.txt</span>
+<span style="color: var(--accent-primary);">skills.txt</span>
+<span style="color: var(--accent-primary);">projects/</span>
+<span style="color: var(--accent-primary);">certifications/</span>
+<span style="color: var(--accent-primary);">contact.txt</span>`,
+    
+    skills: `Technical Skills:
+    
+▸ Offensive Security
+  - Penetration Testing
+  - Web Exploitation
+  - OSINT & Reconnaissance
+  
+▸ Defensive Security
+  - Incident Response
+  - Security Architecture
+  - SIEM Tools
+  
+▸ Programming
+  - Python
+  - Bash
+  - JavaScript
+  
+▸ Tools & Platforms
+  - Burp Suite, Metasploit, Nmap
+  - AWS, Azure, Docker
+  - Wireshark, Linux`,
+    
+    projects: `Featured Projects:
+    
+1. IoT Security Analysis
+   15+ devices tested | 12 vulnerabilities found
+   
+2. ISO/SAE 21434 Review
+   Automotive cybersecurity standards research
+   
+3. Network Worm Containment
+   Azure NSG implementation (95% containment rate)
+   
+Use '<span style="color: var(--accent-primary);">cat projects/[number]</span>' for details`,
+    
+    contact: `Contact Information:
+    
+Email: <span style="color: var(--accent-primary);">63n713m4n@protonmail.com</span>
+LinkedIn: <span style="color: var(--accent-primary);">linkedin.com/in/alphonse-joseph</span>
+GitHub: <span style="color: var(--accent-primary);">github.com/63n713m4n</span>
+Medium: <span style="color: var(--accent-primary);">medium.com/@63n713m4n</span>
+TryHackMe: <span style="color: var(--accent-primary);">tryhackme.com/p/63n713m4n</span>`,
+    
+    social: `Social Media:
+    
+🔗 LinkedIn  → linkedin.com/in/alphonse-joseph
+🐙 GitHub    → github.com/63n713m4n
+✍️  Medium    → medium.com/@63n713m4n
+🎯 TryHackMe → tryhackme.com/p/63n713m4n`,
+    
+    'cat about.txt': `About Me:
+
+Cybersecurity Master's student in Sweden, mixing academic depth with 
+hands-on labs, CTFs, and real-world security projects.
+
+My interests span threat intelligence, penetration testing, OSINT, 
+and security architecture, with a growing focus on IoT and automotive 
+security.
+
+Outside of hacking and hardening, I love flight simulators, tech 
+tinkering, and turning complex security topics into accessible stories.`,
+    
+    'cat skills.txt': `Skills & Expertise:
+
+▸ Penetration Testing
+▸ Web Application Security
+▸ Network Security
+▸ OSINT & Reconnaissance
+▸ Incident Response
+▸ Security Architecture
+▸ IoT Security Analysis
+▸ Threat Modeling
+▸ Python & Bash Scripting
+▸ Cloud Security (AWS, Azure)`,
+    
+    'cat contact.txt': `Contact Information:
+
+Email: 63n713m4n@protonmail.com
+LinkedIn: linkedin.com/in/alphonse-joseph
+GitHub: github.com/63n713m4n
+
+Feel free to reach out for collaboration opportunities or 
+cybersecurity discussions!`,
+    
+    clear: 'CLEAR_TERMINAL'
+};
+
+terminalInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const command = terminalInput.value.trim().toLowerCase();
+        
+        if (command) {
+            // Display command
+            const commandLine = document.createElement('div');
+            commandLine.innerHTML = `<span class="prompt">visitor@63n713m4n:~$</span> ${command}`;
+            commandLine.style.marginBottom = '0.5rem';
+            terminalOutput.appendChild(commandLine);
+            
+            // Process command
+            if (command === 'clear') {
+                terminalOutput.innerHTML = '';
+            } else if (commands[command]) {
+                const output = document.createElement('div');
+                output.innerHTML = commands[command];
+                output.style.color = 'var(--text-secondary)';
+                output.style.marginBottom = '1rem';
+                output.style.whiteSpace = 'pre-wrap';
+                terminalOutput.appendChild(output);
+            } else {
+                const error = document.createElement('div');
+                error.innerHTML = `Command not found: ${command}. Type 'help' for available commands.`;
+                error.style.color = '#ff5f57';
+                error.style.marginBottom = '1rem';
+                terminalOutput.appendChild(error);
+            }
+            
+            // Scroll to bottom
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+        
+        terminalInput.value = '';
+    }
+});
+
+// Focus terminal input on click
+document.querySelector('.interactive-terminal').addEventListener('click', () => {
+    terminalInput.focus();
+});
+
+// ===============================================
+// STATS COUNTER ANIMATION
+// ===============================================
+const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+};
+
+const animateCounter = (element) => {
+    const target = parseInt(element.getAttribute('data-target'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+    
+    const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+            element.textContent = Math.floor(current);
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = target + (target === 96 ? '+' : '');
+        }
+    };
+    
+    updateCounter();
+};
+
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statNumber = entry.target.querySelector('.stat-number');
+            if (statNumber && !statNumber.classList.contains('animated')) {
+                statNumber.classList.add('animated');
+                animateCounter(statNumber);
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.stat-card').forEach(card => {
+    statsObserver.observe(card);
+});
+
+// ===============================================
+// SKILLS TABS & PROGRESS BARS
+// ===============================================
+const skillsTabs = document.querySelectorAll('.skills-tab');
+const skillCategories = document.querySelectorAll('.skill-category');
+
+skillsTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const category = tab.getAttribute('data-tab');
+        
+        // Update active tab
+        skillsTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Filter skills
+        if (category === 'all') {
+            skillCategories.forEach(cat => cat.style.display = 'block');
+        } else {
+            skillCategories.forEach(cat => {
+                const type = cat.getAttribute('data-type');
+                cat.style.display = type === category ? 'block' : 'none';
+            });
+        }
+    });
+});
+
+// Animate skill progress bars on scroll
+const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const progressBars = entry.target.querySelectorAll('.skill-progress');
+            progressBars.forEach(bar => {
+                const progress = bar.getAttribute('data-progress');
+                bar.style.width = progress + '%';
+            });
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.skill-category').forEach(category => {
+    skillsObserver.observe(category);
+});
+
+// ===============================================
+// SCROLL ANIMATIONS
+// ===============================================
+const fadeInElements = document.querySelectorAll('.project-card, .lab-card, .cert-card, .blog-card');
+
+const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }, index * 100);
+        }
+    });
+}, { threshold: 0.1 });
+
+fadeInElements.forEach(element => {
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(30px)';
+    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    fadeInObserver.observe(element);
+});
+
+// ===============================================
+// SCROLL TO TOP BUTTON
+// ===============================================
+const scrollTopBtn = document.getElementById('scroll-top');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// ===============================================
+// CONTACT FORM
+// ===============================================
 const contactForm = document.getElementById('contact-form');
 
 contactForm.addEventListener('submit', (e) => {
@@ -413,97 +483,127 @@ contactForm.addEventListener('submit', (e) => {
     
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
     
-    // Create mailto link (since this is a static site)
-    const mailtoLink = `mailto:contact@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+    // Here you would normally send the form data to a server
+    // For now, we'll just show a success message
     
-    // Show success message
-    alert('Thank you for your message! Your default email client will open to send the message.');
-    
-    // Open email client
-    window.location.href = mailtoLink;
-    
-    // Reset form
+    alert('Thank you for your message! I\'ll get back to you soon.');
     contactForm.reset();
 });
 
-// ===========================
-// Glitch Effect Randomization
-// ===========================
-setInterval(() => {
-    const glitchElements = document.querySelectorAll('.glitch');
-    glitchElements.forEach(el => {
-        if (Math.random() > 0.95) {
-            el.style.animation = 'none';
-            setTimeout(() => {
-                el.style.animation = 'glitch 5s infinite';
-            }, 10);
-        }
-    });
-}, 3000);
+// ===============================================
+// GLITCH EFFECT ON HERO TITLE
+// ===============================================
+const heroTitle = document.querySelector('.hero-title');
+let glitchInterval;
 
-// ===========================
-// Typewriter Effect for Hero
-// ===========================
-const typewriterText = document.querySelector('.typewriter');
-if (typewriterText) {
-    const text = typewriterText.textContent;
-    typewriterText.textContent = '';
-    typewriterText.style.opacity = '1';
+heroTitle.addEventListener('mouseenter', () => {
+    let iterations = 0;
+    const originalText = heroTitle.textContent;
     
-    let i = 0;
-    function type() {
-        if (i < text.length) {
-            typewriterText.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, 50);
+    glitchInterval = setInterval(() => {
+        heroTitle.textContent = originalText
+            .split('')
+            .map((char, index) => {
+                if (index < iterations) {
+                    return originalText[index];
+                }
+                return String.fromCharCode(33 + Math.floor(Math.random() * 94));
+            })
+            .join('');
+        
+        iterations += 1/3;
+        
+        if (iterations >= originalText.length) {
+            clearInterval(glitchInterval);
+            heroTitle.textContent = originalText;
         }
-    }
-    
-    setTimeout(type, 1000);
-}
-
-// ===========================
-// Skill Bar Animations
-// ===========================
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const progressBars = entry.target.querySelectorAll('.skill-progress');
-            progressBars.forEach(bar => {
-                bar.style.animation = 'fillBar 1.5s ease-out forwards';
-            });
-            skillObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.skills-grid').forEach(grid => {
-    skillObserver.observe(grid);
+    }, 30);
 });
 
-// ===========================
-// Easter Egg: Konami Code
-// ===========================
+// ===============================================
+// PARALLAX EFFECT
+// ===============================================
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.hero-visual, .terminal-window');
+    
+    parallaxElements.forEach(element => {
+        const speed = 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// ===============================================
+// SECTION REVEAL ANIMATION
+// ===============================================
+const sections = document.querySelectorAll('section');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1 });
+
+sections.forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(50px)';
+    section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    sectionObserver.observe(section);
+});
+
+// ===============================================
+// ACTIVE SECTION HIGHLIGHT IN NAV
+// ===============================================
+const navLinks = document.querySelectorAll('.nav-link');
+
+const highlightNav = () => {
+    const scrollPosition = window.pageYOffset + 100;
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+};
+
+window.addEventListener('scroll', highlightNav);
+
+// ===============================================
+// EASTER EGGS
+// ===============================================
 let konamiCode = [];
-const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
 document.addEventListener('keydown', (e) => {
     konamiCode.push(e.key);
-    konamiCode = konamiCode.slice(-10);
+    konamiCode = konamiCode.slice(-konamiSequence.length);
     
-    if (konamiCode.join(',') === konamiPattern.join(',')) {
-        document.body.style.animation = 'rainbow 2s infinite';
+    if (konamiCode.join(',') === konamiSequence.join(',')) {
+        // Easter egg activated!
+        document.body.style.animation = 'rainbow 2s linear infinite';
         setTimeout(() => {
-            alert('🎮 Konami Code Activated! You are a true gamer! Flag: CTF{k0n4m1_m4st3r}');
             document.body.style.animation = '';
-        }, 100);
+        }, 5000);
+        
+        alert('🎮 Konami Code Activated! You found the easter egg! 🎉');
     }
 });
 
-// Add rainbow animation to CSS dynamically
+// Add rainbow animation
 const style = document.createElement('style');
 style.textContent = `
     @keyframes rainbow {
@@ -513,107 +613,26 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ===========================
-// Console Easter Egg
-// ===========================
-console.log('%c🔐 Hello, curious hacker!', 'color: #00ff88; font-size: 20px; font-weight: bold;');
-console.log('%cIf you\'re reading this, you\'re the kind of person I want to connect with.', 'color: #00d9ff; font-size: 14px;');
-console.log('%cHidden flag: CTF{c0ns0l3_d3t3ct1v3}', 'color: #ff3366; font-size: 12px;');
-console.log('%cLet\'s connect: https://linkedin.com/in/alphonse-joseph', 'color: #9ca3bf; font-size: 12px;');
+// ===============================================
+// LOADING ANIMATION
+// ===============================================
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    }, 100);
+});
 
-// ===========================
-// Performance: Lazy Loading Images
-// ===========================
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    imageObserver.unobserve(img);
-                }
-            }
-        });
+// ===============================================
+// PREVENT CONTEXT MENU ON CURSOR ELEMENTS
+// ===============================================
+[cursor, cursorFollower].forEach(el => {
+    el.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
     });
-    
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
-}
+});
 
-// ===========================
-// Mobile Menu Toggle (if needed)
-// ===========================
-const createMobileMenu = () => {
-    const nav = document.querySelector('.nav-links');
-    const burger = document.createElement('button');
-    burger.className = 'mobile-menu-toggle';
-    burger.innerHTML = '☰';
-    burger.style.cssText = `
-        display: none;
-        background: transparent;
-        border: 1px solid var(--accent-primary);
-        color: var(--accent-primary);
-        font-size: 1.5rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        border-radius: 5px;
-    `;
-    
-    const navContainer = document.querySelector('.nav-container');
-    navContainer.insertBefore(burger, navContainer.lastElementChild);
-    
-    burger.addEventListener('click', () => {
-        nav.classList.toggle('active');
-    });
-    
-    // Show burger on mobile
-    const mediaQuery = window.matchMedia('(max-width: 968px)');
-    const handleMobile = (e) => {
-        if (e.matches) {
-            burger.style.display = 'block';
-        } else {
-            burger.style.display = 'none';
-            nav.classList.remove('active');
-        }
-    };
-    
-    mediaQuery.addListener(handleMobile);
-    handleMobile(mediaQuery);
-};
-
-createMobileMenu();
-
-// Add mobile menu styles
-const mobileStyle = document.createElement('style');
-mobileStyle.textContent = `
-    @media (max-width: 968px) {
-        .nav-links {
-            position: fixed;
-            top: 70px;
-            right: -100%;
-            width: 70%;
-            height: calc(100vh - 70px);
-            background: var(--bg-secondary);
-            flex-direction: column;
-            padding: 2rem;
-            transition: right 0.3s ease;
-            border-left: 1px solid var(--border-color);
-            z-index: 999;
-        }
-        
-        .nav-links.active {
-            right: 0;
-        }
-        
-        .nav-links a {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-    }
-`;
-document.head.appendChild(mobileStyle);
-
-console.log('Portfolio loaded successfully! 🚀');
+console.log('%c🛡️ Welcome to 63n713m4n\'s Portfolio!', 'color: #00ff9f; font-size: 20px; font-weight: bold;');
+console.log('%cInterested in the code? Check out the GitHub repo!', 'color: #00d4ff; font-size: 14px;');
+console.log('%cTry the Konami Code for a surprise! ↑↑↓↓←→←→BA', 'color: #9ca3bd; font-size: 12px;');
