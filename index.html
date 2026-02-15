@@ -583,27 +583,84 @@
                 </a>
             </div>
             <div class="contact-form-wrapper">
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder=" " required>
-                        <label for="name">Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder=" " required>
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
-                        <label for="message">Message</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <span>Send Message</span>
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <line x1="22" y1="2" x2="11" y2="13"/>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                        </svg>
-                    </button>
-                </form>
+                <form 
+  action="https://formsubmit.co/841f94275ae3236a0baab0d0cf7e6514" 
+  method="POST" 
+  class="contact-form" 
+  id="contact-form"
+>
+
+  <div class="form-group">
+    <input 
+      type="text" 
+      id="name" 
+      name="name" 
+      placeholder=" " 
+      required 
+      autocomplete="name"
+    >
+    <label for="name">Name</label>
+  </div>
+
+  <div class="form-group">
+    <input 
+      type="email" 
+      id="email" 
+      name="email" 
+      placeholder=" " 
+      required 
+      autocomplete="email"
+    >
+    <label for="email">Email</label>
+  </div>
+
+  <div class="form-group">
+    <textarea 
+      id="message" 
+      name="message" 
+      rows="6" 
+      placeholder=" " 
+      required
+    ></textarea>
+    <label for="message">Message</label>
+  </div>
+
+  <!-- FormSubmit configuration -->
+  <input type="hidden" name="_captcha" value="false" />
+  <input 
+    type="hidden" 
+    name="_next" 
+    value="https://63n713m4n.github.io/thankyou.html" 
+  />
+  <input 
+    type="hidden" 
+    name="_subject" 
+    value="New message from portfolio" 
+  />
+  <input 
+    type="hidden" 
+    name="_replyto" 
+    value="{{email}}" 
+  />
+
+  <!-- Optional but recommended: very basic spam protection (honeypot) -->
+  <input 
+    type="text" 
+    name="_gotcha" 
+    style="display:none;" 
+    tabindex="-1" 
+    autocomplete="off"
+  >
+
+  <button type="submit" class="btn btn-primary">
+    <span>Send Message</span>
+    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="22" y1="2" x2="11" y2="13"/>
+      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    </svg>
+  </button>
+
+</form>
             </div>
         </div>
     </section>
