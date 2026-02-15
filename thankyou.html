@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You | 63n713m4n</title>
+
+  <!-- tsParticles bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --green: #00ff95;
+      --bg-gradient: radial-gradient(circle at top, #020617, #020b18, #000000);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--green);
+      font-family: "Fira Code", Menlo, Monaco, "Courier New", monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #tsparticles {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .content-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      width: 90%;
+    }
+
+    .terminal-box {
+      background-color: rgba(0, 0, 0, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 255, 149, 0.35);
+      box-shadow: 0 0 24px rgba(0, 255, 149, 0.35);
+      padding: 1.8rem 1.5rem 1.6rem;
+      animation: fadeIn 1.4s ease-out;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .th-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .th-dot.red { background: #f97373; }
+    .th-dot.yellow { background: #facc15; }
+    .th-dot.green { background: #4ade80; }
+
+    .th-title {
+      margin-left: auto;
+      opacity: 0.8;
+    }
+
+    /* Terminal lines */
+    .line {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      overflow: hidden;
+      width: 0;
+      border-right: 2px solid transparent;
+      opacity: 0;
+    }
+
+    .prompt { color: var(--green); }
+    .muted { color: #9ca3af; }
+    .success { color: #4ade80; }
+
+    .next-steps {
+      margin-top: 1.6rem;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .next-steps ul {
+      padding-left: 1.1rem;
+      margin: 0.6rem 0 0;
+    }
+
+    .next-steps li {
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.8rem;
+      background-color: var(--green);
+      color: #020617;
+      padding: 0.7rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid var(--green);
+      box-shadow: 0 0 16px rgba(0, 255, 149, 0.45);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      opacity: 0;
+    }
+
+    .btn-home:hover {
+      transform: translateY(-3px);
+      background-color: #00e676;
+      box-shadow: 0 0 22px rgba(0, 255, 149, 0.6);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typing animation for the active line */
+    @keyframes typeLine {
+      0% {
+        width: 0;
+        opacity: 1;
+        border-right-color: var(--green);
+      }
+      95% {
+        width: 100%;
+        opacity: 1;
+        border-right-color: var(--green);
+      }
+      100% {
+        width: 100%;
+        opacity: 1;
+        border-right-color: transparent;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .terminal-box {
+        padding: 1.4rem 1.1rem 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- tsParticles canvas -->
+  <div id="tsparticles"></div>
+
+  <!-- Terminal-style thank you message -->
+  <div class="content-wrap">
+    <div class="terminal-box">
+      <div class="terminal-header">
+        <span class="th-dot red"></span>
+        <span class="th-dot yellow"></span>
+        <span class="th-dot green"></span>
+        <span class="th-title">thankyou.sh</span>
+      </div>
+
+      <div class="line" data-text='$ echo "📬 Thanks for reaching out, hacker!"'></div>
+      <div class="line" data-text='$ message_status  = "delivered"'></div>
+      <div class="line" data-text='$ route           = "63n713m4n → you"'></div>
+      <div class="line" data-text='$ eta             ≈ "soon"'></div>
+      <div class="line" data-text='[·] Signal locked in. Response will follow shortly.'></div>
+      <div class="line" data-text='[·] Until then: stay curious, stay secure, break things (legally). 🔐'></div>
+      <div class="line" data-text='— 63n713m4n.sh'></div>
+
+      <div class="next-steps" id="next-steps">
+        <span class="muted">while (you_wait) {</span>
+        <ul>
+          <li>Review more projects on the portfolio.</li>
+          <li>Connect on LinkedIn for collabs and roles.</li>
+          <li>Read a write‑up on Medium and steal some ideas.</li>
+        </ul>
+        <span class="muted">}</span>
+      </div>
+
+      <a href="index.html" class="btn-home" id="btn-home">
+        ← Back to Portfolio
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // tsParticles interactive background
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: false },
+      background: { color: "transparent" },
+      fpsLimit: 60,
+      particles: {
+        number: {
+          value: 90,
+          density: { enable: true, area: 900 }
+        },
+        color: { value: "#00ff95" },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.45,
+          animation: {
+            enable: true,
+            speed: 0.6,
+            minimumValue: 0.15,
+            sync: false
+          }
+        },
+        size: {
+          value: { min: 1, max: 3 },
+          animation: {
+            enable: true,
+            speed: 2.5,
+            minimumValue: 0.6,
+            sync: false
+          }
+        },
+        links: {
+          enable: true,
+          distance: 120,
+          color: "#00ff95",
+          opacity: 0.28,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1.2,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: "bounce"
+        }
+      },
+      interactivity: {
+        events: {
+          onHover: {
+            enable: true,
+            mode: ["repulse", "grab"],
+            parallax: {
+              enable: true,
+              force: 40,
+              smooth: 10
+            }
+          },
+          onClick: {
+            enable: true,
+            mode: ["push", "repulse"]
+          },
+          resize: true
+        },
+        modes: {
+          repulse: {
+            distance: 140,
+            duration: 0.4
+          },
+          push: {
+            quantity: 4
+          },
+          grab: {
+            distance: 140,
+            links: { opacity: 0.6 }
+          }
+        }
+      },
+      detectRetina: true
+    });
+
+    // Sequential terminal typing
+    document.addEventListener("DOMContentLoaded", () => {
+      const lines = Array.from(document.querySelectorAll(".line"));
+      const nextSteps = document.getElementById("next-steps");
+      const btnHome = document.getElementById("btn-home");
+
+      const typeDuration = 800;  // ms per line typing
+      const gapDuration = 200;   // ms gap between lines
+
+      const typeLine = (el) => {
+        const text = el.getAttribute("data-text") || "";
+        el.textContent = text;
+        el.style.opacity = "1";
+        el.style.animation = `typeLine ${typeDuration}ms steps(${Math.max(
+          text.length,
+          20
+        )}, end) forwards`;
+      };
+
+      const runSequence = async () => {
+        for (let i = 0; i < lines.length; i++) {
+          typeLine(lines[i]);
+          await new Promise((r) => setTimeout(r, typeDuration + gapDuration));
+        }
+        // Show next steps and button after all lines
+        nextSteps.style.opacity = "1";
+        btnHome.style.opacity = "1";
+      };
+
+      runSequence();
+    });
+  </script>
+</body>
+</html>
