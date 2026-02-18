@@ -361,15 +361,16 @@ const animateCounter = (element) => {
     const updateCounter = () => {
         current += increment;
         if (current < target) {
-            element.textContent = Math.floor(current);
+            element.textContent = Math.floor(current) + '+';
             requestAnimationFrame(updateCounter);
         } else {
-            element.textContent = target + (target === 96 ? '+' : '');
+            element.textContent = target + '+';
         }
     };
     
     updateCounter();
 };
+
 
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
