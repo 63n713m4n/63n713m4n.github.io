@@ -189,13 +189,6 @@
       .services-list{grid-template-columns:1fr}
       footer{flex-direction:column;gap:12px;padding:20px 24px}
     }
-
-    /* NEW: Style for SVG icons */
-    .skill-icon svg, .project-icon svg {
-      width: 36px;
-      height: 36px;
-      color: var(--accent);
-    }
   </style>
 </head>
 <body>
@@ -308,73 +301,37 @@
     <h2 class="sec-title" data-reveal>What I know.<br /><span style="color:var(--muted)">What I build.</span></h2>
     <div class="skills-grid" data-reveal>
       <div class="skill-card" data-index="01">
-        <div class="skill-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L4 6V12C4 17.55 7.84 22.74 12 24C16.16 22.74 20 17.55 20 12V6L12 2Z" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M12 2L4 6V12C4 17.55 7.84 22.74 12 24C16.16 22.74 20 17.55 20 12V6L12 2Z" fill="none" stroke="#1e1e23" stroke-width="1.2"/>
-          </svg>
-        </div>
+        <div class="skill-icon">🛡️</div>
         <div class="skill-name">Network Defense</div>
         <div class="skill-desc">Designing and implementing layered network security — firewalls, DNS filtering, VPN hardening, and intrusion prevention.</div>
         <div class="skill-tags"><span class="tag">nftables</span><span class="tag">WireGuard</span><span class="tag">Pi-hole</span><span class="tag">Fail2ban</span><span class="tag">Unbound</span><span class="tag">CrowdSec</span></div>
       </div>
       <div class="skill-card" data-index="02">
-        <div class="skill-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="10" cy="10" r="3" fill="currentColor"/>
-          </svg>
-        </div>
+        <div class="skill-icon">🔍</div>
         <div class="skill-name">Penetration Testing</div>
         <div class="skill-desc">Vulnerability assessment, network reconnaissance, exploit development and post-exploitation across web, network and physical vectors.</div>
         <div class="skill-tags"><span class="tag">Metasploit</span><span class="tag">nmap</span><span class="tag">Hydra</span><span class="tag">sqlmap</span><span class="tag">Burp Suite</span><span class="tag">aircrack-ng</span></div>
       </div>
       <div class="skill-card" data-index="03">
-        <div class="skill-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 4L12 20M4 12H20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="3" fill="currentColor"/>
-            <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-            <circle cx="16" cy="16" r="1.5" fill="currentColor"/>
-          </svg>
-        </div>
+        <div class="skill-icon">🤖</div>
         <div class="skill-name">AI for Security</div>
         <div class="skill-desc">Applying machine learning to cybersecurity: anomaly detection, threat classification, and AI-based cyber risk assessment frameworks.</div>
         <div class="skill-tags"><span class="tag">Random Forest</span><span class="tag">SVM</span><span class="tag">KNN</span><span class="tag">Isolation Forest</span><span class="tag">scikit-learn</span></div>
       </div>
       <div class="skill-card" data-index="04">
-        <div class="skill-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
-            <path d="M8 8V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M16 8V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="14" r="2" fill="currentColor"/>
-          </svg>
-        </div>
+        <div class="skill-icon">📊</div>
         <div class="skill-name">Security Monitoring</div>
         <div class="skill-desc">Building observability stacks for security — log aggregation, real-time alerting, threat visualization, and SIEM pipelines.</div>
         <div class="skill-tags"><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">Loki</span><span class="tag">Promtail</span><span class="tag">Discord Webhooks</span></div>
       </div>
       <div class="skill-card" data-index="05">
-        <div class="skill-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="6" width="14" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
-            <rect x="8" y="9" width="3" height="7" fill="currentColor"/>
-            <rect x="13" y="9" width="3" height="7" fill="currentColor"/>
-          </svg>
-        </div>
+        <div class="skill-icon">🐳</div>
         <div class="skill-name">Infrastructure</div>
         <div class="skill-desc">Self-hosted service deployment, container orchestration, Linux server administration and security automation.</div>
         <div class="skill-tags"><span class="tag">Docker</span><span class="tag">Portainer</span><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">Linux</span><span class="tag">systemd</span></div>
       </div>
       <div class="skill-card" data-index="06">
-        <div class="skill-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 4L4 8V16L12 20L20 16V8L12 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            <circle cx="12" cy="12" r="3" fill="currentColor"/>
-            <path d="M9 12H15" stroke="#080809" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
+        <div class="skill-icon">🐬</div>
         <div class="skill-name">Hardware Security</div>
         <div class="skill-desc">Embedded systems security, RF signal analysis, BadUSB payload development, and physical penetration testing.</div>
         <div class="skill-tags"><span class="tag">Flipper Zero</span><span class="tag">Raspberry Pi</span><span class="tag">BadUSB</span><span class="tag">Sub-GHz</span><span class="tag">NFC/RFID</span></div>
@@ -382,8 +339,223 @@
     </div>
   </section>
 
-  <!-- The rest of your original index.html content (projects, lab, stack, contact, footer, script) remains unchanged -->
-  <!-- ... (copy the rest from your original index.html) ... -->
+  <section id="projects">
+    <div class="sec-eyebrow" data-num="03 —">Projects</div>
+    <h2 class="sec-title" data-reveal>Things I've built.</h2>
+    <div class="projects-grid" data-reveal>
+      <a href="https://github.com/63n713m4n/rogue-Wi-Fi-access-point-creator" target="_blank" class="project-card">
+        <div class="project-header"><div class="project-icon">📡</div><div class="project-arrow">↗</div></div>
+        <div class="project-name">Rogue Wi-Fi Access Point</div>
+        <div class="project-desc">Creates a fake access point with captive portal to demonstrate credential harvesting. Includes internet spoofing and session logging for security awareness training.</div>
+        <div class="project-meta"><div class="project-lang"><div class="lang-dot" style="background:#3572A5"></div>Python</div><div class="project-stars">⭐ 2</div><div class="project-tag">Offensive</div></div>
+      </a>
+      <a href="#lab" class="project-card">
+        <div class="project-header"><div class="project-icon">🥧</div><div class="project-arrow">↓</div></div>
+        <div class="project-name">Pi 5 Security Operations Lab</div>
+        <div class="project-desc">Full enterprise-grade security stack on Raspberry Pi 5: DNS filtering, VPN, firewall, SSH honeypot, threat intelligence, SIEM, and real-time monitoring dashboards. Running live.</div>
+        <div class="project-meta"><div class="project-lang"><div class="lang-dot" style="background:#89e051"></div>Shell / Python</div><div class="project-tag">Defensive</div><div class="project-tag">Infrastructure</div></div>
+      </a>
+      <a href="https://github.com/63n713m4n" target="_blank" class="project-card">
+        <div class="project-header"><div class="project-icon">🔐</div><div class="project-arrow">↗</div></div>
+        <div class="project-name">ML Security Classifier</div>
+        <div class="project-desc">Machine learning pipeline for network intrusion detection. Implements Decision Tree, Random Forest, KNN, and SVM classifiers with comparative analysis and feature importance visualization.</div>
+        <div class="project-meta"><div class="project-lang"><div class="lang-dot" style="background:#3572A5"></div>Python</div><div class="project-tag">ML/AI</div><div class="project-tag">Research</div></div>
+      </a>
+      <a href="https://github.com/63n713m4n" target="_blank" class="project-card">
+        <div class="project-header"><div class="project-icon">🐬</div><div class="project-arrow">↗</div></div>
+        <div class="project-name">Flipper Zero Payload Suite</div>
+        <div class="project-desc">BadUSB payload collection for Windows, macOS and Linux performing system reconnaissance and reporting findings via Discord webhooks. Built for authorized security assessments.</div>
+        <div class="project-meta"><div class="project-lang"><div class="lang-dot" style="background:#555555"></div>DuckyScript</div><div class="project-tag">Hardware</div><div class="project-tag">Offensive</div></div>
+      </a>
+    </div>
+  </section>
 
+  <section id="lab">
+    <div class="sec-eyebrow" data-num="04 —">Pi Lab</div>
+    <div class="lab-top" data-reveal>
+      <h2 class="sec-title" style="margin-bottom:0">Live infrastructure.</h2>
+      <div class="lab-live"><div class="pulse-dot"></div><span id="lab-status-text">Fetching status...</span></div>
+    </div>
+    <div class="lab-metrics" data-reveal>
+      <div class="lab-metric"><div class="lm-label">CPU Usage</div><div class="lm-value accent" id="cpu-val">—</div><div class="lm-unit">percent</div></div>
+      <div class="lab-metric"><div class="lm-label">RAM Used</div><div class="lm-value green" id="ram-val">—</div><div class="lm-unit">percent</div></div>
+      <div class="lab-metric"><div class="lm-label">Temperature</div><div class="lm-value yellow" id="temp-val">—</div><div class="lm-unit">°C</div></div>
+      <div class="lab-metric"><div class="lm-label">Disk Used</div><div class="lm-value" id="disk-val">—</div><div class="lm-unit">of 470GB NVMe</div></div>
+    </div>
+    <div class="lab-layout" data-reveal>
+      <div class="services-panel">
+        <div class="sp-title">Services</div>
+        <div class="services-list" id="services-list">
+          <div class="svc-item"><span class="svc-name">Loading...</span><div class="loading"><span></span><span></span><span></span></div></div>
+        </div>
+      </div>
+      <div class="system-panel">
+        <div class="sys-title">System Load</div>
+        <div class="sys-rows">
+          <div class="sys-row"><div class="sys-label-row"><span>CPU</span><span class="sys-val" id="cpu-bar-val">—%</span></div><div class="sys-bar"><div class="sys-fill accent" id="cpu-bar" style="width:0%"></div></div></div>
+          <div class="sys-row"><div class="sys-label-row"><span>RAM</span><span class="sys-val" id="ram-bar-val">—%</span></div><div class="sys-bar"><div class="sys-fill green" id="ram-bar" style="width:0%"></div></div></div>
+          <div class="sys-row"><div class="sys-label-row"><span>Disk</span><span class="sys-val" id="disk-bar-val">—%</span></div><div class="sys-bar"><div class="sys-fill" id="disk-bar" style="width:0%"></div></div></div>
+          <div class="sys-row"><div class="sys-label-row"><span>Temperature</span><span class="sys-val" id="temp-bar-val">—°C</span></div><div class="sys-bar"><div class="sys-fill yellow" id="temp-bar" style="width:0%"></div></div></div>
+        </div>
+        <div style="margin-top:32px">
+          <div class="sys-title">Uptime</div>
+          <div style="margin-top:12px;font-size:13px;color:var(--accent)" id="uptime-display">fetching...</div>
+        </div>
+        <div style="margin-top:32px">
+          <div class="sys-title">Hardware</div>
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted)">Board</span><span style="color:var(--text2)">Raspberry Pi 5 8GB</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted)">Storage</span><span style="color:var(--text2)">512GB NVMe M.2</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted)">OS</span><span style="color:var(--text2)">Pi OS Lite 64-bit</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted)">Network</span><span style="color:var(--text2)">Gigabit Ethernet</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="sec-eyebrow" data-num="05 —">Stack</div>
+    <h2 class="sec-title" data-reveal>Everything running<br /><span style="color:var(--muted)">on the Pi.</span></h2>
+    <table class="stack-table" data-reveal>
+      <thead><tr><th>Service</th><th>Purpose</th><th>Category</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Pi-hole v6</td><td>DNS-level ad & tracker blocking</td><td><span class="stack-badge network">Network</span></td><td>433K+ domains blocked</td></tr>
+        <tr><td>Unbound</td><td>Recursive DNS resolver</td><td><span class="stack-badge network">Network</span></td><td>DNSSEC, no upstream</td></tr>
+        <tr><td>WireGuard</td><td>VPN server</td><td><span class="stack-badge network">Network</span></td><td>PiVPN managed, UDP 51820</td></tr>
+        <tr><td>nftables</td><td>Stateful firewall</td><td><span class="stack-badge security">Security</span></td><td>Default DROP, rate limiting</td></tr>
+        <tr><td>Fail2ban</td><td>Brute force protection</td><td><span class="stack-badge security">Security</span></td><td>SSH jails, 3600s bans</td></tr>
+        <tr><td>CrowdSec</td><td>Collaborative threat intelligence</td><td><span class="stack-badge security">Security</span></td><td>15K+ IPs blocked via CAPI</td></tr>
+        <tr><td>Cowrie</td><td>SSH/Telnet honeypot</td><td><span class="stack-badge security">Security</span></td><td>Logs all attacker commands</td></tr>
+        <tr><td>Grafana</td><td>Metrics & log dashboards</td><td><span class="stack-badge monitoring">Monitoring</span></td><td>Node Exporter + Cowrie panels</td></tr>
+        <tr><td>Prometheus</td><td>Time-series metrics</td><td><span class="stack-badge monitoring">Monitoring</span></td><td>30-day retention</td></tr>
+        <tr><td>Loki + Promtail</td><td>Log aggregation</td><td><span class="stack-badge monitoring">Monitoring</span></td><td>Cowrie JSON logs ingested</td></tr>
+        <tr><td>Docker + Portainer</td><td>Container management</td><td><span class="stack-badge infra">Infra</span></td><td>v29.3.0, ARM64 native</td></tr>
+        <tr><td>Heimdall</td><td>Service homepage dashboard</td><td><span class="stack-badge infra">Infra</span></td><td>All services in one place</td></tr>
+        <tr><td>DuckDNS</td><td>Dynamic DNS</td><td><span class="stack-badge network">Network</span></td><td>Auto-updates every 5 min</td></tr>
+        <tr><td>Flipper Zero</td><td>Hardware security testing</td><td><span class="stack-badge hardware">Hardware</span></td><td>Momentum firmware</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="contact">
+    <div class="sec-eyebrow" data-num="06 —">Contact</div>
+    <h2 class="sec-title" data-reveal>Let's work together.</h2>
+    <div class="contact-layout" data-reveal>
+      <div class="contact-left">
+        <p class="contact-intro">I'm open to internships, research collaborations, and interesting security projects. Whether you want to talk about home labs, threat intelligence, or just geek out about cybersecurity — reach out.</p>
+        <div class="contact-links">
+          <a href="mailto:alphonse.joseph@proton.me" class="c-link"><div class="c-link-icon">✉</div><div><div class="c-link-label">Email</div><div>alphonse.joseph@proton.me</div></div></a>
+          <a href="https://github.com/63n713m4n" target="_blank" class="c-link"><div class="c-link-icon">⌥</div><div><div class="c-link-label">GitHub</div><div>github.com/63n713m4n</div></div></a>
+          <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank" class="c-link"><div class="c-link-icon">◈</div><div><div class="c-link-label">LinkedIn</div><div>linkedin.com/in/alphonse-joseph</div></div></a>
+          <a href="https://twitter.com/Al_FonZ_" target="_blank" class="c-link"><div class="c-link-icon">✕</div><div><div class="c-link-label">Twitter/X</div><div>@Al_FonZ_</div></div></a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form action="https://formsubmit.co/alphonse.joseph@proton.me" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="Portfolio Contact — Alphonse Joseph">
+          <div class="form-group"><label class="form-label">Name</label><input type="text" name="name" class="form-input" placeholder="Your name" required /></div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-input" placeholder="your@email.com" required /></div>
+          <div class="form-group"><label class="form-label">Subject</label><input type="text" name="subject" class="form-input" placeholder="Internship / Collaboration / Other" /></div>
+          <div class="form-group"><label class="form-label">Message</label><textarea name="message" class="form-textarea" rows="5" placeholder="Tell me about what you have in mind..." required></textarea></div>
+          <button type="submit" class="btn btn-accent" style="width:100%;justify-content:center">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Alphonse Joseph — Hosted on Raspberry Pi 5, Sweden 🇸🇪</p>
+    <div class="footer-links">
+      <a href="https://github.com/63n713m4n" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">LinkedIn</a>
+      <a href="https://twitter.com/Al_FonZ_" target="_blank">Twitter</a>
+      <a href="mailto:alphonse.joseph@proton.me">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => {
+      mx=e.clientX; my=e.clientY;
+      cursor.style.left=mx-4+'px'; cursor.style.top=my-4+'px';
+    });
+    function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(animRing);}
+    animRing();
+    document.querySelectorAll('a,button,.btn').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+      el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('revealed');});},{threshold:0.1});
+    document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));
+
+    // Active nav
+    const sections=document.querySelectorAll('section[id]');
+    const navLinks=document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll',()=>{
+      let current='';
+      sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)current=s.id;});
+      navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+current)l.classList.add('active');});
+    });
+
+    // Live Pi API
+    const API='http://192.168.1.10:5000/api/status';
+    const svcNames={pihole:'Pi-hole',wireguard:'WireGuard',fail2ban:'Fail2ban',unbound:'Unbound',crowdsec:'CrowdSec',cowrie:'Cowrie',docker:'Docker',grafana:'Grafana',prometheus:'Prometheus',loki:'Loki',portainer:'Portainer',heimdall:'Heimdall'};
+
+    async function fetchStatus(){
+      try {
+        const res=await fetch(API);
+        const d=await res.json();
+
+        document.getElementById('term-uptime').textContent=d.uptime||'N/A';
+        document.getElementById('term-cpu').textContent=d.cpu?d.cpu+'%':'N/A';
+        document.getElementById('term-ram').textContent=d.ram_used?d.ram_used+'MB / '+d.ram_total+'MB ('+d.ram_pct+'%)':'N/A';
+        document.getElementById('term-temp').textContent=d.temp?d.temp+'°C':'N/A';
+        const upSvcs=Object.values(d.services).filter(Boolean).length;
+        const totalSvcs=Object.keys(d.services).length;
+        document.getElementById('term-svcs').textContent=upSvcs+'/'+totalSvcs+' active';
+
+        document.getElementById('cpu-val').textContent=d.cpu||'—';
+        document.getElementById('ram-val').textContent=d.ram_pct||'—';
+        document.getElementById('temp-val').textContent=d.temp||'—';
+        document.getElementById('disk-val').textContent=d.disk||'—';
+
+        const cpu=parseFloat(d.cpu)||0,ram=parseInt(d.ram_pct)||0,disk=parseInt(d.disk)||0,temp=parseFloat(d.temp)||0;
+        document.getElementById('cpu-bar').style.width=Math.min(cpu,100)+'%';
+        document.getElementById('ram-bar').style.width=Math.min(ram,100)+'%';
+        document.getElementById('disk-bar').style.width=Math.min(disk,100)+'%';
+        document.getElementById('temp-bar').style.width=Math.min((temp/85)*100,100)+'%';
+        document.getElementById('cpu-bar-val').textContent=cpu+'%';
+        document.getElementById('ram-bar-val').textContent=ram+'%';
+        document.getElementById('disk-bar-val').textContent=disk+'%';
+        document.getElementById('temp-bar-val').textContent=temp+'°C';
+        document.getElementById('uptime-display').textContent=d.uptime||'N/A';
+
+        const list=document.getElementById('services-list');
+        list.innerHTML='';
+        Object.entries(d.services).forEach(([key,val])=>{
+          const item=document.createElement('div');
+          item.className='svc-item';
+          item.innerHTML=`<span class="svc-name">${svcNames[key]||key}</span><div class="svc-badge ${val?'up':'down'}"><div class="svc-dot ${val?'up':'down'}"></div>${val?'Active':'Down'}</div>`;
+          list.appendChild(item);
+        });
+
+        document.getElementById('lab-status-text').textContent=upSvcs+'/'+totalSvcs+' services operational';
+        document.getElementById('nav-uptime').textContent='Lab Online · '+upSvcs+'/'+totalSvcs;
+      } catch(e) {
+        document.getElementById('lab-status-text').textContent='Cannot reach Pi API';
+        document.getElementById('nav-uptime').textContent='Lab Offline';
+        ['term-uptime','term-cpu','term-ram','term-temp','term-svcs'].forEach(id=>{document.getElementById(id).textContent='unreachable';});
+      }
+    }
+    fetchStatus();
+    setInterval(fetchStatus,30000);
+  </script>
 </body>
 </html>
