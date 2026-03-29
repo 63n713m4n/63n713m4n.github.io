@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reports — Alphonse Joseph</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080809; --surface: #131316; --surface2: #1a1a1e;
+      --border: #1e1e23; --border2: #2a2a32; --text: #f0f0ee; --text2: #a8a8b0;
+      --muted: #55555f; --accent: #b8ff57; --accent-dim: rgba(184,255,87,0.08);
+      --accent2: #57c8ff; --green: #57ff9a; --yellow: #ffd557; --red: #ff5757;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); }
+    * { cursor: none; }
+    .cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 99999; mix-blend-mode: difference; }
+    .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(184,255,87,0.3); border-radius: 50%; pointer-events: none; z-index: 99998; transition: width 0.2s, height 0.2s; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border); background: rgba(8,8,9,0.92); backdrop-filter: blur(20px); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border: 1px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-color: var(--border2); }
+    .nav-link.active { color: var(--accent); border-color: var(--accent); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border2); background: transparent; color: var(--text2); transition: all 0.2s; }
+    .btn:hover { border-color: var(--text2); color: var(--text); }
+    .btn-accent { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .btn-accent:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+    .btn-sm { padding: 7px 14px; font-size: 10px; }
+
+    /* PAGE */
+    .page { padding-top: 64px; min-height: 100vh; }
+
+    /* HERO */
+    .hero { padding: 64px 48px 48px; border-bottom: 1px solid var(--border); }
+    .eyebrow { font-size: 10px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .eyebrow::before { content: 'Research —'; color: var(--muted); }
+    .hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 64px); letter-spacing: -2px; line-height: 1.0; color: var(--text); margin-bottom: 16px; }
+    .hero-desc { font-size: 13px; color: var(--text2); max-width: 600px; line-height: 1.9; margin-bottom: 32px; }
+
+    /* FILTERS */
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; padding: 24px 48px; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .filter-btn { font-size: 11px; padding: 6px 14px; border: 1px solid var(--border2); color: var(--muted); background: transparent; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; }
+    .filter-btn:hover { border-color: var(--text2); color: var(--text); }
+    .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+    /* STATS BAR */
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+    .stat-cell { padding: 24px 48px; border-right: 1px solid var(--border); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-val { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* REPORTS GRID */
+    .reports-section { padding: 48px; }
+    .section-label { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .reports-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+
+    .report-card { background: var(--surface); padding: 32px; display: flex; flex-direction: column; transition: background 0.2s; position: relative; overflow: hidden; }
+    .report-card:hover { background: var(--surface2); }
+    .report-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--border2); transition: background 0.2s; }
+    .report-card:hover::before { background: var(--accent); }
+
+    .report-card.iot::before { background: var(--accent); }
+    .report-card.automotive::before { background: var(--accent2); }
+    .report-card.network::before { background: var(--green); }
+
+    .report-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+    .report-icon { font-size: 32px; }
+    .report-type { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); }
+
+    .report-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 12px; }
+    .report-desc { font-size: 12px; color: var(--text2); line-height: 1.8; margin-bottom: 20px; flex: 1; }
+
+    .report-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+    .rtag { font-size: 10px; padding: 3px 8px; border: 1px solid var(--border2); color: var(--muted); }
+    .rtag.accent { border-color: rgba(184,255,87,0.3); color: var(--accent); }
+    .rtag.blue { border-color: rgba(87,200,255,0.3); color: var(--accent2); }
+    .rtag.green { border-color: rgba(87,255,154,0.3); color: var(--green); }
+
+    .report-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 24px; }
+    .metric-cell { background: var(--bg); padding: 12px 14px; }
+    .metric-val { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; line-height: 1; }
+    .metric-val.accent { color: var(--accent); }
+    .metric-val.blue { color: var(--accent2); }
+    .metric-val.green { color: var(--green); }
+    .metric-val.red { color: var(--red); }
+    .metric-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    .report-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+
+    /* FEATURED */
+    .featured-card { background: var(--surface); border: 1px solid var(--border); padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-bottom: 48px; position: relative; overflow: hidden; }
+    .featured-card::before { content: 'FEATURED'; position: absolute; top: 20px; right: 20px; font-size: 10px; color: var(--accent); letter-spacing: 0.15em; padding: 3px 10px; border: 1px solid rgba(184,255,87,0.3); }
+    .featured-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+    .featured-icon { font-size: 48px; margin-bottom: 20px; }
+    .featured-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -1px; margin-bottom: 12px; }
+    .featured-desc { font-size: 13px; color: var(--text2); line-height: 1.9; margin-bottom: 24px; }
+    .featured-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .fm-cell { background: var(--bg); padding: 16px; }
+    .fm-val { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+    .fm-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    footer p { font-size: 11px; color: var(--muted); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ANIMATIONS */
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+    @media(max-width:900px) {
+      nav{padding:0 24px} .nav-center{display:none}
+      .hero,.reports-section{padding:48px 24px}
+      .filters{padding:16px 24px}
+      .stats-bar{grid-template-columns:repeat(2,1fr)}
+      .stat-cell{padding:20px 24px}
+      .reports-grid{grid-template-columns:1fr}
+      .featured-card{grid-template-columns:1fr}
+      footer{flex-direction:column;gap:12px;padding:20px 24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><div class="nav-logo-dot"></div>Alphonse Joseph</a>
+    <div class="nav-center">
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#projects" class="nav-link">Projects</a>
+      <a href="reports.html" class="nav-link active">Reports</a>
+      <a href="cv.html" class="nav-link">CV</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+    <a href="index.html" class="btn">← Portfolio</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow">Research & Reports</div>
+      <div class="hero-title">Security research,<br /><span style="color:var(--muted)">documented.</span></div>
+      <p class="hero-desc">Academic reports, security analyses, and research papers from my MSc Cybersecurity studies and personal research projects. All findings are from authorized testing environments.</p>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterReports('all', this)">All Reports</button>
+      <button class="filter-btn" onclick="filterReports('iot', this)">IoT Security</button>
+      <button class="filter-btn" onclick="filterReports('automotive', this)">Automotive</button>
+      <button class="filter-btn" onclick="filterReports('network', this)">Network Security</button>
+      <button class="filter-btn" onclick="filterReports('research', this)">Research</button>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar" data-reveal>
+      <div class="stat-cell"><div class="stat-val">3</div><div class="stat-label">Reports Published</div></div>
+      <div class="stat-cell"><div class="stat-val">15+</div><div class="stat-label">Devices Tested</div></div>
+      <div class="stat-cell"><div class="stat-val">12</div><div class="stat-label">Vulnerabilities Found</div></div>
+      <div class="stat-cell"><div class="stat-val">95%</div><div class="stat-label">Containment Rate</div></div>
+    </div>
+
+    <div class="reports-section">
+
+      <!-- FEATURED -->
+      <div class="section-label">Featured Report</div>
+      <div class="featured-card" data-reveal data-category="iot">
+        <div>
+          <div class="featured-icon">📡</div>
+          <div class="featured-title">IoT Security Analysis</div>
+          <p class="featured-desc">Comprehensive vulnerability analysis of smart siren and light devices, identifying critical exposures and misconfigurations that could allow unauthorized control or network infiltration. Testing performed across 15+ consumer IoT devices in a controlled lab environment.</p>
+          <div class="report-tags">
+            <span class="rtag accent">IoT</span>
+            <span class="rtag accent">Threat Modeling</span>
+            <span class="rtag accent">Security Analysis</span>
+            <span class="rtag">CVE Research</span>
+            <span class="rtag">Network Scanning</span>
+          </div>
+          <div class="report-actions">
+            <a href="reports/iot-security-analysis.pdf" download class="btn btn-accent btn-sm">↓ Download Report</a>
+            <a href="reports/iot-security-analysis.pdf" target="_blank" class="btn btn-sm">View PDF ↗</a>
+          </div>
+        </div>
+        <div>
+          <div class="featured-metrics">
+            <div class="fm-cell"><div class="fm-val">15+</div><div class="fm-label">Devices Tested</div></div>
+            <div class="fm-cell"><div class="fm-val">12</div><div class="fm-label">Vulnerabilities</div></div>
+            <div class="fm-cell"><div class="fm-val">3</div><div class="fm-label">Critical Findings</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPORTS GRID -->
+      <div class="section-label">All Reports</div>
+      <div class="reports-grid" id="reports-grid">
+
+        <!-- IoT Report -->
+        <div class="report-card iot" data-category="iot" data-reveal>
+          <div class="report-header">
+            <div class="report-icon">📡</div>
+            <div class="report-type">Security Analysis</div>
+          </div>
+          <div class="report-title">IoT Security Analysis</div>
+          <p class="report-desc">Analyzed vulnerabilities in smart siren and light devices, identifying critical exposures and misconfigurations that could lead to unauthorized access or network compromise.</p>
+          <div class="report-tags">
+            <span class="rtag accent">IoT</span>
+            <span class="rtag accent">Threat Modeling</span>
+            <span class="rtag">nmap</span>
+            <span class="rtag">Wireshark</span>
+          </div>
+          <div class="report-metrics">
+            <div class="metric-cell"><div class="metric-val accent">15+</div><div class="metric-label">Devices tested</div></div>
+            <div class="metric-cell"><div class="metric-val red">12</div><div class="metric-label">Vulnerabilities found</div></div>
+          </div>
+          <div class="report-actions">
+            <a href="reports/iot-security-analysis.pdf" download class="btn btn-accent btn-sm">↓ Download</a>
+            <a href="reports/iot-security-analysis.pdf" target="_blank" class="btn btn-sm">View ↗</a>
+          </div>
+        </div>
+
+        <!-- Automotive Report -->
+        <div class="report-card automotive" data-category="automotive research" data-reveal>
+          <div class="report-header">
+            <div class="report-icon">🚘</div>
+            <div class="report-type">Research Paper</div>
+          </div>
+          <div class="report-title">ISO/SAE 21434 Review</div>
+          <p class="report-desc">Industry implementation review of automotive cybersecurity standards and TARA (Threat Analysis and Risk Assessment) processes across major OEMs and Tier-1 suppliers.</p>
+          <div class="report-tags">
+            <span class="rtag blue">Automotive</span>
+            <span class="rtag blue">Compliance</span>
+            <span class="rtag">TARA</span>
+            <span class="rtag">ISO 21434</span>
+          </div>
+          <div class="report-metrics">
+            <div class="metric-cell"><div class="metric-val blue">20+</div><div class="metric-label">Papers reviewed</div></div>
+            <div class="metric-cell"><div class="metric-val accent">5</div><div class="metric-label">Key gaps identified</div></div>
+          </div>
+          <div class="report-actions">
+            <a href="reports/iso-sae-21434-review.pdf" download class="btn btn-accent btn-sm">↓ Download</a>
+            <a href="reports/iso-sae-21434-review.pdf" target="_blank" class="btn btn-sm">View ↗</a>
+          </div>
+        </div>
+
+        <!-- Network Worm Report -->
+        <div class="report-card network" data-category="network" data-reveal>
+          <div class="report-header">
+            <div class="report-icon">🛡️</div>
+            <div class="report-type">Technical Report</div>
+          </div>
+          <div class="report-title">Network Worm Containment</div>
+          <p class="report-desc">Azure NSG implementation demonstrating worm containment through network segmentation strategies. Tested three distinct attack scenarios with measurable containment outcomes.</p>
+          <div class="report-tags">
+            <span class="rtag green">Azure</span>
+            <span class="rtag green">Network Security</span>
+            <span class="rtag">NSG</span>
+            <span class="rtag">Cloud</span>
+          </div>
+          <div class="report-metrics">
+            <div class="metric-cell"><div class="metric-val green">3</div><div class="metric-label">Attack scenarios</div></div>
+            <div class="metric-cell"><div class="metric-val accent">95%</div><div class="metric-label">Containment rate</div></div>
+          </div>
+          <div class="report-actions">
+            <a href="https://github.com/63n713m4n" target="_blank" class="btn btn-sm">GitHub ↗</a>
+            <a href="reports/network-worm-containment.pdf" download class="btn btn-accent btn-sm">↓ Download</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div style="padding:20px 24px;background:var(--surface);border:1px solid var(--border);display:flex;gap:16px;align-items:flex-start" data-reveal>
+        <span style="font-size:20px;flex-shrink:0">⚠️</span>
+        <div>
+          <div style="font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Responsible Disclosure</div>
+          <p style="font-size:12px;color:var(--text2);line-height:1.8">All security research documented here was conducted in authorized test environments or on personally owned equipment. Findings have been responsibly disclosed where applicable. These reports are shared for educational purposes only.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Alphonse Joseph — Hosted on Raspberry Pi 5, Sweden 🇸🇪</p>
+      <div class="footer-links">
+        <a href="index.html">Portfolio</a>
+        <a href="cv.html">CV</a>
+        <a href="https://github.com/63n713m4n" target="_blank">GitHub</a>
+        <a href="mailto:alphonse.joseph@proton.me">Email</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Cursor
+    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-4+'px';cursor.style.top=my-4+'px';});
+    function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(animRing);}
+    animRing();
+    document.querySelectorAll('a,button,.btn').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+      el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+    });
+
+    // Scroll reveal
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('revealed');});},{threshold:0.1});
+    document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));
+
+    // Filter
+    function filterReports(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.report-card').forEach(card=>{
+        const cats=card.dataset.category||'';
+        if(category==='all'||cats.includes(category)){
+          card.style.display='flex';
+        } else {
+          card.style.display='none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

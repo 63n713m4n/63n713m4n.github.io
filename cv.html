@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Alphonse Joseph</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080809; --surface: #131316; --surface2: #1a1a1e;
+      --border: #1e1e23; --border2: #2a2a32; --text: #f0f0ee; --text2: #a8a8b0;
+      --muted: #55555f; --accent: #b8ff57; --accent-dim: rgba(184,255,87,0.08);
+      --accent2: #57c8ff; --green: #57ff9a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); }
+    * { cursor: none; }
+    .cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 99999; mix-blend-mode: difference; }
+    .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(184,255,87,0.3); border-radius: 50%; pointer-events: none; z-index: 99998; transition: width 0.2s, height 0.2s; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border); background: rgba(8,8,9,0.92); backdrop-filter: blur(20px); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border: 1px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-color: var(--border2); }
+    .nav-link.active { color: var(--accent); border-color: var(--accent); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border2); background: transparent; color: var(--text2); transition: all 0.2s; }
+    .btn:hover { border-color: var(--text2); color: var(--text); }
+    .btn-accent { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .btn-accent:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+
+    /* PAGE */
+    .page { padding-top: 64px; min-height: 100vh; }
+
+    /* HERO */
+    .cv-hero { padding: 64px 48px 48px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+    .cv-hero-left { }
+    .cv-eyebrow { font-size: 10px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .cv-eyebrow::before { content: 'CV —'; color: var(--muted); }
+    .cv-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 64px); letter-spacing: -2px; line-height: 1.0; color: var(--text); margin-bottom: 12px; }
+    .cv-subtitle { font-size: 13px; color: var(--text2); }
+    .cv-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* VIEWER */
+    .cv-viewer { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 200px); }
+
+    /* SIDEBAR */
+    .cv-sidebar { border-right: 1px solid var(--border); padding: 32px; display: flex; flex-direction: column; gap: 32px; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; }
+    .sidebar-section { }
+    .sidebar-title { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+    /* Info */
+    .info-item { display: flex; flex-direction: column; gap: 2px; margin-bottom: 12px; }
+    .info-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .info-value { font-size: 12px; color: var(--text2); }
+    .info-value a { color: var(--accent2); text-decoration: none; }
+
+    /* Skills bars */
+    .skill-bar-item { margin-bottom: 12px; }
+    .skill-bar-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+    .skill-bar-pct { color: var(--accent); }
+    .skill-bar-track { height: 2px; background: var(--border2); }
+    .skill-bar-fill { height: 100%; background: var(--accent); transition: width 1s ease; }
+    .skill-bar-fill.blue { background: var(--accent2); }
+    .skill-bar-fill.green { background: var(--green); }
+
+    /* Tags */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .stag { font-size: 10px; padding: 3px 8px; border: 1px solid var(--border2); color: var(--muted); }
+
+    /* MAIN CONTENT */
+    .cv-main { padding: 48px; }
+
+    /* Section */
+    .cv-section { margin-bottom: 56px; }
+    .cv-section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .cv-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* Experience / Education items */
+    .cv-item { margin-bottom: 32px; padding-left: 20px; border-left: 1px solid var(--border); position: relative; }
+    .cv-item::before { content: ''; position: absolute; left: -4px; top: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+    .cv-item-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 6px; }
+    .cv-item-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+    .cv-item-date { font-size: 11px; color: var(--accent); white-space: nowrap; padding: 2px 8px; border: 1px solid rgba(184,255,87,0.2); }
+    .cv-item-org { font-size: 12px; color: var(--accent2); margin-bottom: 8px; }
+    .cv-item-desc { font-size: 12px; color: var(--text2); line-height: 1.9; }
+    .cv-item-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .cv-item-tag { font-size: 10px; padding: 2px 8px; border: 1px solid var(--border2); color: var(--muted); }
+
+    /* Projects grid */
+    .projects-list { display: flex; flex-direction: column; gap: 16px; }
+    .proj-item { padding: 20px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; transition: background 0.2s; text-decoration: none; }
+    .proj-item:hover { background: var(--surface2); border-color: var(--border2); }
+    .proj-left { }
+    .proj-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .proj-desc { font-size: 12px; color: var(--text2); line-height: 1.7; }
+    .proj-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .proj-lang { font-size: 10px; color: var(--muted); }
+    .proj-badge { font-size: 10px; padding: 2px 8px; background: var(--accent-dim); border: 1px solid rgba(184,255,87,0.2); color: var(--accent); }
+
+    /* Certifications */
+    .certs-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cert-item { padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); }
+    .cert-name { font-size: 13px; color: var(--text); margin-bottom: 4px; font-weight: 500; }
+    .cert-org { font-size: 11px; color: var(--muted); }
+    .cert-status { font-size: 10px; color: var(--accent); margin-top: 6px; }
+
+    /* PDF embed */
+    .pdf-container { width: 100%; height: calc(100vh - 64px); border: none; }
+
+    /* Tabs */
+    .cv-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+    .cv-tab { padding: 16px 24px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid transparent; cursor: none; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'JetBrains Mono', monospace; }
+    .cv-tab:hover { color: var(--text); }
+    .cv-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-content { display: none; }
+    .tab-content.active { display: flex; }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    footer p { font-size: 11px; color: var(--muted); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    @media(max-width:900px) {
+      nav{padding:0 24px} .nav-center{display:none}
+      .cv-hero{padding:48px 24px 32px;flex-direction:column;align-items:flex-start}
+      .cv-viewer{grid-template-columns:1fr}
+      .cv-sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}
+      .cv-main{padding:32px 24px}
+      .certs-list{grid-template-columns:1fr}
+      footer{flex-direction:column;gap:12px;padding:20px 24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><div class="nav-logo-dot"></div>Alphonse Joseph</a>
+    <div class="nav-center">
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#skills" class="nav-link">Skills</a>
+      <a href="index.html#projects" class="nav-link">Projects</a>
+      <a href="index.html#lab" class="nav-link">Pi Lab</a>
+      <a href="cv.html" class="nav-link active">CV</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+    <a href="Alphonse_Joseph_CV.pdf" download class="btn btn-accent">Download PDF ↓</a>
+  </nav>
+
+  <div class="page">
+    <!-- HERO -->
+    <div class="cv-hero">
+      <div class="cv-hero-left">
+        <div class="cv-eyebrow">Curriculum Vitae</div>
+        <div class="cv-title">Alphonse<br />Joseph</div>
+        <div class="cv-subtitle">MSc Cybersecurity · University West, Sweden</div>
+      </div>
+      <div class="cv-actions">
+        <a href="Alphonse_Joseph_CV.pdf" download class="btn btn-accent">↓ Download PDF</a>
+        <a href="index.html" class="btn">← Back to Portfolio</a>
+        <a href="mailto:alphonse.joseph@proton.me" class="btn">✉ Contact</a>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="cv-tabs">
+      <button class="cv-tab active" onclick="showTab('web')">Web View</button>
+      <button class="cv-tab" onclick="showTab('pdf')">PDF View</button>
+    </div>
+
+    <!-- WEB VIEW -->
+    <div class="tab-content active" id="tab-web">
+      <div class="cv-viewer">
+        <!-- SIDEBAR -->
+        <div class="cv-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-title">Contact</div>
+            <div class="info-item"><div class="info-label">Email</div><div class="info-value"><a href="mailto:alphonse.joseph@proton.me">alphonse.joseph@proton.me</a></div></div>
+            <div class="info-item"><div class="info-label">GitHub</div><div class="info-value"><a href="https://github.com/63n713m4n" target="_blank">63n713m4n</a></div></div>
+            <div class="info-item"><div class="info-label">LinkedIn</div><div class="info-value"><a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">alphonse-joseph</a></div></div>
+            <div class="info-item"><div class="info-label">Twitter</div><div class="info-value"><a href="https://twitter.com/Al_FonZ_" target="_blank">@Al_FonZ_</a></div></div>
+            <div class="info-item"><div class="info-label">Location</div><div class="info-value">Sweden 🇸🇪</div></div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Core Skills</div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Network Defense</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Penetration Testing</span><span class="skill-bar-pct">80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Python</span><span class="skill-bar-pct">80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill blue" style="width:80%"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Linux / Bash</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill blue" style="width:85%"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>ML for Security</span><span class="skill-bar-pct">75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill green" style="width:75%"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Docker / Infra</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill green" style="width:85%"></div></div></div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Tools</div>
+            <div class="tag-cloud">
+              <span class="stag">Metasploit</span><span class="stag">nmap</span><span class="stag">Wireshark</span>
+              <span class="stag">Burp Suite</span><span class="stag">Hydra</span><span class="stag">sqlmap</span>
+              <span class="stag">aircrack-ng</span><span class="stag">Grafana</span><span class="stag">Docker</span>
+              <span class="stag">WireGuard</span><span class="stag">Pi-hole</span><span class="stag">CrowdSec</span>
+              <span class="stag">Flipper Zero</span><span class="stag">Git</span><span class="stag">Cowrie</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Languages</div>
+            <div class="info-item"><div class="info-value">English — Fluent</div></div>
+            <div class="info-item"><div class="info-value">French — Native</div></div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Interests</div>
+            <div class="tag-cloud">
+              <span class="stag">Security Research</span><span class="stag">Home Lab</span>
+              <span class="stag">CTF Challenges</span><span class="stag">Travelling</span>
+              <span class="stag">Gaming</span><span class="stag">Reading</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN -->
+        <div class="cv-main">
+
+          <!-- SUMMARY -->
+          <div class="cv-section">
+            <div class="cv-section-title">Profile</div>
+            <p style="color:var(--text2);line-height:2;font-size:13px">
+              Cybersecurity MSc student at University West, Sweden, with a strong background in network defense,
+              penetration testing, and AI-based threat detection. I build real-world security infrastructure
+              and research emerging threats. Passionate about discovering vulnerabilities and developing
+              solutions that make systems genuinely more secure. Actively seeking opportunities in
+              penetration testing, threat intelligence, or security research.
+            </p>
+          </div>
+
+          <!-- EDUCATION -->
+          <div class="cv-section">
+            <div class="cv-section-title">Education</div>
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <div class="cv-item-title">MSc Cybersecurity</div>
+                <div class="cv-item-date">2025 — Present</div>
+              </div>
+              <div class="cv-item-org">University West · Trollhättan, Sweden</div>
+              <div class="cv-item-desc">Coursework spanning AI-based cyber risk assessment, machine learning for security anomaly detection, network security architectures, incident response, and cryptography. Hands-on lab work with real security tools and frameworks.</div>
+              <div class="cv-item-tags">
+                <span class="cv-item-tag">AI Cyber Risk</span><span class="cv-item-tag">ML Security</span>
+                <span class="cv-item-tag">Network Defense</span><span class="cv-item-tag">Cryptography</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <div class="cv-section">
+            <div class="cv-section-title">Experience</div>
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <div class="cv-item-title">Security Lab Engineer (Self-directed)</div>
+                <div class="cv-item-date">2026</div>
+              </div>
+              <div class="cv-item-org">Personal Project — Raspberry Pi 5 SOC</div>
+              <div class="cv-item-desc">Designed and built a full enterprise-grade security operations center on Raspberry Pi 5. Deployed and configured 12+ security services including DNS filtering, VPN, firewall, honeypot, threat intelligence, SIEM, and real-time monitoring dashboards. Set up Discord-based alerting for SSH logins, service failures, device tracking, and daily security reports.</div>
+              <div class="cv-item-tags">
+                <span class="cv-item-tag">Pi-hole</span><span class="cv-item-tag">WireGuard</span>
+                <span class="cv-item-tag">nftables</span><span class="cv-item-tag">Cowrie</span>
+                <span class="cv-item-tag">CrowdSec</span><span class="cv-item-tag">Grafana</span>
+                <span class="cv-item-tag">Docker</span><span class="cv-item-tag">Loki</span>
+              </div>
+            </div>
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <div class="cv-item-title">PLC Programming Lab</div>
+                <div class="cv-item-date">2025</div>
+              </div>
+              <div class="cv-item-org">University West · Department of Engineering Science</div>
+              <div class="cv-item-desc">Implemented IEC 61131-3 Structured Text solution for a two-PLC handshake protocol with HMI indicators. Delivered as a formatted technical report covering design rationale, implementation details, and testing results.</div>
+              <div class="cv-item-tags">
+                <span class="cv-item-tag">IEC 61131-3</span><span class="cv-item-tag">Structured Text</span>
+                <span class="cv-item-tag">PLC</span><span class="cv-item-tag">HMI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECTS -->
+          <div class="cv-section">
+            <div class="cv-section-title">Projects</div>
+            <div class="projects-list">
+              <a href="https://github.com/63n713m4n/rogue-Wi-Fi-access-point-creator" target="_blank" class="proj-item">
+                <div class="proj-left">
+                  <div class="proj-name">Rogue Wi-Fi Access Point Creator</div>
+                  <div class="proj-desc">Creates a fake access point with captive portal to demonstrate credential harvesting. Includes internet access spoofing and session logging for security awareness training.</div>
+                </div>
+                <div class="proj-right">
+                  <div class="proj-lang">Python</div>
+                  <div class="proj-badge">Offensive</div>
+                </div>
+              </a>
+              <a href="https://github.com/63n713m4n" target="_blank" class="proj-item">
+                <div class="proj-left">
+                  <div class="proj-name">ML Security Classifier</div>
+                  <div class="proj-desc">Network intrusion detection pipeline implementing Decision Tree, Random Forest, KNN, and SVM classifiers with comparative analysis and feature importance visualization.</div>
+                </div>
+                <div class="proj-right">
+                  <div class="proj-lang">Python</div>
+                  <div class="proj-badge">ML/AI</div>
+                </div>
+              </a>
+              <a href="https://github.com/63n713m4n" target="_blank" class="proj-item">
+                <div class="proj-left">
+                  <div class="proj-name">Flipper Zero BadUSB Payload Suite</div>
+                  <div class="proj-desc">Collection of BadUSB payloads for Windows, macOS and Linux performing system reconnaissance and reporting findings via Discord webhooks for authorized security assessments.</div>
+                </div>
+                <div class="proj-right">
+                  <div class="proj-lang">DuckyScript</div>
+                  <div class="proj-badge">Hardware</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- CERTIFICATIONS -->
+          <div class="cv-section">
+            <div class="cv-section-title">Certifications & Courses</div>
+            <div class="certs-list">
+              <div class="cert-item">
+                <div class="cert-name">MSc Cybersecurity</div>
+                <div class="cert-org">University West, Sweden</div>
+                <div class="cert-status">In Progress — 2025/2026</div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-name">AI-Based Cyber Risk Assessment</div>
+                <div class="cert-org">University West (AIR600)</div>
+                <div class="cert-status">Completed</div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-name">Network Security & Defense</div>
+                <div class="cert-org">University West</div>
+                <div class="cert-status">Completed</div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-name">PLC Programming (IEC 61131-3)</div>
+                <div class="cert-org">University West</div>
+                <div class="cert-status">Completed</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF VIEW -->
+    <div class="tab-content" id="tab-pdf">
+      <iframe src="Alphonse_Joseph_CV.pdf" class="pdf-container" title="Alphonse Joseph CV"></iframe>
+    </div>
+
+    <footer>
+      <p>© 2026 Alphonse Joseph — Hosted on Raspberry Pi 5, Sweden 🇸🇪</p>
+      <div class="footer-links">
+        <a href="https://github.com/63n713m4n" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/alphonse-joseph" target="_blank">LinkedIn</a>
+        <a href="index.html">Portfolio</a>
+        <a href="mailto:alphonse.joseph@proton.me">Email</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Cursor
+    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-4+'px';cursor.style.top=my-4+'px';});
+    function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(animRing);}
+    animRing();
+    document.querySelectorAll('a,button,.btn').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+      el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+    });
+
+    // Tabs
+    function showTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.cv-tab').forEach(t=>t.classList.remove('active'));
+      document.getElementById('tab-'+tab).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
