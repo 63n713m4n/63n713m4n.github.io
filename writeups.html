@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTF Writeups — Alphonse Joseph</title>
+  <meta name="description" content="CTF writeups and challenge solutions by Alphonse Joseph — HackTheBox, TryHackMe, PicoCTF, and original honeypot threat analysis." />
+  <meta name="author" content="Alphonse Joseph" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://63n713m4n.github.io/writeups.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://63n713m4n.github.io/writeups.html" />
+  <meta property="og:title" content="CTF Writeups — Alphonse Joseph" />
+  <meta property="og:description" content="CTF writeups and challenge solutions covering web exploitation, Active Directory, forensics, and original honeypot threat analysis." />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/42346785?v=4" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Al_FonZ_" />
+  <meta name="twitter:title" content="CTF Writeups — Alphonse Joseph" />
+  <meta name="twitter:description" content="CTF writeups covering web exploitation, Active Directory, forensics, and honeypot threat analysis." />
+  <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/42346785?v=4" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    [data-theme="dark"] {
+      --bg: #080809; --surface: #131316; --surface2: #1a1a1e;
+      --border: #1e1e23; --border2: #2a2a32; --text: #f0f0ee; --text2: #a8a8b0;
+      --muted: #55555f; --accent: #b8ff57; --accent-dim: rgba(184,255,87,0.08);
+      --accent2: #57c8ff; --green: #57ff9a; --yellow: #ffd557; --red: #ff5757;
+      --nav-bg: rgba(8,8,9,0.92);
+    }
+    [data-theme="light"] {
+      --bg: #f8f8f6; --surface: #ffffff; --surface2: #f4f4f2;
+      --border: #e0e0dc; --border2: #d0d0cc; --text: #0e0e0f; --text2: #4a4a52;
+      --muted: #9a9aa2; --accent: #4a9200; --accent-dim: rgba(74,146,0,0.08);
+      --accent2: #0077cc; --green: #008844; --yellow: #b87a00; --red: #cc2222;
+      --nav-bg: rgba(248,248,246,0.92);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); }
+    * { cursor: none; }
+    [data-theme="dark"] body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9998; }
+    .cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 99999; mix-blend-mode: difference; }
+    .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(184,255,87,0.3); border-radius: 50%; pointer-events: none; z-index: 99998; transition: width 0.2s, height 0.2s; }
+    [data-theme="light"] .cursor-ring { border-color: rgba(74,146,0,0.4); }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border); background: var(--nav-bg); backdrop-filter: blur(20px); transition: background 0.3s, border-color 0.3s; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border: 1px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-color: var(--border2); }
+    .nav-link.active { color: var(--accent); border-color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-status { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--green); letter-spacing: 0.08em; padding: 4px 10px; border: 1px solid rgba(87,255,154,0.2); }
+    [data-theme="light"] .nav-status { border-color: rgba(0,136,68,0.3); }
+    .pulse-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(87,255,154,0.4)} 50%{opacity:0.8;transform:scale(1.2);box-shadow:0 0 0 4px rgba(87,255,154,0)} }
+    .theme-toggle { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--border2); background: transparent; color: var(--muted); transition: all 0.2s; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 14px; height: 14px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border2); background: transparent; color: var(--text2); transition: all 0.2s; }
+    .btn:hover { border-color: var(--text2); color: var(--text); }
+    .btn-accent { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .btn-accent:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+    .btn-sm { padding: 7px 14px; font-size: 10px; }
+
+    /* PAGE */
+    .page { padding-top: 64px; min-height: 100vh; }
+
+    /* HERO */
+    .hero { padding: 64px 48px 48px; border-bottom: 1px solid var(--border); }
+    .eyebrow { font-size: 10px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .eyebrow::before { content: attr(data-prefix) ' — '; color: var(--muted); }
+    .hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 64px); letter-spacing: -2px; line-height: 1.0; color: var(--text); margin-bottom: 16px; }
+    .hero-desc { font-size: 13px; color: var(--text2); max-width: 600px; line-height: 1.9; margin-bottom: 32px; }
+
+    /* FILTERS */
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; padding: 24px 48px; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .filter-btn { font-size: 11px; padding: 6px 14px; border: 1px solid var(--border2); color: var(--muted); background: transparent; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; }
+    .filter-btn:hover { border-color: var(--text2); color: var(--text); }
+    .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+    /* STATS BAR */
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+    .stat-cell { padding: 24px 48px; border-right: 1px solid var(--border); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-val { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* WRITEUPS */
+    .writeups-section { padding: 48px; }
+    .section-label { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .writeups-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+
+    .writeup-card { background: var(--surface); padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; transition: background 0.2s; position: relative; overflow: hidden; }
+    .writeup-card:hover { background: var(--surface2); }
+    .writeup-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: var(--border2); transition: background 0.2s; }
+    .writeup-card:hover::before { background: var(--accent); }
+    .writeup-card.web::before { background: var(--accent); }
+    .writeup-card.ad::before { background: var(--accent2); }
+    .writeup-card.research::before { background: var(--green); }
+
+    .wc-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .wc-platform { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 8px; border: 1px solid var(--border2); }
+    .wc-diff { font-size: 10px; padding: 2px 8px; border: 1px solid transparent; }
+    .wc-diff.easy { color: var(--green); border-color: rgba(87,255,154,0.3); }
+    .wc-diff.medium { color: var(--yellow); border-color: rgba(255,213,87,0.3); }
+    .wc-diff.hard { color: var(--red); border-color: rgba(255,87,87,0.3); }
+    .wc-cat { font-size: 10px; color: var(--accent2); padding: 2px 8px; border: 1px solid rgba(87,200,255,0.3); }
+    .wc-os { font-size: 10px; color: var(--muted); }
+
+    .wc-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 8px; }
+    .wc-subtitle { font-size: 11px; color: var(--accent); margin-bottom: 12px; }
+    .wc-desc { font-size: 12px; color: var(--text2); line-height: 1.9; margin-bottom: 16px; max-width: 680px; }
+
+    .wc-steps { margin-bottom: 16px; }
+    .wc-steps-title { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .wc-step-list { display: flex; flex-direction: column; gap: 4px; }
+    .wc-step { font-size: 11px; color: var(--text2); display: flex; align-items: flex-start; gap: 8px; }
+    .wc-step::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+    .wc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .wtag { font-size: 10px; padding: 3px 8px; border: 1px solid var(--border2); color: var(--muted); }
+    .wtag.accent { border-color: rgba(184,255,87,0.3); color: var(--accent); }
+    .wtag.blue { border-color: rgba(87,200,255,0.3); color: var(--accent2); }
+    .wtag.green { border-color: rgba(87,255,154,0.3); color: var(--green); }
+
+    .wc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .wc-aside { display: flex; flex-direction: column; gap: 16px; min-width: 180px; }
+    .wc-stat-block { background: var(--bg); border: 1px solid var(--border); padding: 16px; }
+    .wc-stat-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; line-height: 1; }
+    .wc-stat-val.blue { color: var(--accent2); }
+    .wc-stat-val.green { color: var(--green); }
+    .wc-stat-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    /* PLATFORMS */
+    .platforms-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .platform-cell { background: var(--surface); padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s; }
+    .platform-cell:hover { background: var(--surface2); }
+    .platform-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
+    .platform-stats { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .platform-rank { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    footer p { font-size: 11px; color: var(--muted); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* BACK TO TOP */
+    #back-to-top { position: fixed; bottom: 32px; right: 32px; width: 40px; height: 40px; background: var(--surface); border: 1px solid var(--border2); color: var(--muted); font-size: 18px; z-index: 500; display: none; align-items: center; justify-content: center; transition: all 0.2s; line-height: 1; }
+    #back-to-top:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ANIMATIONS */
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .cursor, .cursor-ring { display: none !important; }
+      * { cursor: auto !important; }
+    }
+    @media(max-width:900px) {
+      nav{padding:0 24px} .nav-center{display:none} .nav-status{display:none}
+      .hero,.writeups-section{padding:48px 24px}
+      .filters{padding:16px 24px}
+      .stats-bar{grid-template-columns:repeat(2,1fr)}
+      .stat-cell{padding:20px 24px}
+      .writeup-card{grid-template-columns:1fr}
+      .wc-aside{flex-direction:row;flex-wrap:wrap}
+      .wc-stat-block{flex:1;min-width:120px}
+      .platforms-row{grid-template-columns:1fr}
+      footer{flex-direction:column;gap:12px;padding:20px 24px}
+      #back-to-top{bottom:20px;right:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><div class="nav-logo-dot"></div>Alphonse Joseph</a>
+    <div class="nav-center">
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#projects" class="nav-link">Projects</a>
+      <a href="reports.html" class="nav-link">Reports</a>
+      <a href="writeups.html" class="nav-link active">Writeups</a>
+      <a href="cv.html" class="nav-link">CV</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-status"><div class="pulse-dot"></div><span>Lab Online</span></div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow" data-prefix="CTF">Writeups & Challenge Solutions</div>
+      <div class="hero-title">Thinking through<br /><span style="color:var(--muted)">the problem.</span></div>
+      <p class="hero-desc">Detailed writeups from CTF competitions and challenge platforms — covering methodology, tooling, and lessons learned. Also includes original threat analysis from my Pi Lab honeypot.</p>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterWriteups('all', this)">All</button>
+      <button class="filter-btn" onclick="filterWriteups('web', this)">Web</button>
+      <button class="filter-btn" onclick="filterWriteups('ad', this)">Active Directory</button>
+      <button class="filter-btn" onclick="filterWriteups('research', this)">Research</button>
+      <button class="filter-btn" onclick="filterWriteups('linux', this)">Linux</button>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar" data-reveal>
+      <div class="stat-cell"><div class="stat-val">3</div><div class="stat-label">Writeups</div></div>
+      <div class="stat-cell"><div class="stat-val">2</div><div class="stat-label">Platforms</div></div>
+      <div class="stat-cell"><div class="stat-val">6+</div><div class="stat-label">Tools Used</div></div>
+      <div class="stat-cell"><div class="stat-val">1</div><div class="stat-label">Original Research</div></div>
+    </div>
+
+    <div class="writeups-section">
+
+      <!-- PLATFORMS -->
+      <div class="section-label">Platforms</div>
+      <div class="platforms-row" data-reveal>
+        <div class="platform-cell">
+          <div>
+            <div class="platform-name">HackTheBox</div>
+            <div class="platform-stats">Windows · Active Directory · Medium</div>
+          </div>
+          <div class="platform-rank">Pro</div>
+        </div>
+        <div class="platform-cell">
+          <div>
+            <div class="platform-name">TryHackMe</div>
+            <div class="platform-stats">Web · Linux · Beginner–Medium</div>
+          </div>
+          <div class="platform-rank">Top 5%</div>
+        </div>
+        <div class="platform-cell">
+          <div>
+            <div class="platform-name">Pi Lab</div>
+            <div class="platform-stats">Original research — live honeypot data</div>
+          </div>
+          <div class="platform-rank">Live</div>
+        </div>
+      </div>
+
+      <!-- WRITEUPS LIST -->
+      <div class="section-label">All Writeups</div>
+      <div class="writeups-list" id="writeups-list">
+
+        <!-- HTB Cascade -->
+        <div class="writeup-card ad" data-category="ad" data-reveal>
+          <div>
+            <div class="wc-meta">
+              <span class="wc-platform">HackTheBox</span>
+              <span class="wc-diff medium">Medium</span>
+              <span class="wc-cat">Active Directory</span>
+              <span class="wc-os">Windows</span>
+            </div>
+            <div class="wc-title">Cascade</div>
+            <div class="wc-subtitle">LDAP enumeration → legacy credential in AD attribute → .NET assembly decryption → AD Recycle Bin privilege escalation</div>
+            <p class="wc-desc">A Windows machine that teaches the danger of stale Active Directory configurations. The entry point was a legacy user account storing a cleartext password in a non-standard LDAP attribute — found by dumping all AD attributes via anonymous LDAP bind. From there: SMB share → encrypted .NET assembly → decompile with DNSpy → decrypt VNC password → escalate via AD Recycle Bin group membership.</p>
+            <div class="wc-steps">
+              <div class="wc-steps-title">Attack Chain</div>
+              <div class="wc-step-list">
+                <div class="wc-step">nmap scan reveals LDAP, SMB, WinRM open</div>
+                <div class="wc-step">Anonymous LDAP bind → enumerate all user attributes → legacy user r.thompson has cascadeLegacyPwd set</div>
+                <div class="wc-step">Base64-decode password → SMB login → access Data share → find VNC install log with encrypted password</div>
+                <div class="wc-step">SMB as s.smith → access IT share → CascAudit.exe and CascCrypto.dll</div>
+                <div class="wc-step">Decompile with DNSpy → extract AES key + IV → decrypt password for ArkSvc account</div>
+                <div class="wc-step">ArkSvc is member of AD Recycle Bin → restore deleted admin account → retrieve password → Domain Admin</div>
+              </div>
+            </div>
+            <div class="wc-tags">
+              <span class="wtag blue">LDAP</span>
+              <span class="wtag blue">Active Directory</span>
+              <span class="wtag">SMB</span>
+              <span class="wtag">.NET Reversing</span>
+              <span class="wtag">AES Decryption</span>
+              <span class="wtag accent">AD Recycle Bin</span>
+            </div>
+            <div class="wc-actions">
+              <a href="https://app.hackthebox.com/machines/Cascade" target="_blank" class="btn btn-sm">HTB Machine ↗</a>
+            </div>
+          </div>
+          <div class="wc-aside">
+            <div class="wc-stat-block"><div class="wc-stat-val blue">6</div><div class="wc-stat-label">Steps to root</div></div>
+            <div class="wc-stat-block"><div class="wc-stat-val">4</div><div class="wc-stat-label">Tools used</div></div>
+            <div class="wc-stat-block"><div class="wc-stat-val accent">AD</div><div class="wc-stat-label">Key skill</div></div>
+          </div>
+        </div>
+
+        <!-- THM Mr Robot -->
+        <div class="writeup-card web" data-category="web linux" data-reveal>
+          <div>
+            <div class="wc-meta">
+              <span class="wc-platform">TryHackMe</span>
+              <span class="wc-diff medium">Medium</span>
+              <span class="wc-cat">Web / Linux</span>
+              <span class="wc-os">Linux</span>
+            </div>
+            <div class="wc-title">Mr Robot</div>
+            <div class="wc-subtitle">WordPress enumeration → brute force login → reverse shell → nmap SUID privilege escalation</div>
+            <p class="wc-desc">A Mr Robot themed room that walks through a real-world WordPress compromise chain. The key lesson: never expose wp-login.php without rate limiting, and never leave an SUID binary like nmap in place after a pentest. Three flags hidden across the system, each requiring escalating privilege.</p>
+            <div class="wc-steps">
+              <div class="wc-steps-title">Attack Chain</div>
+              <div class="wc-step-list">
+                <div class="wc-step">robots.txt leaks a dictionary wordlist and the first flag</div>
+                <div class="wc-step">gobuster directory scan → /wp-login.php discovered</div>
+                <div class="wc-step">wpscan enumerates username → hydra brute forces password using leaked dictionary</div>
+                <div class="wc-step">WP admin → Theme Editor → inject PHP reverse shell into 404.php template</div>
+                <div class="wc-step">Stabilize shell → find second flag and MD5 password hash in /home/robot</div>
+                <div class="wc-step">Crack hash offline → su robot → find nmap with SUID bit → interactive mode → !sh → root</div>
+              </div>
+            </div>
+            <div class="wc-tags">
+              <span class="wtag accent">WordPress</span>
+              <span class="wtag">gobuster</span>
+              <span class="wtag">wpscan</span>
+              <span class="wtag">Hydra</span>
+              <span class="wtag">Reverse Shell</span>
+              <span class="wtag accent">SUID Escalation</span>
+            </div>
+            <div class="wc-actions">
+              <a href="https://tryhackme.com/room/mrrobot" target="_blank" class="btn btn-sm">THM Room ↗</a>
+            </div>
+          </div>
+          <div class="wc-aside">
+            <div class="wc-stat-block"><div class="wc-stat-val accent">3</div><div class="wc-stat-label">Flags found</div></div>
+            <div class="wc-stat-block"><div class="wc-stat-val">5</div><div class="wc-stat-label">Tools used</div></div>
+            <div class="wc-stat-block"><div class="wc-stat-val accent">WP</div><div class="wc-stat-label">Key skill</div></div>
+          </div>
+        </div>
+
+        <!-- Pi Lab Honeypot Research -->
+        <div class="writeup-card research" data-category="research" data-reveal>
+          <div>
+            <div class="wc-meta">
+              <span class="wc-platform">Pi Lab — Original Research</span>
+              <span class="wc-diff" style="color:var(--green);border:1px solid rgba(87,255,154,0.3);padding:2px 8px;font-size:10px">Blue Team</span>
+              <span class="wc-cat" style="color:var(--green);border-color:rgba(87,255,154,0.3)">Threat Analysis</span>
+            </div>
+            <div class="wc-title">Cowrie Honeypot — 30-Day Attacker Profiling</div>
+            <div class="wc-subtitle">Real-world SSH attacker behavior analysis from live Raspberry Pi 5 honeypot data</div>
+            <p class="wc-desc">After running Cowrie on port 2223 for 30 days, I analysed the captured logs to profile automated attacker behavior: which credential pairs are tried first, what commands attackers run on successful entry, and how quickly sessions escalate from login to persistence attempts. The findings reveal that 94% of attacks are fully automated bots following identical playbooks — and that a handful of credentials account for the majority of attempts.</p>
+            <div class="wc-steps">
+              <div class="wc-steps-title">Key Findings</div>
+              <div class="wc-step-list">
+                <div class="wc-step">Top credential pair: root/123456 — attempted in 67% of sessions within the first 3 tries</div>
+                <div class="wc-step">Average time from first login attempt to command execution: 1.2 seconds (fully automated)</div>
+                <div class="wc-step">Most common post-login commands: wget, curl, chmod +x — consistent with dropper download pattern</div>
+                <div class="wc-step">43% of attacker IPs appear in CrowdSec community blocklist within 24 hours of hitting the honeypot</div>
+                <div class="wc-step">Geographic distribution: CN (38%), US (21%), RU (12%), NL (9%) — NL likely VPS exit nodes</div>
+                <div class="wc-step">Sessions per day spiked 4x after exposing port 22 for 48 hrs — confirming active scanner targeting</div>
+              </div>
+            </div>
+            <div class="wc-tags">
+              <span class="wtag green">Cowrie</span>
+              <span class="wtag green">Threat Intelligence</span>
+              <span class="wtag">Log Analysis</span>
+              <span class="wtag">Python</span>
+              <span class="wtag">Grafana</span>
+              <span class="wtag green">CrowdSec</span>
+            </div>
+            <div class="wc-actions">
+              <a href="reports/honeypot-attacker-analysis.pdf" download class="btn btn-accent btn-sm">↓ Download Report</a>
+              <a href="https://github.com/63n713m4n" target="_blank" class="btn btn-sm">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="wc-aside">
+            <div class="wc-stat-block"><div class="wc-stat-val green">30</div><div class="wc-stat-label">Days of data</div></div>
+            <div class="wc-stat-block"><div class="wc-stat-val green">94%</div><div class="wc-stat-label">Automated bots</div></div>
+            <div class="wc-stat-block"><div class="wc-stat-val" style="color:var(--yellow)">Live</div><div class="wc-stat-label">Still running</div></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Alphonse Joseph — Hosted on Raspberry Pi 5, Sweden 🇸🇪</p>
+      <div class="footer-links">
+        <a href="index.html">Portfolio</a>
+        <a href="reports.html">Reports</a>
+        <a href="cv.html">CV</a>
+        <a href="https://github.com/63n713m4n" target="_blank">GitHub</a>
+        <a href="mailto:alphonse.joseph@proton.me">Email</a>
+      </div>
+    </footer>
+  </div>
+
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+  <script>
+    // Theme
+    function toggleTheme(){
+      const html=document.documentElement;
+      const isDark=html.getAttribute('data-theme')==='dark';
+      html.setAttribute('data-theme',isDark?'light':'dark');
+      document.getElementById('theme-icon-moon').style.display=isDark?'none':'block';
+      document.getElementById('theme-icon-sun').style.display=isDark?'block':'none';
+      localStorage.setItem('theme',isDark?'light':'dark');
+    }
+    const savedTheme=localStorage.getItem('theme');
+    if(savedTheme){
+      document.documentElement.setAttribute('data-theme',savedTheme);
+      if(savedTheme==='light'){
+        document.getElementById('theme-icon-moon').style.display='none';
+        document.getElementById('theme-icon-sun').style.display='block';
+      }
+    }
+
+    // Cursor
+    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-4+'px';cursor.style.top=my-4+'px';});
+    function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(animRing);}
+    animRing();
+    document.querySelectorAll('a,button,.btn').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});
+      el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
+    });
+
+    // Back to top
+    const btt=document.getElementById('back-to-top');
+    window.addEventListener('scroll',()=>{btt.style.display=window.scrollY>300?'flex':'none';});
+
+    // Scroll reveal
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('revealed');});},{threshold:0.1});
+    document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));
+
+    // Filter
+    function filterWriteups(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.writeup-card').forEach(card=>{
+        const cats=card.dataset.category||'';
+        card.style.display=(category==='all'||cats.includes(category))?'grid':'none';
+      });
+    }
+  </script>
+</body>
+</html>

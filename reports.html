@@ -1,28 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reports — Alphonse Joseph</title>
+  <meta name="description" content="Security research reports and academic papers by Alphonse Joseph — IoT vulnerability analysis, automotive cybersecurity standards, and network worm containment." />
+  <meta name="author" content="Alphonse Joseph" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://63n713m4n.github.io/reports.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://63n713m4n.github.io/reports.html" />
+  <meta property="og:title" content="Security Reports — Alphonse Joseph" />
+  <meta property="og:description" content="IoT vulnerability analysis, automotive cybersecurity (ISO/SAE 21434), and Azure network worm containment research from authorized test environments." />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/42346785?v=4" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Al_FonZ_" />
+  <meta name="twitter:title" content="Security Reports — Alphonse Joseph" />
+  <meta name="twitter:description" content="IoT vulnerability analysis, automotive cybersecurity (ISO/SAE 21434), and Azure network worm containment research." />
+  <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/42346785?v=4" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
+    [data-theme="dark"] {
       --bg: #080809; --surface: #131316; --surface2: #1a1a1e;
       --border: #1e1e23; --border2: #2a2a32; --text: #f0f0ee; --text2: #a8a8b0;
       --muted: #55555f; --accent: #b8ff57; --accent-dim: rgba(184,255,87,0.08);
       --accent2: #57c8ff; --green: #57ff9a; --yellow: #ffd557; --red: #ff5757;
+      --nav-bg: rgba(8,8,9,0.92);
+    }
+    [data-theme="light"] {
+      --bg: #f8f8f6; --surface: #ffffff; --surface2: #f4f4f2;
+      --border: #e0e0dc; --border2: #d0d0cc; --text: #0e0e0f; --text2: #4a4a52;
+      --muted: #9a9aa2; --accent: #4a9200; --accent-dim: rgba(74,146,0,0.08);
+      --accent2: #0077cc; --green: #008844; --yellow: #b87a00; --red: #cc2222;
+      --nav-bg: rgba(248,248,246,0.92);
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
     ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); }
     * { cursor: none; }
+    [data-theme="dark"] body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9998; }
     .cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 99999; mix-blend-mode: difference; }
     .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(184,255,87,0.3); border-radius: 50%; pointer-events: none; z-index: 99998; transition: width 0.2s, height 0.2s; }
+    [data-theme="light"] .cursor-ring { border-color: rgba(74,146,0,0.4); }
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border); background: rgba(8,8,9,0.92); backdrop-filter: blur(20px); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border); background: var(--nav-bg); backdrop-filter: blur(20px); transition: background 0.3s, border-color 0.3s; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-status { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--green); letter-spacing: 0.08em; padding: 4px 10px; border: 1px solid rgba(87,255,154,0.2); }
+    [data-theme="light"] .nav-status { border-color: rgba(0,136,68,0.3); }
+    .pulse-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(87,255,154,0.4)} 50%{opacity:0.8;transform:scale(1.2);box-shadow:0 0 0 4px rgba(87,255,154,0)} }
+    .theme-toggle { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--border2); background: transparent; color: var(--muted); transition: all 0.2s; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 14px; height: 14px; }
     .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
     .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
@@ -42,7 +75,7 @@
     /* HERO */
     .hero { padding: 64px 48px 48px; border-bottom: 1px solid var(--border); }
     .eyebrow { font-size: 10px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-    .eyebrow::before { content: 'Research —'; color: var(--muted); }
+    .eyebrow::before { content: attr(data-prefix) ' — '; color: var(--muted); }
     .hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 64px); letter-spacing: -2px; line-height: 1.0; color: var(--text); margin-bottom: 16px; }
     .hero-desc { font-size: 13px; color: var(--text2); max-width: 600px; line-height: 1.9; margin-bottom: 32px; }
 
@@ -76,7 +109,8 @@
     .report-card.network::before { background: var(--green); }
 
     .report-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
-    .report-icon { font-size: 32px; }
+    .report-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .report-icon svg { width: 100%; height: 100%; }
     .report-type { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); }
 
     .report-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 12px; }
@@ -103,7 +137,8 @@
     .featured-card { background: var(--surface); border: 1px solid var(--border); padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-bottom: 48px; position: relative; overflow: hidden; }
     .featured-card::before { content: 'FEATURED'; position: absolute; top: 20px; right: 20px; font-size: 10px; color: var(--accent); letter-spacing: 0.15em; padding: 3px 10px; border: 1px solid rgba(184,255,87,0.3); }
     .featured-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
-    .featured-icon { font-size: 48px; margin-bottom: 20px; }
+    .featured-icon { width: 48px; height: 48px; margin-bottom: 20px; color: var(--accent); }
+    .featured-icon svg { width: 100%; height: 100%; }
     .featured-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -1px; margin-bottom: 12px; }
     .featured-desc { font-size: 13px; color: var(--text2); line-height: 1.9; margin-bottom: 24px; }
     .featured-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
@@ -122,8 +157,16 @@
     [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     [data-reveal].revealed { opacity: 1; transform: translateY(0); }
 
+    #back-to-top { position: fixed; bottom: 32px; right: 32px; width: 40px; height: 40px; background: var(--surface); border: 1px solid var(--border2); color: var(--muted); font-size: 18px; z-index: 500; display: none; align-items: center; justify-content: center; transition: all 0.2s; line-height: 1; }
+    #back-to-top:hover { border-color: var(--accent); color: var(--accent); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .cursor, .cursor-ring { display: none !important; }
+      * { cursor: auto !important; }
+    }
     @media(max-width:900px) {
-      nav{padding:0 24px} .nav-center{display:none}
+      nav{padding:0 24px} .nav-center{display:none} .nav-status{display:none}
       .hero,.reports-section{padding:48px 24px}
       .filters{padding:16px 24px}
       .stats-bar{grid-template-columns:repeat(2,1fr)}
@@ -144,17 +187,24 @@
       <a href="index.html#about" class="nav-link">About</a>
       <a href="index.html#projects" class="nav-link">Projects</a>
       <a href="reports.html" class="nav-link active">Reports</a>
+      <a href="writeups.html" class="nav-link">Writeups</a>
       <a href="cv.html" class="nav-link">CV</a>
       <a href="index.html#contact" class="nav-link">Contact</a>
     </div>
-    <a href="index.html" class="btn">← Portfolio</a>
+    <div class="nav-right">
+      <div class="nav-status"><div class="pulse-dot"></div><span>Lab Online</span></div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
   </nav>
 
   <div class="page">
 
     <!-- HERO -->
     <div class="hero">
-      <div class="eyebrow">Research & Reports</div>
+      <div class="eyebrow" data-prefix="Research">Security Reports</div>
       <div class="hero-title">Security research,<br /><span style="color:var(--muted)">documented.</span></div>
       <p class="hero-desc">Academic reports, security analyses, and research papers from my MSc Cybersecurity studies and personal research projects. All findings are from authorized testing environments.</p>
     </div>
@@ -182,7 +232,9 @@
       <div class="section-label">Featured Report</div>
       <div class="featured-card" data-reveal data-category="iot">
         <div>
-          <div class="featured-icon">📡</div>
+          <div class="featured-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M10.54 16a4.5 4.5 0 0 1 2.92 0"/><circle cx="12" cy="20" r="1"/></svg>
+          </div>
           <div class="featured-title">IoT Security Analysis</div>
           <p class="featured-desc">Comprehensive vulnerability analysis of smart siren and light devices, identifying critical exposures and misconfigurations that could allow unauthorized control or network infiltration. Testing performed across 15+ consumer IoT devices in a controlled lab environment.</p>
           <div class="report-tags">
@@ -213,7 +265,9 @@
         <!-- IoT Report -->
         <div class="report-card iot" data-category="iot" data-reveal>
           <div class="report-header">
-            <div class="report-icon">📡</div>
+            <div class="report-icon" style="color:var(--accent)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M10.54 16a4.5 4.5 0 0 1 2.92 0"/><circle cx="12" cy="20" r="1"/></svg>
+            </div>
             <div class="report-type">Security Analysis</div>
           </div>
           <div class="report-title">IoT Security Analysis</div>
@@ -237,7 +291,9 @@
         <!-- Automotive Report -->
         <div class="report-card automotive" data-category="automotive research" data-reveal>
           <div class="report-header">
-            <div class="report-icon">🚘</div>
+            <div class="report-icon" style="color:var(--accent2)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
+            </div>
             <div class="report-type">Research Paper</div>
           </div>
           <div class="report-title">ISO/SAE 21434 Review</div>
@@ -253,15 +309,17 @@
             <div class="metric-cell"><div class="metric-val accent">5</div><div class="metric-label">Key gaps identified</div></div>
           </div>
           <div class="report-actions">
-            <a href="Reports/iso-sae-21434-review.pdf" download class="btn btn-accent btn-sm">↓ Download</a>
-            <a href="Reports/iso-sae-21434-review.pdf" target="_blank" class="btn btn-sm">View ↗</a>
+            <a href="reports/iso-sae-21434-review.pdf" download class="btn btn-accent btn-sm">↓ Download</a>
+            <a href="reports/iso-sae-21434-review.pdf" target="_blank" class="btn btn-sm">View ↗</a>
           </div>
         </div>
 
         <!-- Network Worm Report -->
         <div class="report-card network" data-category="network" data-reveal>
           <div class="report-header">
-            <div class="report-icon">🛡️</div>
+            <div class="report-icon" style="color:var(--green)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
             <div class="report-type">Technical Report</div>
           </div>
           <div class="report-title">Network Worm Containment</div>
@@ -286,7 +344,7 @@
 
       <!-- DISCLAIMER -->
       <div style="padding:20px 24px;background:var(--surface);border:1px solid var(--border);display:flex;gap:16px;align-items:flex-start" data-reveal>
-        <span style="font-size:20px;flex-shrink:0">⚠️</span>
+        <span style="width:20px;height:20px;flex-shrink:0;color:var(--yellow);display:block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
         <div>
           <div style="font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Responsible Disclosure</div>
           <p style="font-size:12px;color:var(--text2);line-height:1.8">All security research documented here was conducted in authorized test environments or on personally owned equipment. Findings have been responsibly disclosed where applicable. These reports are shared for educational purposes only.</p>
@@ -306,7 +364,27 @@
     </footer>
   </div>
 
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
   <script>
+    // Theme
+    function toggleTheme(){
+      const html=document.documentElement;
+      const isDark=html.getAttribute('data-theme')==='dark';
+      html.setAttribute('data-theme',isDark?'light':'dark');
+      document.getElementById('theme-icon-moon').style.display=isDark?'none':'block';
+      document.getElementById('theme-icon-sun').style.display=isDark?'block':'none';
+      localStorage.setItem('theme',isDark?'light':'dark');
+    }
+    const savedTheme=localStorage.getItem('theme');
+    if(savedTheme){
+      document.documentElement.setAttribute('data-theme',savedTheme);
+      if(savedTheme==='light'){
+        document.getElementById('theme-icon-moon').style.display='none';
+        document.getElementById('theme-icon-sun').style.display='block';
+      }
+    }
+
     // Cursor
     const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
     let mx=0,my=0,rx=0,ry=0;
@@ -318,6 +396,10 @@
       el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});
     });
 
+    // Back to top
+    const btt=document.getElementById('back-to-top');
+    window.addEventListener('scroll',()=>{btt.style.display=window.scrollY>300?'flex':'none';});
+
     // Scroll reveal
     const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('revealed');});},{threshold:0.1});
     document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));
@@ -326,10 +408,11 @@
     function filterReports(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.report-card').forEach(card=>{
+      document.querySelectorAll('.report-card, .featured-card').forEach(card=>{
         const cats=card.dataset.category||'';
+        const isFeatured=card.classList.contains('featured-card');
         if(category==='all'||cats.includes(category)){
-          card.style.display='flex';
+          card.style.display=isFeatured?'grid':'flex';
         } else {
           card.style.display='none';
         }

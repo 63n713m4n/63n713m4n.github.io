@@ -26,6 +26,7 @@
   <meta name="twitter:description" content="MSc Cybersecurity student. Security researcher and home lab builder based in Sweden." />
   <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/42346785?v=4" />
 
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
@@ -189,7 +190,9 @@
     .lm-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
     .lm-value { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; color: var(--text); letter-spacing: -1px; line-height: 1; }
     .lm-unit { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
-    .lm-value.accent{color:var(--accent)} .lm-value.green{color:var(--green)} .lm-value.yellow{color:var(--yellow)}
+    .lm-value.accent{color:var(--accent)} .lm-value.green{color:var(--green)} .lm-value.yellow{color:var(--yellow)} .lm-value.red{color:var(--red)}
+    .threat-divider { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; padding: 12px 0 0; display: flex; align-items: center; gap: 12px; margin-top: 1px; }
+    .threat-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
     .lab-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
     .services-panel { background: var(--surface); padding: 32px; }
     .sp-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
@@ -255,6 +258,21 @@
     .loading span:nth-child(2){animation-delay:0.2s} .loading span:nth-child(3){animation-delay:0.4s}
     @keyframes loadingDot { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
 
+    /* MOBILE HERO STATS */
+    .mobile-hero-stats { display: none; }
+
+    /* BACK TO TOP */
+    #back-to-top { position: fixed; bottom: 32px; right: 32px; width: 40px; height: 40px; background: var(--surface); border: 1px solid var(--border2); color: var(--muted); font-size: 18px; z-index: 500; display: none; align-items: center; justify-content: center; transition: all 0.2s; line-height: 1; }
+    #back-to-top:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* PREFERS REDUCED MOTION */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .cursor, .cursor-ring { display: none !important; }
+      * { cursor: auto !important; }
+    }
+
     @media(max-width:900px){
       nav{padding:0 24px} .nav-center{display:none}
       .hero{grid-template-columns:1fr} .hero-right{display:none}
@@ -264,6 +282,11 @@
       .lab-metrics{grid-template-columns:repeat(2,1fr)}
       .services-list{grid-template-columns:1fr}
       footer{flex-direction:column;gap:12px;padding:20px 24px}
+      .mobile-hero-stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 32px; }
+      .mhs-item { background: var(--surface); padding: 16px; }
+      .mhs-val { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 2px; }
+      .mhs-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+      #back-to-top { bottom: 20px; right: 20px; }
     }
   </style>
 </head>
@@ -280,6 +303,7 @@
       <a href="#lab" class="nav-link">Pi Lab</a>
       <a href="#stack" class="nav-link">Stack</a>
       <a href="reports.html" class="nav-link">Reports</a>
+      <a href="writeups.html" class="nav-link">Writeups</a>
       <a href="cv.html" class="nav-link">CV</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
@@ -307,6 +331,12 @@
         <a href="#lab" class="btn">Pi Lab Status</a>
         <a href="https://github.com/63n713m4n" target="_blank" class="btn">GitHub ↗</a>
       </div>
+      <div class="mobile-hero-stats">
+        <div class="mhs-item"><div class="mhs-val" id="m-cpu">—</div><div class="mhs-label">CPU %</div></div>
+        <div class="mhs-item"><div class="mhs-val" id="m-ram">—</div><div class="mhs-label">RAM %</div></div>
+        <div class="mhs-item"><div class="mhs-val" id="m-temp">—</div><div class="mhs-label">Temp °C</div></div>
+        <div class="mhs-item"><div class="mhs-val" id="m-svcs">—</div><div class="mhs-label">Services Up</div></div>
+      </div>
     </div>
     <div class="hero-right">
       <div class="hero-terminal">
@@ -330,9 +360,9 @@
         </div>
       </div>
       <div class="hero-metrics">
-        <div class="hm-item"><div class="hm-val">433K</div><div class="hm-label">DNS Blocked</div></div>
-        <div class="hm-item"><div class="hm-val">15K+</div><div class="hm-label">IPs Banned</div></div>
-        <div class="hm-item"><div class="hm-val">11</div><div class="hm-label">Services</div></div>
+        <div class="hm-item"><div class="hm-val" id="hero-dns">433K</div><div class="hm-label">DNS Blocked</div></div>
+        <div class="hm-item"><div class="hm-val" id="hero-bans">15K+</div><div class="hm-label">IPs Banned</div></div>
+        <div class="hm-item"><div class="hm-val" id="hero-svcs">11</div><div class="hm-label">Services</div></div>
       </div>
     </div>
   </div>
@@ -488,7 +518,7 @@
           <div class="project-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
-          <div class="project-arrow">↗</div>
+          <div class="project-arrow" style="font-size:10px;letter-spacing:0.06em;margin-top:4px">Profile</div>
         </div>
         <div class="project-name">ML Security Classifier</div>
         <div class="project-desc">Machine learning pipeline for network intrusion detection. Implements Decision Tree, Random Forest, KNN, and SVM classifiers with comparative analysis and feature importance visualization.</div>
@@ -500,7 +530,7 @@
           <div class="project-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
           </div>
-          <div class="project-arrow">↗</div>
+          <div class="project-arrow" style="font-size:10px;letter-spacing:0.06em;margin-top:4px">Profile</div>
         </div>
         <div class="project-name">Flipper Zero Payload Suite</div>
         <div class="project-desc">BadUSB payload collection for Windows, macOS and Linux performing system reconnaissance and reporting findings via Discord webhooks. Built for authorized security assessments.</div>
@@ -522,6 +552,13 @@
       <div class="lab-metric"><div class="lm-label">RAM Used</div><div class="lm-value green" id="ram-val">—</div><div class="lm-unit">percent</div></div>
       <div class="lab-metric"><div class="lm-label">Temperature</div><div class="lm-value yellow" id="temp-val">—</div><div class="lm-unit">°C</div></div>
       <div class="lab-metric"><div class="lm-label">Disk Used</div><div class="lm-value" id="disk-val">—</div><div class="lm-unit">of 470GB NVMe</div></div>
+    </div>
+    <div class="threat-divider" data-reveal>Threat Activity — Live</div>
+    <div class="lab-metrics" data-reveal>
+      <div class="lab-metric"><div class="lm-label">Honeypot Sessions</div><div class="lm-value red" id="cowrie-sessions">—</div><div class="lm-unit">today</div></div>
+      <div class="lab-metric"><div class="lm-label">Unique Attacker IPs</div><div class="lm-value red" id="cowrie-ips">—</div><div class="lm-unit">today</div></div>
+      <div class="lab-metric"><div class="lm-label">Login Attempts</div><div class="lm-value yellow" id="cowrie-logins">—</div><div class="lm-unit">today</div></div>
+      <div class="lab-metric"><div class="lm-label">IPs Blocked</div><div class="lm-value green" id="crowdsec-bans">—</div><div class="lm-unit">by CrowdSec</div></div>
     </div>
     <div class="lab-layout" data-reveal>
       <div class="services-panel">
@@ -628,6 +665,8 @@
     </div>
   </footer>
 
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
   <script>
     // CURSOR
     const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
@@ -693,8 +732,9 @@
     });
 
     // LIVE PI API
-    // Update this URL after move: const API='https://mypilab-se.duckdns.org:5000/api/status';
-    const API='http://192.168.1.10:5000/api/status';
+    // Update this URL after move: const API_BASE='https://mypilab-se.duckdns.org:5000';
+    const API_BASE='http://192.168.1.10:5000';
+    const API=API_BASE+'/api/status';
     const svcNames={pihole:'Pi-hole',wireguard:'WireGuard',fail2ban:'Fail2ban',unbound:'Unbound',crowdsec:'CrowdSec',cowrie:'Cowrie',docker:'Docker',grafana:'Grafana',prometheus:'Prometheus',loki:'Loki',portainer:'Portainer',heimdall:'Heimdall'};
 
     async function fetchStatus(){
@@ -732,14 +772,39 @@
         });
         document.getElementById('lab-status-text').textContent=upSvcs+'/'+totalSvcs+' services operational';
         document.getElementById('nav-uptime').textContent='Lab Online · '+upSvcs+'/'+totalSvcs;
+        document.getElementById('hero-svcs').textContent=totalSvcs;
+        if(d.pihole_blocked){const b=parseInt(d.pihole_blocked);document.getElementById('hero-dns').textContent=b>999999?Math.round(b/1000)+'K':b>999?Math.round(b/1000)+'K':b;}
+        document.getElementById('m-cpu').textContent=d.cpu?d.cpu+'%':'—';
+        document.getElementById('m-ram').textContent=d.ram_pct?d.ram_pct+'%':'—';
+        document.getElementById('m-temp').textContent=d.temp?d.temp+'°C':'—';
+        document.getElementById('m-svcs').textContent=upSvcs+'/'+totalSvcs;
       }catch(e){
         document.getElementById('lab-status-text').textContent='Pi API unreachable';
         document.getElementById('nav-uptime').textContent='Lab Offline';
         ['term-uptime','term-cpu','term-ram','term-temp','term-svcs'].forEach(id=>{document.getElementById(id).textContent='unreachable';});
       }
     }
+    async function fetchThreat(){
+      try{
+        const [cowrie, crowdsec] = await Promise.all([
+          fetch(API_BASE+'/api/cowrie').then(r=>r.json()),
+          fetch(API_BASE+'/api/crowdsec').then(r=>r.json()),
+        ]);
+        document.getElementById('cowrie-sessions').textContent=cowrie.sessions_today??'—';
+        document.getElementById('cowrie-ips').textContent=cowrie.unique_ips_today??'—';
+        document.getElementById('cowrie-logins').textContent=cowrie.login_attempts_today??'—';
+        document.getElementById('crowdsec-bans').textContent=crowdsec.active_bans??'—';
+        if(crowdsec.active_bans!=null){const b=crowdsec.active_bans;const fmt=b>999?Math.round(b/1000)+'K+':b;document.getElementById('hero-bans').textContent=fmt;}
+      }catch(e){}
+    }
     fetchStatus();
+    fetchThreat();
     setInterval(fetchStatus,30000);
+    setInterval(fetchThreat,60000);
+
+    // BACK TO TOP
+    const btt=document.getElementById('back-to-top');
+    window.addEventListener('scroll',()=>{btt.style.display=window.scrollY>400?'flex':'none';});
   </script>
 </body>
 </html>
