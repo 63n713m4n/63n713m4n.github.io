@@ -403,14 +403,14 @@
         <a href="reports.html">Reports</a>
         <a href="cv.html">CV</a>
         <a href="https://github.com/63n713m4n" target="_blank">GitHub</a>
-        <a href="/cdn-cgi/l/email-protection#c8a9a4b8a0a7a6bbade6a2a7bbadb8a088b8baa7bca7a6e6a5ad">Email</a>
+        <a href="mailto:alphonse.joseph@proton.me">Email</a>
       </div>
     </footer>
   </div>
 
   <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // Theme
     function toggleTheme(){
       const html=document.documentElement;
@@ -453,4 +453,10 @@
       document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.writeup-card').forEach(card=>{
-        const cats=c
+        const cats=card.dataset.category||'';
+        card.style.display=(category==='all'||cats.includes(category))?'grid':'none';
+      });
+    }
+  </script>
+</body>
+</html>
