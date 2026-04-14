@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message Sent — Alphonse Joseph</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080809; --surface: #131316; --surface2: #1a1a1e;
+      --border: #1e1e23; --border2: #2a2a32; --text: #f0f0ee; --text2: #a8a8b0;
+      --muted: #55555f; --accent: #b8ff57; --accent-dim: rgba(184,255,87,0.08);
+      --accent2: #57c8ff; --green: #57ff9a;
+    }
+    html, body { height: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; }
+    * { cursor: none; }
+    .cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 99999; mix-blend-mode: difference; }
+    .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(184,255,87,0.3); border-radius: 50%; pointer-events: none; z-index: 99998; transition: width 0.2s, height 0.2s; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; border-bottom: 1px solid var(--border); background: rgba(8,8,9,0.92); backdrop-filter: blur(20px); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .nav-back { font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+    .nav-back:hover { color: var(--accent); }
+
+    .page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 64px 24px; }
+    .card { border: 1px solid var(--border); background: var(--surface); padding: 64px 56px; max-width: 520px; width: 100%; text-align: center; }
+    .check { width: 48px; height: 48px; border: 1px solid rgba(87,255,154,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; animation: pop 0.4s ease; }
+    @keyframes pop { 0%{transform:scale(0.5);opacity:0} 100%{transform:scale(1);opacity:1} }
+    .check svg { width: 22px; height: 22px; stroke: var(--green); }
+    .title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    .subtitle { color: var(--text2); font-size: 12px; line-height: 1.8; margin-bottom: 40px; }
+    .divider { height: 1px; background: var(--border); margin-bottom: 32px; }
+    .countdown { font-size: 11px; color: var(--muted); margin-bottom: 32px; }
+    .countdown span { color: var(--accent); }
+    .btn { display: inline-block; padding: 12px 28px; background: var(--accent); color: #080809; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-decoration: none; transition: opacity 0.2s; cursor: none; }
+    .btn:hover { opacity: 0.85; }
+
+    @media(max-width:480px) { nav{padding:0 24px} .card{padding:40px 28px} .title{font-size:22px} }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-dot"></div>
+      AJ
+    </a>
+    <a href="/#contact" class="nav-back">← back to site</a>
+  </nav>
+
+  <div class="page">
+    <div class="card">
+      <div class="check">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="title">Message received.</div>
+      <div class="subtitle">Thanks for reaching out — I'll get back to you as soon as I can.<br/>Usually within a day or two.</div>
+      <div class="divider"></div>
+      <div class="countdown">Redirecting in <span id="count">5</span>s</div>
+      <a href="/" class="btn">← Back to site</a>
+    </div>
+  </div>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx-4}px,${my-4}px)`; });
+    (function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.transform = `translate(${rx-16}px,${ry-16}px)`; requestAnimationFrame(animRing); })();
+
+    // Countdown redirect
+    let n = 5;
+    const el = document.getElementById('count');
+    const t = setInterval(() => { el.textContent = --n; if (n <= 0) { clearInterval(t); window.location.href = '/'; } }, 1000);
+  </script>
+</body>
+</html>
