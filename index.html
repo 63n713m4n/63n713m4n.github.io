@@ -809,6 +809,7 @@
           list.appendChild(item);
         });
         document.getElementById('lab-status-text').textContent=upSvcs+'/'+totalSvcs+' services operational';
+        document.getElementById('lab-last-fetch').textContent='updated '+new Date().toLocaleTimeString();
         document.getElementById('nav-uptime').textContent='Lab Online · '+upSvcs+'/'+totalSvcs;
         document.getElementById('hero-svcs').textContent=totalSvcs;
         if(d.pihole_blocked){const b=parseInt(d.pihole_blocked);document.getElementById('hero-dns').textContent=b>999999?Math.round(b/1000)+'K':b>999?Math.round(b/1000)+'K':b;}
