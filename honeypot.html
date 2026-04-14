@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honeypot Intelligence — Alphonse Joseph</title>
+  <meta name="description" content="Live SSH/Telnet honeypot attack data from Cowrie running on a Raspberry Pi 5 home lab." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #161616;
+      --border: #1e1e1e;
+      --border2: #2a2a2a;
+      --text: #e8e8e8;
+      --text2: #888;
+      --muted: #555;
+      --accent: #b8ff57;
+      --green: #57ff9a;
+      --red: #ff5757;
+      --yellow: #ffd557;
+      --accent2: #57c8ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; min-height: 100vh; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 100; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-back { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+    .nav-back:hover { color: var(--accent); text-decoration: none; }
+    .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .live-badge { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--red); letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(255,87,87,0.2); }
+
+    /* LAYOUT */
+    .container { max-width: 1200px; margin: 0 auto; padding: 48px 40px; }
+    .page-title { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .page-subtitle { font-size: 12px; color: var(--muted); margin-bottom: 48px; }
+
+    /* STAT CARDS */
+    .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .stat-card { background: var(--surface); padding: 24px 20px; }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .stat-val { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; }
+    .stat-val.red { color: var(--red); }
+    .stat-val.yellow { color: var(--yellow); }
+    .stat-val.green { color: var(--green); }
+    .stat-val.accent { color: var(--accent); }
+    .stat-val.accent2 { color: var(--accent2); }
+    .stat-unit { font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+    /* SECTIONS */
+    .section-title { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 48px; }
+    .panel { background: var(--surface); padding: 24px; }
+    .panel-title { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+
+    /* TABLES */
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    td { padding: 10px 12px; font-size: 12px; color: var(--text2); border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface2); }
+    td:first-child { color: var(--text); }
+    .count-badge { display: inline-block; font-size: 10px; padding: 2px 8px; background: var(--surface2); border: 1px solid var(--border2); color: var(--accent); }
+    .success-badge { color: var(--red); font-size: 10px; }
+    .fail-badge { color: var(--muted); font-size: 10px; }
+
+    /* BAR */
+    .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .bar-label { font-size: 11px; color: var(--text2); width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 4px; background: var(--border2); }
+    .bar-fill { height: 100%; background: var(--accent); transition: width 0.8s ease; }
+    .bar-fill.red { background: var(--red); }
+    .bar-fill.accent2 { background: var(--accent2); }
+    .bar-count { font-size: 10px; color: var(--muted); width: 30px; text-align: right; flex-shrink: 0; }
+
+    /* TERMINAL */
+    .terminal { background: #0d0d0d; border: 1px solid var(--border2); padding: 20px; font-size: 11px; }
+    .t-line { margin-bottom: 6px; display: flex; gap: 12px; }
+    .t-time { color: var(--muted); flex-shrink: 0; }
+    .t-ip { color: var(--accent2); flex-shrink: 0; width: 120px; }
+    .t-cmd { color: var(--accent); word-break: break-all; }
+    .t-user { color: var(--yellow); flex-shrink: 0; width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .t-pass { color: var(--red); word-break: break-all; }
+
+    /* EMPTY */
+    .empty { color: var(--muted); font-size: 11px; padding: 20px 0; text-align: center; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-note { font-size: 10px; color: var(--muted); }
+
+    @media(max-width:900px) {
+      .stats-grid { grid-template-columns: repeat(3,1fr); }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      nav, .container, footer { padding-left: 20px; padding-right: 20px; }
+    }
+    @media(max-width:500px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .page-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">alphonse<span>.</span>joseph</div>
+  <div class="nav-right">
+    <a href="/" class="nav-back">← back to portfolio</a>
+    <div class="live-badge"><div class="pulse-dot"></div><span id="nav-status">fetching...</span></div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-title">Honeypot Intelligence</div>
+  <div class="page-subtitle">Live attack data from Cowrie SSH/Telnet honeypot — Raspberry Pi 5 · updated every 30s · today only</div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Sessions</div><div class="stat-val red" id="s-sessions">—</div><div class="stat-unit">today</div></div>
+    <div class="stat-card"><div class="stat-label">Unique IPs</div><div class="stat-val red" id="s-ips">—</div><div class="stat-unit">today</div></div>
+    <div class="stat-card"><div class="stat-label">Login Attempts</div><div class="stat-val yellow" id="s-logins">—</div><div class="stat-unit">today</div></div>
+    <div class="stat-card"><div class="stat-label">Successes</div><div class="stat-val accent" id="s-success">—</div><div class="stat-unit">fake shell granted</div></div>
+    <div class="stat-card"><div class="stat-label">Commands Run</div><div class="stat-val accent2" id="s-cmds">—</div><div class="stat-unit">inside honeypot</div></div>
+    <div class="stat-card"><div class="stat-label">Files Downloaded</div><div class="stat-val green" id="s-files">—</div><div class="stat-unit">malware drops</div></div>
+  </div>
+
+  <!-- TOP USERNAMES / PASSWORDS -->
+  <div class="section-title">Top Credentials Tried</div>
+  <div class="grid-2" style="margin-bottom:48px">
+    <div class="panel">
+      <div class="panel-title">Usernames</div>
+      <div id="top-usernames"><div class="empty">No data yet today</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Passwords</div>
+      <div id="top-passwords"><div class="empty">No data yet today</div></div>
+    </div>
+  </div>
+
+  <!-- TOP IPs / COMMANDS -->
+  <div class="section-title">Top Attackers & Commands</div>
+  <div class="grid-2" style="margin-bottom:48px">
+    <div class="panel">
+      <div class="panel-title">Most Active IPs</div>
+      <div id="top-ips"><div class="empty">No data yet today</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Most Run Commands</div>
+      <div id="top-commands"><div class="empty">No data yet today</div></div>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITY -->
+  <div class="section-title">Recent Login Attempts</div>
+  <div style="border:1px solid var(--border);margin-bottom:48px">
+    <div class="terminal" id="recent-logins">
+      <div class="empty">No data yet today</div>
+    </div>
+  </div>
+
+  <div class="section-title">Recent Commands</div>
+  <div style="border:1px solid var(--border);margin-bottom:48px">
+    <div class="terminal" id="recent-commands">
+      <div class="empty">No data yet today</div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="section-title">30-Day Attack History</div>
+  <div style="border:1px solid var(--border);background:var(--surface);padding:24px;margin-bottom:48px">
+    <div id="history-chart" style="display:flex;align-items:flex-end;gap:4px;height:80px;"></div>
+    <div id="history-labels" style="display:flex;gap:4px;margin-top:8px;"></div>
+  </div>
+
+  <!-- GEOIP -->
+  <div class="section-title">Attacker Locations</div>
+  <div style="border:1px solid var(--border);background:var(--surface);padding:24px;margin-bottom:48px">
+    <div id="geoip-list"><div class="empty">Looking up locations...</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-note">Cowrie SSH/Telnet Honeypot · Raspberry Pi 5 · alphonsejoseph.tech</div>
+  <div class="footer-note" id="last-updated">—</div>
+</footer>
+
+<script>
+  const API = 'https://api.alphonsejoseph.tech/api/cowrie';
+
+  function renderBars(containerId, items, colorClass) {
+    const el = document.getElementById(containerId);
+    if (!items || items.length === 0) { el.innerHTML = '<div class="empty">No data yet today</div>'; return; }
+    const max = items[0].count;
+    el.innerHTML = items.map(item => `
+      <div class="bar-row">
+        <div class="bar-label" title="${item.value}">${item.value || '(empty)'}</div>
+        <div class="bar-track"><div class="bar-fill ${colorClass}" style="width:${Math.round((item.count/max)*100)}%"></div></div>
+        <div class="bar-count">${item.count}</div>
+      </div>
+    `).join('');
+  }
+
+  function renderLoginFeed(items) {
+    const el = document.getElementById('recent-logins');
+    if (!items || items.length === 0) { el.innerHTML = '<div class="empty">No data yet today</div>'; return; }
+    el.innerHTML = items.map(e => `
+      <div class="t-line">
+        <span class="t-time">${e.time.split(' ')[1]}</span>
+        <span class="t-ip">${e.ip}</span>
+        <span class="t-user">${e.username || '—'}</span>
+        <span class="t-pass">${e.password || '—'}</span>
+        <span class="${e.success ? 'success-badge' : 'fail-badge'}">${e.success ? 'SUCCESS' : 'failed'}</span>
+      </div>
+    `).join('');
+  }
+
+  function renderCmdFeed(items) {
+    const el = document.getElementById('recent-commands');
+    if (!items || items.length === 0) { el.innerHTML = '<div class="empty">No data yet today</div>'; return; }
+    el.innerHTML = items.map(e => `
+      <div class="t-line">
+        <span class="t-time">${e.time.split(' ')[1]}</span>
+        <span class="t-ip">${e.ip}</span>
+        <span class="t-cmd">$ ${e.command}</span>
+      </div>
+    `).join('');
+  }
+
+  async function fetchHistory() {
+    try {
+      const data = await fetch('https://api.alphonsejoseph.tech/api/cowrie/history').then(r => r.json());
+      const chart = document.getElementById('history-chart');
+      const labels = document.getElementById('history-labels');
+      if (!data || data.length === 0) { chart.innerHTML = '<div class="empty">No history data</div>'; return; }
+      const maxSessions = Math.max(...data.map(d => d.sessions), 1);
+      chart.innerHTML = data.map(d => {
+        const h = Math.max(4, Math.round((d.sessions / maxSessions) * 80));
+        return `<div title="${d.date}: ${d.sessions} sessions, ${d.login_attempts} logins" style="flex:1;background:var(--accent);opacity:0.7;height:${h}px;min-width:8px;cursor:default;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"></div>`;
+      }).join('');
+      labels.innerHTML = data.map(d => `<div style="flex:1;font-size:9px;color:var(--muted);text-align:center;overflow:hidden">${d.date.slice(5)}</div>`).join('');
+    } catch(e) {}
+  }
+
+  async function fetchGeoIP(ips) {
+    if (!ips || ips.length === 0) { document.getElementById('geoip-list').innerHTML = '<div class="empty">No IPs to look up</div>'; return; }
+    const publicIps = ips.filter(i => !i.value.startsWith('192.168') && !i.value.startsWith('10.') && !i.value.startsWith('172.'));
+    if (publicIps.length === 0) { document.getElementById('geoip-list').innerHTML = '<div class="empty">Only local IPs seen today</div>'; return; }
+    try {
+      const results = await Promise.all(publicIps.map(i =>
+        fetch(`https://free.freeipapi.com/api/json/${i.value}`).then(r => r.json()).then(d => ({
+          status: d.ipVersion ? 'success' : 'fail',
+          country: d.countryName,
+          countryCode: d.countryCode,
+          city: d.cityName,
+          org: d.asnOrganization || '',
+          asnOrganization: d.asnOrganization || '',
+          ip: i.value,
+          count: i.count
+        }))
+      ));
+      document.getElementById('geoip-list').innerHTML = results.map(r => `
+        <div class="bar-row">
+          <div class="bar-label">${r.countryCode ? `<span title="${r.country}">${r.countryCode}</span> ` : ''}${r.city || r.ip}</div>
+          <div style="flex:1;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.ip} — ${r.asnOrganization || r.org || ''}</div>
+          <div class="bar-count">${r.count}</div>
+        </div>
+      `).join('');
+    } catch(e) { document.getElementById('geoip-list').innerHTML = '<div class="empty">GeoIP lookup failed</div>'; }
+  }
+
+  async function fetchData() {
+    try {
+      const d = await fetch(API).then(r => r.json());
+
+      document.getElementById('s-sessions').textContent = d.sessions_today ?? '—';
+      document.getElementById('s-ips').textContent = d.unique_ips_today ?? '—';
+      document.getElementById('s-logins').textContent = d.login_attempts_today ?? '—';
+      document.getElementById('s-success').textContent = d.login_successes_today ?? '—';
+      document.getElementById('s-cmds').textContent = d.commands_run_today ?? '—';
+      document.getElementById('s-files').textContent = d.files_downloaded_today ?? '—';
+
+      renderBars('top-usernames', d.top_usernames, '');
+      renderBars('top-passwords', d.top_passwords, 'red');
+      renderBars('top-ips', d.top_ips, 'accent2');
+      renderBars('top-commands', d.top_commands, '');
+
+      renderLoginFeed(d.recent_logins);
+      renderCmdFeed(d.recent_commands);
+      fetchGeoIP(d.top_ips);
+
+      const total = d.sessions_today ?? 0;
+      document.getElementById('nav-status').textContent = `${total} session${total !== 1 ? 's' : ''} today`;
+      document.getElementById('last-updated').textContent = 'updated ' + new Date().toLocaleTimeString();
+    } catch(e) {
+      document.getElementById('nav-status').textContent = 'API unreachable';
+    }
+  }
+
+  fetchData();
+  fetchHistory();
+  setInterval(fetchData, 30000);
+  setInterval(fetchHistory, 300000);
+</script>
+</body>
+</html>

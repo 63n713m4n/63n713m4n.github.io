@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta http-equiv="refresh" content="0; url=https://alphonsejoseph.tech" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -11,11 +10,11 @@
   <meta name="keywords" content="cybersecurity, penetration testing, security researcher, raspberry pi, home lab, network security, Sweden" />
   <meta name="author" content="Alphonse Joseph" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://63n713m4n.github.io/" />
+  <link rel="canonical" href="https://alphonsejoseph.tech/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://63n713m4n.github.io/" />
+  <meta property="og:url" content="https://alphonsejoseph.tech/" />
   <meta property="og:title" content="Alphonse Joseph — Cybersecurity Researcher" />
   <meta property="og:description" content="MSc Cybersecurity student. Security researcher, home lab builder, and penetration tester based in Sweden." />
   <meta property="og:image" content="https://avatars.githubusercontent.com/u/42346785?v=4" />
@@ -560,7 +559,7 @@
       <div class="lab-metric"><div class="lm-label">Temperature</div><div class="lm-value yellow" id="temp-val">—</div><div class="lm-unit">°C</div></div>
       <div class="lab-metric"><div class="lm-label">Disk Used</div><div class="lm-value" id="disk-val">—</div><div class="lm-unit">of 470GB NVMe</div></div>
     </div>
-    <div class="threat-divider" data-reveal>Threat Activity — Live</div>
+    <div class="threat-divider" data-reveal>Threat Activity — Live · <a href="/honeypot.html" style="color:var(--accent);font-size:10px;letter-spacing:0.1em;">View Full Intelligence →</a></div>
     <div class="lab-metrics" data-reveal>
       <div class="lab-metric"><div class="lm-label">Honeypot Sessions</div><div class="lm-value red" id="cowrie-sessions">—</div><div class="lm-unit">today</div></div>
       <div class="lab-metric"><div class="lm-label">Unique Attacker IPs</div><div class="lm-value red" id="cowrie-ips">—</div><div class="lm-unit">today</div></div>
@@ -605,11 +604,12 @@
       <tbody>
         <tr><td>Pi-hole v6</td><td>DNS-level ad & tracker blocking</td><td><span class="stack-badge network">Network</span></td><td>433K+ domains blocked</td></tr>
         <tr><td>Unbound</td><td>Recursive DNS resolver</td><td><span class="stack-badge network">Network</span></td><td>DNSSEC, no upstream</td></tr>
-        <tr><td>WireGuard</td><td>VPN server</td><td><span class="stack-badge network">Network</span></td><td>PiVPN managed, UDP 51820</td></tr>
-        <tr><td>nftables</td><td>Stateful firewall</td><td><span class="stack-badge security">Security</span></td><td>Default DROP, rate limiting</td></tr>
+        <tr><td>WireGuard</td><td>VPN server</td><td><span class="stack-badge network">Network</span></td><td>DuckDNS endpoint, full-tunnel, UDP 51820</td></tr>
+        <tr><td>nftables</td><td>Stateful firewall</td><td><span class="stack-badge security">Security</span></td><td>Default DROP, rate limiting, NAT masquerade</td></tr>
         <tr><td>Fail2ban</td><td>Brute force protection</td><td><span class="stack-badge security">Security</span></td><td>SSH jails, 3600s bans</td></tr>
         <tr><td>CrowdSec</td><td>Collaborative threat intelligence</td><td><span class="stack-badge security">Security</span></td><td>15K+ IPs blocked via CAPI</td></tr>
-        <tr><td>Cowrie</td><td>SSH/Telnet honeypot</td><td><span class="stack-badge security">Security</span></td><td>Logs all attacker commands</td></tr>
+        <tr><td>Cowrie</td><td>SSH/Telnet honeypot</td><td><span class="stack-badge security">Security</span></td><td>Internet-facing, logs real attacker sessions & commands</td></tr>
+        <tr><td>alphonsejoseph.tech</td><td>Portfolio site hardening</td><td><span class="stack-badge security">Security</span></td><td>DNSSEC, HSTS, CSP, security.txt, Cloudflare WAF</td></tr>
         <tr><td>Grafana</td><td>Metrics & log dashboards</td><td><span class="stack-badge monitoring">Monitoring</span></td><td>Node Exporter + Cowrie panels</td></tr>
         <tr><td>Prometheus</td><td>Time-series metrics</td><td><span class="stack-badge monitoring">Monitoring</span></td><td>30-day retention</td></tr>
         <tr><td>Loki + Promtail</td><td>Log aggregation</td><td><span class="stack-badge monitoring">Monitoring</span></td><td>Cowrie JSON logs ingested</td></tr>
@@ -739,8 +739,7 @@
     });
 
     // LIVE PI API
-    // Update this URL after move: const API_BASE='https://mypilab-se.duckdns.org:5000';
-    const API_BASE='http://192.168.1.10:5000';
+    const API_BASE='https://api.alphonsejoseph.tech';
     const API=API_BASE+'/api/status';
     const svcNames={pihole:'Pi-hole',wireguard:'WireGuard',fail2ban:'Fail2ban',unbound:'Unbound',crowdsec:'CrowdSec',cowrie:'Cowrie',docker:'Docker',grafana:'Grafana',prometheus:'Prometheus',loki:'Loki',portainer:'Portainer',heimdall:'Heimdall'};
 
