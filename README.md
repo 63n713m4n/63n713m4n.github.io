@@ -173,3 +173,4 @@ This project is open source. Feel free to use it as inspiration for your own por
 ---
 
 *Built and hosted on Raspberry Pi 5 · Sweden 🇸🇪*
+<!-- Portfolio site for Alphonse Joseph — Cybersecurity Researcher -->
