@@ -261,21 +261,29 @@
     try {
       const results = await Promise.all(publicIps.map(i =>
         fetch(`https://free.freeipapi.com/api/json/${i.value}`).then(r => r.json()).then(d => ({
-          status: d.ipVersion ? 'success' : 'fail',
-          country: d.countryName,
-          countryCode: d.countryCode,
-          city: d.cityName,
+          country: d.countryName || 'Unknown',
+          countryCode: d.countryCode || '??',
+          city: d.cityName || '',
           org: d.asnOrganization || '',
-          asnOrganization: d.asnOrganization || '',
           ip: i.value,
           count: i.count
         }))
       ));
-      document.getElementById('geoip-list').innerHTML = results.map(r => `
+      // Group by country
+      const byCountry = {};
+      results.forEach(r => {
+        const key = r.country;
+        if (!byCountry[key]) byCountry[key] = { country: r.country, countryCode: r.countryCode, count: 0, ips: [] };
+        byCountry[key].count += r.count;
+        byCountry[key].ips.push(r.ip);
+      });
+      const sorted = Object.values(byCountry).sort((a, b) => b.count - a.count);
+      const maxCount = sorted[0]?.count || 1;
+      document.getElementById('geoip-list').innerHTML = sorted.map(r => `
         <div class="bar-row">
-          <div class="bar-label">${r.countryCode ? `<span title="${r.country}">${r.countryCode}</span> ` : ''}${r.city || r.ip}</div>
-          <div style="flex:1;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.ip} — ${r.asnOrganization || r.org || ''}</div>
-          <div class="bar-count">${r.count}</div>
+          <div class="bar-label" title="${r.ips.join(', ')}">${r.countryCode} — ${r.country}</div>
+          <div class="bar-track" style="flex:1"><div class="bar-fill accent2" style="width:${Math.round((r.count/maxCount)*100)}%"></div></div>
+          <div class="bar-count">${r.count} hit${r.count !== 1 ? 's' : ''}</div>
         </div>
       `).join('');
     } catch(e) { document.getElementById('geoip-list').innerHTML = '<div class="empty">GeoIP lookup failed</div>'; }
